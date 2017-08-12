@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d96ddb8782084681fdf1dc9c288f9426",
-    "content-hash": "e6ed75dd71169d556a76da9277ce37b3",
+    "content-hash": "c218c76d871e763cd3749018e62556d1",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -69,7 +68,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2016-07-10 13:06:05"
+            "time": "2016-07-10T13:06:05+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -137,7 +136,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2015-08-31 12:32:49"
+            "time": "2015-08-31T12:32:49+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -207,7 +206,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-12-31 16:37:02"
+            "time": "2015-12-31T16:37:02+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -273,7 +272,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2015-04-14 22:21:58"
+            "time": "2015-04-14T22:21:58+00:00"
         },
         {
             "name": "doctrine/common",
@@ -346,7 +345,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-12-25 13:18:31"
+            "time": "2015-12-25T13:18:31+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -417,7 +416,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2016-01-05 22:11:12"
+            "time": "2016-01-05T22:11:12+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -497,7 +496,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-04-21 19:55:56"
+            "time": "2016-04-21T19:55:56+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -585,7 +584,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2016-01-26 17:28:51"
+            "time": "2016-01-26T17:28:51+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -652,7 +651,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -706,7 +705,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14 21:17:01"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -760,7 +759,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -836,7 +835,60 @@
                 "database",
                 "orm"
             ],
-            "time": "2016-01-05 21:34:58"
+            "time": "2016-01-05T21:34:58+00:00"
+        },
+        {
+            "name": "dts/ebay-sdk-php",
+            "version": "13.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davidtsadler/ebay-sdk-php.git",
+                "reference": "828c48e68c24ea3b67c3df04e9a92199321201d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davidtsadler/ebay-sdk-php/zipball/828c48e68c24ea3b67c3df04e9a92199321201d7",
+                "reference": "828c48e68c24ea3b67c3df04e9a92199321201d7",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "guzzlehttp/promises": "^1.1",
+                "guzzlehttp/psr7": "~1.0",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DTS\\eBaySDK\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(Apache-2.0 and MIT)"
+            ],
+            "authors": [
+                {
+                    "name": "David T. Sadler",
+                    "email": "davidtsadler@googlemail.com",
+                    "homepage": "http://davidtsadler.com"
+                }
+            ],
+            "description": "An eBay SDK for PHP. Use the eBay API in your PHP projects.",
+            "homepage": "http://devbay.net/",
+            "keywords": [
+                "api",
+                "ebay",
+                "sdk"
+            ],
+            "time": "2017-06-23T15:52:25+00:00"
         },
         {
             "name": "friendsofsymfony/rest-bundle",
@@ -922,7 +974,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-12-29 16:02:50"
+            "time": "2015-12-29T16:02:50+00:00"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -989,7 +1041,188 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-06-01 00:57:03"
+            "time": "2015-06-01T00:57:03+00:00"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "6.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/promises": "^1.0",
+                "guzzlehttp/psr7": "^1.4",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "^4.0 || ^5.0",
+                "psr/log": "^1.0"
+            },
+            "suggest": {
+                "psr/log": "Required for using the Log middleware"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.2-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2017-06-22T18:50:49+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "time": "2016-12-20T10:07:11+00:00"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "PSR-7 message implementation that also provides common utility methods",
+            "keywords": [
+                "http",
+                "message",
+                "request",
+                "response",
+                "stream",
+                "uri",
+                "url"
+            ],
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1040,7 +1273,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2015-11-10 17:04:01"
+            "time": "2015-11-10T17:04:01+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1082,7 +1315,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20 16:49:30"
+            "time": "2014-11-20T16:49:30+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1132,7 +1365,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2014-01-12 16:20:24"
+            "time": "2014-01-12T16:20:24+00:00"
         },
         {
             "name": "jms/metadata",
@@ -1184,7 +1417,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2014-07-12 07:13:19"
+            "time": "2014-07-12T07:13:19+00:00"
         },
         {
             "name": "jms/parser-lib",
@@ -1219,7 +1452,7 @@
                 "Apache2"
             ],
             "description": "A library for easily creating recursive-descent parsers.",
-            "time": "2012-11-18 18:08:43"
+            "time": "2012-11-18T18:08:43+00:00"
         },
         {
             "name": "jms/serializer",
@@ -1292,7 +1525,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2015-10-27 09:24:41"
+            "time": "2015-10-27T09:24:41+00:00"
         },
         {
             "name": "jms/serializer-bundle",
@@ -1362,7 +1595,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2015-11-10 12:26:42"
+            "time": "2015-11-10T12:26:42+00:00"
         },
         {
             "name": "knplabs/knp-menu",
@@ -1428,7 +1661,7 @@
                 "menu",
                 "tree"
             ],
-            "time": "2016-01-08 15:42:54"
+            "time": "2016-01-08T15:42:54+00:00"
         },
         {
             "name": "knplabs/knp-menu-bundle",
@@ -1485,7 +1718,7 @@
             "keywords": [
                 "menu"
             ],
-            "time": "2016-06-21 06:53:03"
+            "time": "2016-06-21T06:53:03+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1562,7 +1795,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-11-12 13:51:40"
+            "time": "2015-11-12T13:51:40+00:00"
         },
         {
             "name": "michelf/php-markdown",
@@ -1613,7 +1846,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2015-12-24 01:37:31"
+            "time": "2015-12-24T01:37:31+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1691,7 +1924,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-07-02 14:02:10"
+            "time": "2016-07-02T14:02:10+00:00"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -1776,7 +2009,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2016-06-13 09:12:09"
+            "time": "2016-06-13T09:12:09+00:00"
         },
         {
             "name": "ornicar/gravatar-bundle",
@@ -1839,7 +2072,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2016-02-09 14:23:53"
+            "time": "2016-02-09T14:23:53+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1887,7 +2120,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-04-03 06:00:07"
+            "time": "2016-04-03T06:00:07+00:00"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -1937,7 +2170,7 @@
                 "sequence",
                 "set"
             ],
-            "time": "2014-03-11 13:46:42"
+            "time": "2014-03-11T13:46:42+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -1987,7 +2220,57 @@
                 "php",
                 "type"
             ],
-            "time": "2015-07-25 16:39:46"
+            "time": "2015-07-25T16:39:46+00:00"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -2025,7 +2308,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2012-12-21T11:40:51+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2077,7 +2360,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-06-23 16:11:33"
+            "time": "2016-06-23T16:11:33+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2139,7 +2422,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2016-03-25 17:08:27"
+            "time": "2016-03-25T17:08:27+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -2183,7 +2466,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-11-07 08:07:40"
+            "time": "2015-11-07T08:07:40+00:00"
         },
         {
             "name": "sonata-project/admin-bundle",
@@ -2277,7 +2560,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-07-05 09:21:49"
+            "time": "2016-07-05T09:21:49+00:00"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -2349,7 +2632,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2016-07-12 15:15:47"
+            "time": "2016-07-12T15:15:47+00:00"
         },
         {
             "name": "sonata-project/cache",
@@ -2412,7 +2695,7 @@
                 "mongodb",
                 "redis"
             ],
-            "time": "2015-09-18 14:40:58"
+            "time": "2015-09-18T14:40:58+00:00"
         },
         {
             "name": "sonata-project/core-bundle",
@@ -2483,7 +2766,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2016-06-17 12:05:02"
+            "time": "2016-06-17T12:05:02+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -2540,7 +2823,7 @@
                 "datagrid",
                 "sonata"
             ],
-            "time": "2015-12-16 08:53:13"
+            "time": "2015-12-16T08:53:13+00:00"
         },
         {
             "name": "sonata-project/doctrine-extensions",
@@ -2589,7 +2872,7 @@
                 "doctrine2",
                 "json"
             ],
-            "time": "2014-02-14 12:45:49"
+            "time": "2014-02-14T12:45:49+00:00"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -2665,7 +2948,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2016-07-05 14:17:35"
+            "time": "2016-07-05T14:17:35+00:00"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -2724,7 +3007,7 @@
                 "Easy Extends",
                 "sonata"
             ],
-            "time": "2015-12-02 22:24:42"
+            "time": "2015-12-02T22:24:42+00:00"
         },
         {
             "name": "sonata-project/exporter",
@@ -2789,7 +3072,7 @@
                 "export",
                 "xls"
             ],
-            "time": "2016-06-16 10:27:09"
+            "time": "2016-06-16T10:27:09+00:00"
         },
         {
             "name": "sonata-project/google-authenticator",
@@ -2839,7 +3122,7 @@
             "keywords": [
                 "google authenticator"
             ],
-            "time": "2014-03-31 09:18:53"
+            "time": "2014-03-31T09:18:53+00:00"
         },
         {
             "name": "sonata-project/user-bundle",
@@ -2920,7 +3203,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2016-05-20 09:05:03"
+            "time": "2016-05-20T09:05:03+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2973,7 +3256,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-07-08 11:51:25"
+            "time": "2016-07-08T11:51:25+00:00"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -3043,7 +3326,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-12-28 13:12:39"
+            "time": "2015-12-28T13:12:39+00:00"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -3103,7 +3386,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-04-13 16:21:01"
+            "time": "2016-04-13T16:21:01+00:00"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -3156,7 +3439,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -3214,7 +3497,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3273,7 +3556,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -3331,7 +3614,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-php55",
@@ -3387,7 +3670,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -3443,7 +3726,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-php70",
@@ -3502,7 +3785,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/polyfill-util",
@@ -3554,7 +3837,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/security-acl",
@@ -3615,7 +3898,7 @@
             ],
             "description": "Symfony Security Component - ACL (Access Control List)",
             "homepage": "https://symfony.com",
-            "time": "2015-12-28 09:39:46"
+            "time": "2015-12-28T09:39:46+00:00"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3672,7 +3955,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2016-01-15 16:41:20"
+            "time": "2016-01-15T16:41:20+00:00"
         },
         {
             "name": "symfony/symfony",
@@ -3806,7 +4089,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-06-30 15:42:24"
+            "time": "2016-06-30T15:42:24+00:00"
         },
         {
             "name": "twig/extensions",
@@ -3858,7 +4141,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2015-08-22 16:38:35"
+            "time": "2015-08-22T16:38:35+00:00"
         },
         {
             "name": "twig/twig",
@@ -3919,7 +4202,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-05-30 09:11:59"
+            "time": "2016-05-30T09:11:59+00:00"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
@@ -3959,7 +4242,7 @@
                 }
             ],
             "description": "JSONP callback validator.",
-            "time": "2014-01-20 22:35:06"
+            "time": "2014-01-20T22:35:06+00:00"
         },
         {
             "name": "willdurand/negotiation",
@@ -4008,7 +4291,7 @@
                 "header",
                 "negotiation"
             ],
-            "time": "2015-10-01 07:42:40"
+            "time": "2015-10-01T07:42:40+00:00"
         }
     ],
     "packages-dev": [
@@ -4069,7 +4352,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2016-06-20 18:08:26"
+            "time": "2016-06-20T18:08:26+00:00"
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -4126,7 +4409,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2015-11-04 21:23:23"
+            "time": "2015-11-04T21:23:23+00:00"
         },
         {
             "name": "sensio/generator-bundle",
@@ -4178,7 +4461,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2016-06-20 05:58:05"
+            "time": "2016-06-20T05:58:05+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -4233,7 +4516,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:31:50"
+            "time": "2016-06-29T05:31:50+00:00"
         }
     ],
     "aliases": [],

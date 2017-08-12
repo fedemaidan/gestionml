@@ -9,14 +9,14 @@ services:
       - "9060:9060"
     volumes:
       - ./docker/parameters.yml:/server/app/config/parameters.yml:rw
-#      - ./:/server:rw
+      - ./:/server:rw
   db:
     image: mysql:5.7
     volumes:
       - /var/lib/mysql-data:/var/lib/mysql
     restart: always
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_DATABASE: symfony-admin-starter-kit
       MYSQL_ROOT_PASSWORD: "symfony-admin-starter-kit"

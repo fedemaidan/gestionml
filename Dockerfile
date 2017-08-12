@@ -47,3 +47,4 @@ VOLUME ["/var/log/php", "/server"]
 
 CMD gosu www-data composer run-script docker-build \
  && php-fpm
+
