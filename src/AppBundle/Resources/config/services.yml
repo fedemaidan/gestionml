@@ -4,3 +4,8 @@ services:
         arguments: [~, AppBundle\Entity\BusquedaEbay, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: BusquedaEbay }
+
+    ebay_service:
+        class:     AppBundle\Service\EbayService
+        arguments: []
+
