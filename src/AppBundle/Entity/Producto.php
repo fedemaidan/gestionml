@@ -40,7 +40,7 @@ class Producto
      *
      * @ORM\Column(name="precio_compra", type="string", length=255)
      */
-    private $precio;
+    private $precio_compra;
 
     /**
      * @var string
@@ -48,6 +48,13 @@ class Producto
      * @ORM\Column(name="link_publicacion", type="string", length=255, nullable=true)
      */
     private $linkPublicacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vendedor", type="string", length=255, nullable=true)
+     */
+    private $vendedor;
 
     /**
      * @var string
@@ -247,6 +254,30 @@ class Producto
     public function getJson()
     {
         return $this->json;
+    }
+
+    /**
+     * Set vendedor
+     *
+     * @param string $vendedor
+     *
+     * @return Producto
+     */
+    public function setVendedor($vendedor)
+    {
+        $this->vendedor = $vendedor;
+
+        return $this;
+    }
+
+    /**
+     * Get json
+     *
+     * @return string
+     */
+    public function getVendedor()
+    {
+        return $this->vendedor;
     }
 }
 

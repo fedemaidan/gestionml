@@ -7,7 +7,9 @@ use DTS\eBaySDK\Constants;
 use DTS\eBaySDK\Finding\Services;
 use DTS\eBaySDK\Finding\Types;
 use DTS\eBaySDK\Finding\Enums;
-
+use AppBundle\Entity\BusquedaEbay;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Include the SDK by using the autoloader from Composer.
@@ -15,22 +17,39 @@ use DTS\eBaySDK\Finding\Enums;
 
 class EbayService
 {
-    public function dameProductos(BusquedaEbay $busqueda = null)
+
+	private $container;
+    
+    /**
+    *
+    * @var EntityManager
+    */
+    private $em;
+
+
+    public function __construct( Container $container, EntityManager $entityManager )
+    {
+        $this->container = $container;
+        $this->em = $entityManager;
+    }
+
+
+    public function guardarProductosDeLaBusquedaEbay(BusquedaEbay $busqueda)
     {
 
     	$service = new \DTS\eBaySDK\Finding\Services\FindingService([
 		    //'apiVersion'  => '1.13.0',
 		    'globalId'    => Constants\GlobalIds::US,
 		    'credentials' => [
-		        'appId'  => 'Federico-gestionm-PRD-5b7edec1b-d763d994',
-		        'certId' => 'PRD-b7edec1b3431-b185-4e5c-b460-907f',
-		        'devId'  => 'f8e2e10d-4125-4977-ac00-b7dae16018f4']
+		        'appId'  => $this->container->getParameter('ebay.app_id'),
+		        'certId' => $this->container->getParameter('ebay.certId'),
+		        'devId'  => $this->container->getParameter('ebay.devId')]
 		        ]);
 
 
         $request = new FindItemsAdvancedRequest();
-       	//$request->categoryId = ['617', '171228'];
-
+        if ($busqueda->getCategoria())
+       		$request->categoryId = [$busqueda->getCategoria()];
 
         $itemFilter = new Types\ItemFilter();
 		$itemFilter->name = 'ListingType';
@@ -39,23 +58,23 @@ class EbayService
 
 		$itemFilter = new Types\ItemFilter();
 		$itemFilter->name = 'Seller';
-		$itemFilter->value[] = 'inhimiamp413';
+		$itemFilter->value[] = $busqueda->getVendedorEbayId();
 		$request->itemFilter[] = $itemFilter;
 
 		$request->itemFilter[] = new Types\ItemFilter([
 			    'name' => 'MinPrice',
-			    'value' => ['1']
+			    'value' => [$busqueda->getPrecioMinimo()]
 			]);
 			$request->itemFilter[] = new Types\ItemFilter([
 			    'name' => 'MaxPrice',
-			    'value' => ['1000000']
+			    'value' => [$busqueda->getPrecioMaximo()]
 			]);
 
 		/**
 		 * Limit the results to 10 items per page and start at page 1.
 		 */
 		$request->paginationInput = new Types\PaginationInput();
-		$request->paginationInput->entriesPerPage = 50;
+		$request->paginationInput->entriesPerPage = 200;
 		$request->paginationInput->pageNumber = 1;
 
 
@@ -74,33 +93,24 @@ class EbayService
 		        );
 		    }
 		}
-		/**
-		 * Output the result of the search.
-		 */
-		printf(
-		    "%s items found over %s pages.\n\n",
-		    $response->paginationOutput->totalEntries,
-		    $response->paginationOutput->totalPages
-		);
 
-		/**
-		 * Paginate through 2 more pages worth of results.
-		 */
 		$limit = $response->paginationOutput->totalPages;
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 		    $request->paginationInput->pageNumber = $pageNum;
 		    $response = $service->findItemsAdvanced($request);
-		    echo "==================\nResults for page $pageNum\n==================\n";
+
 		    if ($response->ack !== 'Failure') {
 		        foreach ($response->searchResult->item as $item) {
-		        	var_dump($item);
-		        	//filtrar los que salen por numero de item   
+		        	
+		        	$sql = "insert into producto (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, json, vendedor) values (null, '" . $item->itemId . "', '" . $item->title . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $item->viewItemURL . "', '" . $item->galleryURL . "', '0', 'json', '" . $busqueda->getVendedorEbayId() . "');";
+		        	$this->em->getConnection()->exec( $sql );
+		        	echo $sql;
+		        	die;
+		        	//insertar producto en la base de datos 
 		        }
 		    }
 
 		}
 
-		die;
-        //
     }
 }
