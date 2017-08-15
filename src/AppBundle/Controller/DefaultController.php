@@ -30,8 +30,9 @@ class DefaultController extends Controller
         $busqueda->setPrecioMinimo("1");
         $busqueda->setPrecioMaximo("900000");
 
-        $this->container->get('ebay_service')->guardarProductosDeLaBusquedaEbay($busqueda);
-        // replace this example code with whatever you need
+        $count = $this->container->get('ebay_service')->guardarProductosDeLaBusquedaEbay($busqueda);
+        
+        var_dump("Se cargaron $count");die;
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));

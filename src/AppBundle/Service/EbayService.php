@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use DTS\eBaySDK\Shopping\Types\GetSingleItemRequestType;
 use DTS\eBaySDK\Finding\Types\FindItemsAdvancedRequest;
 use DTS\eBaySDK\Constants;
 use DTS\eBaySDK\Finding\Services;
@@ -46,6 +47,14 @@ class EbayService
 		        'devId'  => $this->container->getParameter('ebay.devId')]
 		        ]);
 
+    	$serviceShopping = new \DTS\eBaySDK\Shopping\Services\ShoppingService([
+		    //'apiVersion'  => '1.13.0',
+		    'globalId'    => Constants\GlobalIds::US,
+		    'credentials' => [
+		        'appId'  => $this->container->getParameter('ebay.app_id'),
+		        'certId' => $this->container->getParameter('ebay.certId'),
+		        'devId'  => $this->container->getParameter('ebay.devId')]
+		        ]);
 
         $request = new FindItemsAdvancedRequest();
         if ($busqueda->getCategoria())
@@ -70,15 +79,10 @@ class EbayService
 			    'value' => [$busqueda->getPrecioMaximo()]
 			]);
 
-		/**
-		 * Limit the results to 10 items per page and start at page 1.
-		 */
 		$request->paginationInput = new Types\PaginationInput();
 		$request->paginationInput->entriesPerPage = 200;
 		$request->paginationInput->pageNumber = 1;
 
-
-		        
 		/**
 		 * Send the request.
 		 */
@@ -94,23 +98,41 @@ class EbayService
 		    }
 		}
 
+		$sqlInserts = "";
+		$countInserts = 0;
 		$limit = $response->paginationOutput->totalPages;
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 		    $request->paginationInput->pageNumber = $pageNum;
 		    $response = $service->findItemsAdvanced($request);
 
 		    if ($response->ack !== 'Failure') {
+		        
 		        foreach ($response->searchResult->item as $item) {
 		        	
-		        	$sql = "insert into producto (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, json, vendedor) values (null, '" . $item->itemId . "', '" . $item->title . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $item->viewItemURL . "', '" . $item->galleryURL . "', '0', 'json', '" . $busqueda->getVendedorEbayId() . "');";
-		        	$this->em->getConnection()->exec( $sql );
-		        	echo $sql;
-		        	die;
-		        	//insertar producto en la base de datos 
-		        }
-		    }
+		        	$requestSingle = new GetSingleItemRequestType();
+		        	$requestSingle->IncludeSelector = 'ItemSpecifics,Variations,Compatibility,Details';
+		        	$requestSingle->ItemID = $item->itemId;
+		        	$datosItem = $serviceShopping->getSingleItem($requestSingle);
+					
+		        	$imagenes = $item->galleryURL;
+		        	
+		        	foreach ($datosItem->Item->PictureURL as $key => $value) {
+		        		$imagenes .= ",".$value;
+		        	}
 
+					$cate = $busqueda->getCategoria() ? $busqueda->getCategoria() : "";
+
+		        	$sql = "insert into producto (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria, vendedor) values (null, '" . $item->itemId . "', '" . $item->title . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $item->viewItemURL . "', '" . $imagenes . "', '".$datosItem->Item->QuantitySold."', '" . $cate . "', '" . $busqueda->getVendedorEbayId() . "');";
+
+		        	$sqlInserts .= $sql;
+		        	$countInserts++;
+
+		        
+		    	}
+		    	$this->em->getConnection()->exec( $sqlInserts );
+		    }
 		}
 
+		return $countInserts;
     }
 }

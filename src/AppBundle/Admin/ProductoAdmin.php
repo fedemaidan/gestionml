@@ -31,11 +31,11 @@ class ProductoAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
+            ->add('imagenPrincipal','html')
             ->add('titulo')
             ->add('vendedor')
             ->add('precioCompra')
-            ->add('linkPublicacion')
+            ->add('linkPublicacion','url')
             ->add('cantidadVendidosEbay')
             ->add('_action', null, array(
                 'actions' => array(
@@ -75,9 +75,9 @@ class ProductoAdmin extends AbstractAdmin
             ->add('vendedor')
             ->add('titulo')
             ->add('precioCompra')
-            ->add('linkPublicacion')
-            ->add('imagenes')
+            ->add('linkPublicacion','url')
             ->add('cantidadVendidosEbay')
+            ->add('imagenesFoto','html')
         ;
     }
 }

@@ -73,9 +73,9 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="json", type="blob", nullable=true)
+     * @ORM\Column(name="categoria", type="string", length=255)
      */
-    private $json;
+    private $categoria;
 
 
     /**
@@ -233,15 +233,15 @@ class Producto
     }
 
     /**
-     * Set json
+     * Set categoria
      *
-     * @param string $json
+     * @param string $categoria
      *
      * @return Producto
      */
-    public function setJson($json)
+    public function setJson($categoria)
     {
-        $this->json = $json;
+        $this->categoria = $categoria;
 
         return $this;
     }
@@ -251,9 +251,9 @@ class Producto
      *
      * @return string
      */
-    public function getJson()
+    public function getCategoria()
     {
-        return $this->json;
+        return $this->categoria;
     }
 
     /**
@@ -279,5 +279,21 @@ class Producto
     {
         return $this->vendedor;
     }
-}
 
+    public function getImagenesFoto() {
+        $ima = explode(',', $this->getImagenes());
+        $retornar = "";
+        foreach ($ima as $key => $value) {
+            $retornar .= "<img src='".$value."'></img>";
+        }
+        return $retornar;
+    }
+
+    public function getImagenPrincipal() {
+        $ima = explode(',', $this->getImagenes());
+        return "<img src='".$ima[0]."'></img>";
+        
+        
+    }
+
+}
