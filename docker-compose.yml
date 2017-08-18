@@ -2,7 +2,7 @@ version: '2'
 services:
   admin-panel:
     build: .
-    restart: always
+    #restart: always
     depends_on:
       - db
     ports:
@@ -14,7 +14,7 @@ services:
     image: mysql:5.7
     volumes:
       - /var/lib/mysql-data:/var/lib/mysql
-    restart: always
+    #restart: always
     ports:
       - "3307:3306"
     environment:
@@ -28,6 +28,6 @@ services:
       - admin-panel
     ports:
       - 8000:80
-    restart: always
+    #restart: always
     volumes_from:
       - admin-panel
