@@ -7,25 +7,24 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
-class BusquedaEbayAdmin extends AbstractAdmin
-{
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->add('buscarEnEbay', $this->getRouterIdParameter().'/buscarEnEbay');
-    }
 
+class PublicacionEbayAdmin extends AbstractAdmin
+{
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
+            ->add('id')
+            ->add('idEbay')
+            ->add('titulo')
+            ->add('precio_compra')
+            ->add('linkPublicacion')
+            ->add('vendedor')
+            ->add('cantidadVendidosEbay')
             ->add('categoriaEbay')
+            ->add('estado_ebay')
         ;
     }
 
@@ -35,19 +34,18 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
+            ->add('imagenPrincipal','html')
+            ->add('titulo')
+            ->add('precio_compra')
+            ->add('linkPublicacion','url')
+            ->add('vendedor')
+            ->add('cantidadVendidosEbay')
             ->add('categoriaEbay')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                    'buscarEnEbay' => array(
-                        'template' => 'AppBundle:CRUD:list__action_buscar.html.twig'
-                    )   
                 )
             ))
         ;
@@ -59,11 +57,16 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
+            ->add('id')
+            ->add('idEbay')
+            ->add('titulo')
+            ->add('precio_compra')
+            ->add('linkPublicacion')
+            ->add('vendedor')
+            ->add('imagenes')
+            ->add('cantidadVendidosEbay')
             ->add('categoriaEbay')
+            ->add('estado_ebay')
         ;
     }
 
@@ -73,11 +76,16 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
+            ->add('id')
+            ->add('idEbay')
+            ->add('titulo')
+            ->add('precio_compra')
+            ->add('linkPublicacion','url')
+            ->add('vendedor')
+            ->add('imagenesFoto','html')
+            ->add('cantidadVendidosEbay')
             ->add('categoriaEbay')
+            ->add('estado_ebay')
         ;
     }
 }

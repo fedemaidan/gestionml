@@ -328,28 +328,4 @@ class PublicacionEbay
     {
         return $this->estado_ebay;
     }
-
-    /**
-     * Set categoriaEbay
-     *
-     * @param \AppBundle\Entity\CategoriaEbay $categoriaEbay
-     *
-     * @return PublicacionEbay
-     */
-    public function setCategoriaEbay(\AppBundle\Entity\CategoriaEbay $categoriaEbay = null)
-    {
-        $this->categoriaEbay = $categoriaEbay;
-
-        return $this;
-    }
-
-    /**
-     * Get categoriaEbay
-     *
-     * @return \AppBundle\Entity\CategoriaEbay
-     */
-    public function getCategoriaEbay()
-    {
-        return $this->categoriaEbay;
-    }
 }

@@ -7,25 +7,17 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
-class BusquedaEbayAdmin extends AbstractAdmin
-{
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->add('buscarEnEbay', $this->getRouterIdParameter().'/buscarEnEbay');
-    }
 
+class CategoriaEbayAdmin extends AbstractAdmin
+{
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
-            ->add('categoriaEbay')
+            ->add('idEbay')
+            ->add('name')
         ;
     }
 
@@ -35,19 +27,13 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
-            ->add('categoriaEbay')
+            ->add('idEbay')
+            ->add('name')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                    'buscarEnEbay' => array(
-                        'template' => 'AppBundle:CRUD:list__action_buscar.html.twig'
-                    )   
                 )
             ))
         ;
@@ -59,11 +45,8 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
-            ->add('categoriaEbay')
+            ->add('idEbay')
+            ->add('name')
         ;
     }
 
@@ -73,11 +56,8 @@ class BusquedaEbayAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('vendedorEbayId')
-            ->add('filtrarNew')
-            ->add('precioMinimo')
-            ->add('precioMaximo')
-            ->add('categoriaEbay')
+            ->add('idEbay')
+            ->add('name')
         ;
     }
 }

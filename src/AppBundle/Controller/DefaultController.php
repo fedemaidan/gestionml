@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $busqueda->setPrecioMinimo("1");
         $busqueda->setPrecioMaximo("900000");
 
-        $count = $this->container->get('ebay_service')->guardarProductosDeLaBusquedaEbay($busqueda);
+        $count = $this->container->get('ebay_service')->actualizarPublicaciones($busqueda);
         
         var_dump("Se cargaron $count");die;
 

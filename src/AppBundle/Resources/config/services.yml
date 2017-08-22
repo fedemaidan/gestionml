@@ -1,7 +1,7 @@
 services:
     app.admin.busqueda_ebay:
         class: AppBundle\Admin\BusquedaEbayAdmin
-        arguments: [~, AppBundle\Entity\BusquedaEbay, SonataAdminBundle:CRUD]
+        arguments: [~, AppBundle\Entity\BusquedaEbay, AppBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: BusquedaEbay }
 
@@ -15,3 +15,15 @@ services:
         arguments: [~, AppBundle\Entity\Producto, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Producto }
+
+    app.admin.categoria_ebay:
+        class: AppBundle\Admin\CategoriaEbayAdmin
+        arguments: [~, AppBundle\Entity\CategoriaEbay, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CategoriaEbay }
+
+    app.admin.publicacion_ebay:
+        class: AppBundle\Admin\PublicacionEbayAdmin
+        arguments: [~, AppBundle\Entity\PublicacionEbay, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: PublicacionEbay }
