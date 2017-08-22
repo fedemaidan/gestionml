@@ -264,9 +264,9 @@ class EbayService
         if ($publicacion->getImagenes() != $imagenes) {
         	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes)."'";
         } 
-        if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
+        if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->sellingStatus->QuantitySold)
         {
-			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
+			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->sellingStatus->QuantitySold."'";                  	
         } 
         if ($publicacion->getEstadoEbay() != $item->sellingStatus->sellingState)
         {
