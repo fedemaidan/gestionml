@@ -10,12 +10,6 @@ services:
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
 
-    app.admin.producto:
-        class: AppBundle\Admin\ProductoAdmin
-        arguments: [~, AppBundle\Entity\Producto, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Producto }
-
     app.admin.categoria_ebay:
         class: AppBundle\Admin\CategoriaEbayAdmin
         arguments: [~, AppBundle\Entity\CategoriaEbay, SonataAdminBundle:CRUD]

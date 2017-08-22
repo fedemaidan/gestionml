@@ -88,4 +88,13 @@ class PublicacionEbayAdmin extends AbstractAdmin
             ->add('estado_ebay')
         ;
     }
+
+    public function getExportFields()
+    {
+        $results = $this->getModelManager()->getExportFields($this->getClass()); 
+
+        // Need to add again our foreign key field here
+        $results[] = 'categoriaEbay';
+        return $results;
+    }
 }
