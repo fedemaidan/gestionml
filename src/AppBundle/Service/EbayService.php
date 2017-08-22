@@ -109,7 +109,7 @@ class EbayService
                     }
                     else {
 		                /* Inserto */
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->sellingStatus->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."');";
 
 		                $this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
