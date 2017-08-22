@@ -171,14 +171,19 @@ class EbayService
 		$itemFilter->value[] = $busqueda->getVendedorEbayId();
 		$request->itemFilter[] = $itemFilter;
 
-		$request->itemFilter[] = new Types\ItemFilter([
-			    'name' => 'MinPrice',
-			    'value' => [$busqueda->getPrecioMinimo()]
-			]);
-			$request->itemFilter[] = new Types\ItemFilter([
-			    'name' => 'MaxPrice',
-			    'value' => [$busqueda->getPrecioMaximo()]
-			]);
+        if ($busqueda->getPrecioMinimo()) {
+            $request->itemFilter[] = new Types\ItemFilter([
+                'name' => 'MinPrice',
+                'value' => [$busqueda->getPrecioMinimo()]
+            ]);    
+        }
+        if ($busqueda->getPrecioMaximo())
+		{
+            $request->itemFilter[] = new Types\ItemFilter([
+                'name' => 'MaxPrice',
+                'value' => [$busqueda->getPrecioMaximo()]
+            ]);
+        }
 
 		$request->paginationInput = new Types\PaginationInput();
 		$request->paginationInput->entriesPerPage = $entriesPerPage;
