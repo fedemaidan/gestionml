@@ -109,7 +109,7 @@ class EbayService
                     }
                     else {
 		                /* Inserto */
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->sellingStatus->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."');";
 
 		                $this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
@@ -264,9 +264,9 @@ class EbayService
         if ($publicacion->getImagenes() != $imagenes) {
         	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes)."'";
         } 
-        if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->sellingStatus->QuantitySold)
+        if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
         {
-			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->sellingStatus->QuantitySold."'";                  	
+			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
         } 
         if ($publicacion->getEstadoEbay() != $item->sellingStatus->sellingState)
         {
@@ -274,7 +274,7 @@ class EbayService
         }
         if ($publicacion->getCategoriaEbay()->getId() != $categoriaId)
         {
-            $updateSql[] = " categoria_ebay_id = '".$item->sellingStatus->sellingState."'";
+            $updateSql[] = " categoria_ebay_id = '".$item->primaryCategory->categoryId."'";
         }
 
         if (count($updateSql) > 0) {
