@@ -5,13 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Producto
+ * PublicacionEbay
  *
- * @ORM\Table(name="producto")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductoRepository")
+ * @ORM\Table(name="publicacion_ebay")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PublicacionEbayRepository")
  */
-class Producto
+class PublicacionEbay
 {
+    const ORM_ENTITY = "AppBundle:PublicacionEbay";
     /**
      * @var int
      *
@@ -93,7 +94,7 @@ class Producto
      *
      * @param string $idEbay
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setIdEbay($idEbay)
     {
@@ -117,7 +118,7 @@ class Producto
      *
      * @param string $titulo
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setTitulo($titulo)
     {
@@ -141,7 +142,7 @@ class Producto
      *
      * @param string $precio_compra
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setPrecioCompra($precio)
     {
@@ -165,7 +166,7 @@ class Producto
      *
      * @param string $linkPublicacion
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setLinkPublicacion($linkPublicacion)
     {
@@ -189,7 +190,7 @@ class Producto
      *
      * @param string $imagenes
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setImagenes($imagenes)
     {
@@ -213,7 +214,7 @@ class Producto
      *
      * @param string $cantidadVendidosEbay
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setCantidadVendidosEbay($cantidadVendidosEbay)
     {
@@ -237,7 +238,7 @@ class Producto
      *
      * @param string $categoria
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setJson($categoria)
     {
@@ -261,7 +262,7 @@ class Producto
      *
      * @param string $vendedor
      *
-     * @return Producto
+     * @return PublicacionEbay
      */
     public function setVendedor($vendedor)
     {

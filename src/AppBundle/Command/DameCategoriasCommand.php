@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use AppBundle\Utils\Meli\Meli;
 
-class dameCategoriasCommand extends Command
+class DameCategoriasCommand extends Command
 {
     protected function configure()
 {

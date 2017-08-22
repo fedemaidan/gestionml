@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BusquedaEbay
 {
+    const ORM_ENTITY = "AppBundle:BusquedaEbay";
     /**
      * @var int
      *
