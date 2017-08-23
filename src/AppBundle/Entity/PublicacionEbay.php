@@ -77,7 +77,7 @@ class PublicacionEbay
      * @ORM\JoinColumn(nullable=true)
      */
     private $categoriaEbay;
-
+    
     /**
      * @var string
      *

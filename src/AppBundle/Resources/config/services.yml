@@ -20,4 +20,4 @@ services:
         class: AppBundle\Admin\PublicacionEbayAdmin
         arguments: [~, AppBundle\Entity\PublicacionEbay, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Ebay, label: PublicacionEbay }
+            - { name: sonata.admin, manager_type: orm, group: Ebay, label: PublicacionEbay, pager_type: simple }

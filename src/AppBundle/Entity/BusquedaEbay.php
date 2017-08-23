@@ -190,4 +190,9 @@ class BusquedaEbay
         return $this->categoriaEbay;
     }
 
+    public function __toString()
+    {
+        return $this->vendedorEbayId;
+    }
+
 }
