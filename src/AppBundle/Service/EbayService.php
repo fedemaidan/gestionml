@@ -405,6 +405,7 @@ class EbayService
     private function unset2($obj) {
         
         foreach ($obj as $key => $value) {
+            echo $value;
             if (isset($obj->$key))
                 $this->unset2($obj->$key);
             elseif (isset($obj[$key]))
