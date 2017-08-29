@@ -135,13 +135,13 @@ class EbayService
                 if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
-                $this->imprimo("Memoria control init: " . (memory_get_usage() *1024*1024));
+                $this->imprimo("Memoria control init: " . ( (memory_get_usage() /1024) /1024));
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
                 unset($response);
                 unset($sql);
                 gc_collect_cycles();
-                $this->imprimo("Memoria control: " . (memory_get_usage()*1024*1024));
+                $this->imprimo("Memoria control: " . ((memory_get_usage() /1024 ) /1024));
 
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
