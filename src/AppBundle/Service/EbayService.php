@@ -143,7 +143,7 @@ class EbayService
                 $sql = null;
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
-                unset($response);
+                //unset($response);
                 unset($sql);
                 echo "memoria fin: " . memory_get_peak_usage();
 
