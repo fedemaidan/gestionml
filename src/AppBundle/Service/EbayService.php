@@ -365,7 +365,7 @@ class EbayService
         $sql = "";
         foreach ($especificaciones as $name => $value) {
             $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
-                            ->findOneBy(["name" => $name, "value" => $value ]);
+                            ->findOneBy(["name" => $this->stringLimpia($name), "value" => $this->stringLimpia($value) ]);
 
             if (!$espObj) {
                 $espObj = new EspecificacionesProductoEbay();
