@@ -72,7 +72,7 @@ class EbayService
 		$limit = $response->paginationOutput->totalPages;
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
-            gc_disable();
+
             $sqlExec = "";
             $sqlEspecificaciones = "";
             $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
@@ -143,7 +143,7 @@ class EbayService
                 unset($sqlExec);
                 unset($response);
                 unset($sql);
-                gc_collect_cycles();
+                
                 $this->imprimo("Memoria control: " . ((memory_get_usage() /1024 ) /1024));
 
 		    	$this->imprimo("Updates :" . $countUpdates);
