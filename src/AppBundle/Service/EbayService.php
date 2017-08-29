@@ -133,13 +133,13 @@ class EbayService
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
                     
                     $this->unset2($datosItem);
-                    unset($brand);
+                    $brand = null;
                     
-                    unset($especificaciones);
+                    $especificaciones = null;
                     
 		            $this->unset2($requestSingle);
-                    unset($categoria);
-                    unset($imagenes);
+                    $categoria = null;
+                    $imagenes = null;
                     
                     if ($publicacion) $this->unset2($publicacion);
 		    	}
@@ -148,11 +148,11 @@ class EbayService
                 if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
-                unset($sqlEspecificaciones);
-                unset($sqlExec);
+                $sqlEspecificaciones = null;
+                $sqlExec = null;
                 
                 $this->unset2($response);
-                unset($sql);
+                $sql = null;
                 gc_collect_cycles();
                 $this->imprimo("Memory 1: " . ( (memory_get_usage() /1024) /1024));
                 $this->imprimo("Memory 2: " . ( (memory_get_peak_usage() /1024) /1024));
@@ -162,7 +162,6 @@ class EbayService
 
                 $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
                 $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
-                unset($porcentajeProcesado);
 
 		    }else {
                 $this->imprimo("Error procesando página");
@@ -408,10 +407,10 @@ class EbayService
         foreach ($obj as $key => $value) {
             if (isset($obj->$key))
                 $this->unset2($obj->$key);
-            else
+            elseif (isset($obj[$key]))
                 $this->unset2($obj[$key]);
         }
 
-        unset($obj);
+        $obj = null;
     }
 }
