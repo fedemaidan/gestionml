@@ -149,6 +149,9 @@ class EbayService
                 if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
+                $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
+                $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
+                
                 $sqlEspecificaciones = null;
                 $sqlExec = null;
                 
@@ -161,9 +164,6 @@ class EbayService
                 $this->imprimo("Memory 3: " . ( (memory_get_peak_usage(true) /1024) /1024));
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
-
-                $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
-                $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
 
 		    }else {
                 $this->imprimo("Error procesando página");
