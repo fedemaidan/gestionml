@@ -305,9 +305,26 @@ class EbayService
             
         }
 
-        
+        if (count($updateSql) > 0) {
+            $this->imprimo("Actualizo publicación " . $item->itemId);
 
-        return $updateSql;
+            $sql = "UPDATE publicacion_ebay ";
+
+            foreach ($updateSql as $key => $value) {
+                if ($key != 0) {
+                    $sql .= " , ";
+                }
+                else {
+                    $sql .= " set ";
+                }
+                $sql .= $value;
+            }
+
+            $sql .= " WHERE id = ".$publicacion->getId().";";
+            return $sql;
+        }
+
+        return null;
     }
 
     private function stringLimpia($str) {
