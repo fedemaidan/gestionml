@@ -139,7 +139,7 @@ class EbayService
 		            $this->unset2($requestSingle);
                     unset($categoria);
                     unset($imagenes);
-                    echo
+                    
                     if ($publicacion) $this->unset2($publicacion);
 		    	}
 		    	
@@ -307,7 +307,6 @@ class EbayService
         if ($publicacion->getBrand() != $brand)
         {
             $updateSql[] = " brand = '".$brand."'";
-            
         }
 
         if (count($updateSql) > 0) {
