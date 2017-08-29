@@ -55,6 +55,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
+        $this->getContainer()->get('doctrine')->getEntityManager()->persist($busqueda);
         $this->getContainer()->get('doctrine')->getEntityManager()->flush();
     }
 
