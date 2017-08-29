@@ -267,42 +267,45 @@ class EbayService
         if ($publicacion->getTitulo() != $item->title )
         {
         	$updateSql[] = " titulo = '".$this->stringLimpia($item->title)."'";
-            
+            echo "titulo";
      	}
         if ($publicacion->getPrecioCompra() != $item->sellingStatus->currentPrice->value )  
         {
         	$updateSql[] = " precio_compra = '".$this->stringLimpia($item->sellingStatus->currentPrice->value)."'";
+            echo "precio";
             
         }
         if ($publicacion->getLinkPublicacion() != $item->viewItemURL)
         {
         	$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
-            
+            echo "lin";
         }
         if ($publicacion->getImagenes() != $imagenes) {
         	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes)."'";
-            
+            echo "img";
         } 
         if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
         {
 			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
+            echo "cant";
             
         } 
         if ($publicacion->getEstadoEbay() != $item->sellingStatus->sellingState)
         {
 			$updateSql[] = " estado_ebay = '".$item->sellingStatus->sellingState."'";
+            echo "estado";
             
         }
         if ($publicacion->getCategoriaEbay()->getId() != $categoria->getId())
         {
             $updateSql[] = " categoria_ebay_id = '".$categoria->getId()."'";
-            
+            echo "cat";
         }
 
         if ($publicacion->getBrand() != $brand)
         {
             $updateSql[] = " brand = '".$brand."'";
-            
+            echo "brand";
         }
 
         if (count($updateSql) > 0) {
