@@ -47,7 +47,7 @@ class EbayService
     	$serviceShopping = $this->getShoppingService();
 
     	/* Genero busqueda para calcular páginas*/
-        $request = $this->generarRequestBusqueda($busqueda, 1, 10);
+        $request = $this->generarRequestBusqueda($busqueda, 1, 200);
 		$response = $serviceFinding->findItemsAdvanced($request);
 
         /* Intentar hasta que conecte */
