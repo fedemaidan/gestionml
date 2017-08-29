@@ -40,6 +40,7 @@ class BusquedaEbayAdmin extends AbstractAdmin
             ->add('precioMinimo')
             ->add('precioMaximo')
             ->add('categoriaEbay')
+            ->add('estadoActual')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -78,6 +79,7 @@ class BusquedaEbayAdmin extends AbstractAdmin
             ->add('precioMinimo')
             ->add('precioMaximo')
             ->add('categoriaEbay')
+            ->add('estadoActual')
         ;
     }
 }

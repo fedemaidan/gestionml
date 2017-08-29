@@ -342,10 +342,10 @@ class EbayService
         return null;
     }
 
-    private function stringLimpia($str) {
+    private function stringLimpia($str, $limit = 255) {
         $str = str_replace("'", "\'", $str);
-        if (strlen($str) > 10)
-            $str = substr($str, 0, 7) . '...';
+        if (strlen($str) > $limit)
+            $str = substr($str, 0, $limit - 4) . '...';
         return $str;
     	 
     }
