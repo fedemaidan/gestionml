@@ -369,8 +369,8 @@ class EbayService
 
             if (!$espObj) {
                 $espObj = new EspecificacionesProductoEbay();
-                $espObj->setName($name);
-                $espObj->setValue($value);
+                $espObj->setName($this->stringLimpia($name));
+                $espObj->setValue($this->stringLimpia($value));
                 $this->em->persist($espObj);
                 $this->em->flush();
             }
