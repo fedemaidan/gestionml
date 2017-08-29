@@ -71,6 +71,8 @@ class EbayService
 			
             $sqlExec = "";
             $sqlEspecificaciones = "";
+            $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
+            $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
 			
             $this->imprimo("Comienzo página ". $pageNum);
 
@@ -84,8 +86,7 @@ class EbayService
 
 		        foreach ($response->searchResult->item as $item) {
 		        	/* Por cada item de la página */
-                    $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
-                    $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
+                    
                     
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
 
@@ -114,7 +115,7 @@ class EbayService
                         $maxId++;
                         
 
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$brand."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$brand."');";
 
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
