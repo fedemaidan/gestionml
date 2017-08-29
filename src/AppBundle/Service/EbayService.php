@@ -310,7 +310,11 @@ class EbayService
     }
 
     private function stringLimpia($str) {
-    	return str_replace("'", "\'", $str);
+        $str = str_replace("'", "\'", $str);
+        if (strlen($str) > 10)
+            $str = substr($str, 0, 7) . '...';
+        return $str;
+    	 
     }
 
     private function validarError($response) {
