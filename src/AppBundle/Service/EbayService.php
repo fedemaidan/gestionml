@@ -47,7 +47,7 @@ class EbayService
     	$serviceShopping = $this->getShoppingService();
 
     	/* Genero busqueda para calcular páginas*/
-        $request = $this->generarRequestBusqueda($busqueda, 1, 200);
+        $request = $this->generarRequestBusqueda($busqueda, 1, 10);
 		$response = $serviceFinding->findItemsAdvanced($request);
 
         /* Intentar hasta que conecte */
@@ -145,6 +145,7 @@ class EbayService
                 unset($sqlExec);
                 //unset($response);
                 unset($sql);
+                gc_collect_cycles();
                 echo "memoria fin: " . memory_get_peak_usage();
 
 		    	$this->imprimo("Updates :" . $countUpdates);
