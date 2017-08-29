@@ -126,17 +126,17 @@ class EbayService
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
-                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion, $maxIdEsp);
+                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
 		        
 		    	}
 		    	
-                if ($sqlExec != "")
-		    	     $this->em->getConnection()->exec( $sqlExec );
-                if ($sqlEspecificaciones != "")
-                    $this->em->getConnection()->exec( $sqlEspecificaciones );
+                $sql = $sqlExec." ".$sqlEspecificaciones;
+                if ($sql != "")
+		    	    $this->em->getConnection()->exec( $sql );
                 
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
+                unset($sql);
 
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
@@ -373,7 +373,7 @@ class EbayService
         return $especificaciones;
     }
 
-    private function insertoEspecificaciones($especificaciones,$idPublicacion, &$maxId) {
+    private function insertoEspecificaciones($especificaciones,$idPublicacion) {
         $sql = "";
         foreach ($especificaciones as $name => $value) {
             $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
