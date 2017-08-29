@@ -137,8 +137,8 @@ class EbayService
                 echo "memoria init: " . memory_get_peak_usage();
                 $sqlEspecificaciones = null;
                 $sqlExec = null;
-                $response->searchResult->item = null;
-                $response->searchResult = null;
+                //$response->searchResult->item = null;
+                //$response->searchResult = null;
                 $response = null;
                 $sql = null;
                 unset($sqlEspecificaciones);
