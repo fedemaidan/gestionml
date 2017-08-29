@@ -35,6 +35,7 @@ class EbayService
     {
         $this->container = $container;
         $this->em = $entityManager;
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
     }
 
 
