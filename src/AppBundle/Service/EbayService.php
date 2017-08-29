@@ -85,7 +85,7 @@ class EbayService
 		        foreach ($response->searchResult->item as $item) {
 		        	/* Por cada item de la página */
                     $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
-                    
+                    $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
                     
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
 
@@ -122,7 +122,7 @@ class EbayService
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
-                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
+                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion, $maxIdEsp);
 		        
 		    	}
 		    	
@@ -340,7 +340,7 @@ class EbayService
         return $especificaciones;
     }
 
-    private function insertoEspecificaciones($especificaciones,$idPublicacion) {
+    private function insertoEspecificaciones($especificaciones,$idPublicacion, &$maxId) {
         $sql = "";
         foreach ($especificaciones as $name => $value) {
             $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
@@ -357,7 +357,6 @@ class EbayService
             }
             else {
                 //Si no existe la especificación -> la creo y creo al relacion con la publicacion
-                $maxId = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
                 $maxId++;
                 $sql .= "insert into especificaciones_producto_ebay (id, name, value) values (null,'".$this->stringLimpia($name)."','".$this->stringLimpia($value)."');";
                 $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
