@@ -264,7 +264,7 @@ class EbayService
     private function update($publicacion, $item, $datosItem, $imagenes , $categoria, $brand) {
     	$updateSql = array();
 
-        if ($publicacion->getTitulo() != $item->title )
+        if ($publicacion->getTitulo() != $this->stringLimpia($item->title) )
         {
         	$updateSql[] = " titulo = '".$this->stringLimpia($item->title)."'";
             echo "titulo";
@@ -275,12 +275,12 @@ class EbayService
             echo "precio";
             
         }
-        if ($publicacion->getLinkPublicacion() != $item->viewItemURL)
+        if ($publicacion->getLinkPublicacion() != $this->stringLimpia($item->viewItemURL))
         {
         	$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
             echo "lin";
         }
-        if ($publicacion->getImagenes() != $imagenes) {
+        if ($publicacion->getImagenes() != $this->stringLimpia($imagenes)) {
         	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes)."'";
             echo "img";
         } 
