@@ -25,6 +25,8 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
+            throw new OutOfMemoryException("Error Processing Request", 1);
+            
             $busquedas = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findAll();
             foreach ($busquedas as $key => $busqueda) {
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
