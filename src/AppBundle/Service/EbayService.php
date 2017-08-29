@@ -70,6 +70,7 @@ class EbayService
 
 		/* Recorro las páginas y actualizo publicaciones */
 		$limit = $response->paginationOutput->totalPages;
+        gc_disable();
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
             $sqlExec = "";
@@ -153,6 +154,9 @@ class EbayService
                 $this->unset2($response);
                 unset($sql);
                 gc_collect_cycles();
+                $this->imprimo("Memory 1: " . ( (memory_get_usage() /1024) /1024));
+                $this->imprimo("Memory 2: " . ( (memory_get_peak_usage() /1024) /1024));
+                $this->imprimo("Memory 3: " . ( (memory_get_peak_usage(true) /1024) /1024));
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
 
@@ -325,10 +329,11 @@ class EbayService
             }
 
             $sql .= " WHERE id = ".$publicacion->getId().";";
-            //$this->unset2($updateSql);
+            $this->unset2($updateSql);
             return $sql;
         }
         $this->unset2($updateSql);
+
         return null;
     }
 
