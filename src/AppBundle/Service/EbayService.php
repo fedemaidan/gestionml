@@ -366,22 +366,22 @@ class EbayService
         foreach ($especificaciones as $name => $value) {
             $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
                             ->findOneBy(["name" => $name, "value" => $value ]);
-            if ($espObj) {
-                $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $idPublicacion);
-                
-                //verificar asociacion con publicacion
-                if (!$tiene) {
-                    //si no la tiene -> inserto relacion con la publicacion
-                    $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
-                                    especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
-                }
+
+            if (!$espObj) {
+                $espObj = new EspecificacionesProductoEbay();
+                $espObj->setName($name);
+                $espObj->setValue($value);
+                $this->em->persist($espObj);
+                $this->em->flush();
             }
-            else {
-                //Si no existe la especificación -> la creo y creo al relacion con la publicacion
-                $maxId++;
-                $sql .= "insert into especificaciones_producto_ebay (id, name, value) values (null,'".$this->stringLimpia($name)."','".$this->stringLimpia($value)."');";
+
+            $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $idPublicacion);
+            
+            //verificar asociacion con publicacion
+            if (!$tiene) {
+                //si no la tiene -> inserto relacion con la publicacion
                 $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
-                                    especificaciones_producto_ebay_id) values (".$idPublicacion.",".$maxId.");";
+                                especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
             }
         }
 
