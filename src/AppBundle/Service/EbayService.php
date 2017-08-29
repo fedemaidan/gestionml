@@ -70,7 +70,7 @@ class EbayService
 
 		/* Recorro las páginas y actualizo publicaciones */
 		$limit = $response->paginationOutput->totalPages;
-        gc_disable();
+        
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
             $sqlExec = "";
@@ -175,6 +175,7 @@ class EbayService
 
         $this->unset2($serviceFinding);
         $this->unset2($serviceShopping);
+        gc_collect_cycles();
         $this->imprimo("Proceso terminado ");
         $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
 		return $countInserts;
