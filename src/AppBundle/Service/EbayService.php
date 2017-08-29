@@ -128,7 +128,7 @@ class EbayService
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
-		        
+		            unset($requestSingle);
 		    	}
 		    	
                 $sql = $sqlExec." ".$sqlEspecificaciones;
@@ -159,32 +159,6 @@ class EbayService
         $this->imprimo("Proceso terminado ");
         $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
 		return $countInserts;
-    }
-
-    public function cargarProducto($productoEbay) {
-    	$serviceProduct = new \DTS\eBaySDK\Product\Services\ProductService([
-		    //'apiVersion'  => '1.13.0',
-		    'globalId'    => Constants\GlobalIds::US,
-		    'credentials' => [
-		        'appId'  => $this->container->getParameter('ebay.app_id'),
-		        'certId' => $this->container->getParameter('ebay.certId'),
-		        'devId'  => $this->container->getParameter('ebay.devId')]
-		        ]);
-
-    	$requestProduct = new \DTS\eBaySDK\Product\Types\GetProductDetailsRequest();
-                    	
-    	$productDetails = new \DTS\eBaySDK\Product\Types\ProductDetailsRequestType();
-    	//['DisplayableProductDetails','DisplayableSearchResults','Searchable', 'Sortable'];
-    	$productDetails->dataset = ['DisplayableSearchResults'];
-    	$productDetails->productIdentifier = new \DTS\eBaySDK\Product\Types\ProductIdentifier();
-    	$productDetails->productIdentifier->ePID = $productoEbay->value;
-
-        $requestProduct->productDetailsRequest[] = $productDetails;
-		
-
-		$datos = $serviceProduct->getProductDetails($requestProduct);
-		return $datos;
-		
     }
 
     public function generarRequestBusqueda($busqueda, $pageNumber = 1, $entriesPerPage = 100) {
@@ -240,7 +214,7 @@ class EbayService
     		$this->em->persist($categoria);
     		$this->em->flush();
     	}
-    	
+    	unset($categoria);
     	return $categoria;
 
     }
@@ -390,6 +364,7 @@ class EbayService
                 $espObj->setValue($this->stringLimpia($value));
                 $this->em->persist($espObj);
                 $this->em->flush();
+
             }
 
             $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $idPublicacion);
@@ -402,6 +377,7 @@ class EbayService
             }
         }
 
+        unset($espObj);
         return $sql;
     }
 
