@@ -112,6 +112,7 @@ class EbayService
                                        $sqlExec .= $sqlUpdate;
                                        $countUpdates++;
                                }
+                               unset($sqlUpdate);
                             
                     }
                     else {
@@ -124,18 +125,19 @@ class EbayService
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
                         $countInserts++;
-                        unset($item);
+                        unset($sql);
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
 
-                    unset($datosItem);
+                    $this->unset2($datosItem);
                     unset($brand);
-                    unset($especificaciones);
-		            unset($requestSingle);
+                    $this->unset2($especificaciones);
+		            $this->unset2($requestSingle);
                     unset($categoria);
-                    if ($publicacion) unset($publicacion);
+                    unset($imagenes);
+                    if ($publicacion) $this->unset2($publicacion);
 		    	}
 		    	
                 $sql = $sqlExec." ".$sqlEspecificaciones;
@@ -144,7 +146,7 @@ class EbayService
                 
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
-                unset($response);
+                $this->unset2($response);
                 unset($sql);
                 gc_collect_cycles();
 		    	$this->imprimo("Updates :" . $countUpdates);
@@ -152,6 +154,7 @@ class EbayService
 
                 $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
                 $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
+                unset($porcentajeProcesado);
 
 		    }else {
                 $this->imprimo("Error procesando página");
@@ -319,8 +322,10 @@ class EbayService
             }
 
             $sql .= " WHERE id = ".$publicacion->getId().";";
+            $this->unset2($updateSql);
             return $sql;
         }
+        $this->unset2($updateSql);
 
         return null;
     }
@@ -381,12 +386,21 @@ class EbayService
             }
         }
 
-        unset($espObj);
+        unset($tiene);
+        $this->unset2($espObj);
         return $sql;
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
         $this->em->flush();
+    }
+
+    private function unset2($obj) {
+        foreach ($obj as $key => $value) {
+            $this->unset2($obj->$key);
+        }
+
+        unset($obj->$key);
     }
 }
