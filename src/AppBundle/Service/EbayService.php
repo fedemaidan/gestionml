@@ -141,7 +141,7 @@ class EbayService
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
 
-                $porcentajeProcesado = round(($limit / $request->paginationInput->pageNumber) * 100) ;
+                $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
                 $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
 
 		    }else {
