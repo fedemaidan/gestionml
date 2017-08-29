@@ -30,7 +30,7 @@ class PublicacionEbay
     /**
      * @var string
      *
-     * @ORM\Column(name="id_ebay", type="string", length=255)
+     * @ORM\Column(name="id_ebay", type="string", unique=true, length=255)
      */
     private $idEbay;
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\BusquedaEbay;
 
 /**
  * BusquedaEbayRepository
@@ -10,4 +11,12 @@ namespace AppBundle\Repository;
  */
 class BusquedaEbayRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function selectMaxId() {
+		return $this->getEntityManager()->createQueryBuilder()
+			    ->select('MAX(e.id)')
+			    ->from(BusquedaEbay::ORM_ENTITY, 'e')
+			    ->getQuery()
+			    ->getSingleScalarResult();
+
+	}
 }

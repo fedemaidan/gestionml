@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\PublicacionEbay;
+
 /**
  * PublicacionEbayRepository
  *
@@ -10,4 +12,12 @@ namespace AppBundle\Repository;
  */
 class PublicacionEbayRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function selectMaxId() {
+		return $this->getEntityManager()->createQueryBuilder()
+			    ->select('MAX(e.id)')
+			    ->from(PublicacionEbay::ORM_ENTITY, 'e')
+			    ->getQuery()
+			    ->getSingleScalarResult();
+
+	}
 }
