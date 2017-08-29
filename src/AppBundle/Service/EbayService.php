@@ -416,6 +416,9 @@ class EbayService
                     $this->unset2($obj->$key);
             }
         }
+        else {
+            echo "no anduvo";
+        }
         
         $obj = null;
     }
