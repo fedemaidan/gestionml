@@ -28,7 +28,7 @@ class PublicacionEbayAdmin extends AbstractAdmin
                 ->add('categoriaEbay')
                 ->add('brand')
                 ->add('estado_ebay')
-                ->add('especificaciones')
+                //->add('especificaciones')
         ;
     }
 
