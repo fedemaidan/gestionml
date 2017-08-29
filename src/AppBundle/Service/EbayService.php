@@ -131,7 +131,7 @@ class EbayService
 		    	}
 		    	
                 $sql = $sqlExec." ".$sqlEspecificaciones;
-                if ($sql != "")
+                if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
                 unset($sqlEspecificaciones);
