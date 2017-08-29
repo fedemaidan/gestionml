@@ -151,7 +151,7 @@ class EbayService
                 
                 $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
                 $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
-                
+
                 $sqlEspecificaciones = null;
                 $sqlExec = null;
                 
@@ -406,6 +406,7 @@ class EbayService
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
+        $this->em->persist($busqueda);
         $this->em->flush();
     }
 
