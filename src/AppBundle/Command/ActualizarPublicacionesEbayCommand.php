@@ -88,4 +88,8 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
         $this->getContainer()->get('doctrine')->getEntityManager()->flush();
     }
+
+    private function imprimo($texto) {
+        echo "\n".date("Y-m-d H:i:s"). " ****** ".$texto;
+    }
 }
