@@ -152,6 +152,7 @@ class EbayService
                 $sqlExec = null;
                 
                 $this->unset2($response);
+                $this->em->clear();
                 $sql = null;
                 gc_collect_cycles();
                 $this->imprimo("Memory 1: " . ( (memory_get_usage() /1024) /1024));
@@ -168,8 +169,12 @@ class EbayService
                 $pageNumber--;
             }
 
+
+
 		}
 
+        $this->unset2($serviceFinding);
+        $this->unset2($serviceShopping);
         $this->imprimo("Proceso terminado ");
         $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
 		return $countInserts;
@@ -415,8 +420,6 @@ class EbayService
                 if (isset($obj->$key))
                     $this->unset2($obj->$key);
             }
-
-            var_dump(get_class($obj));
         }
         else {
             echo "no anduvo";
