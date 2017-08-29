@@ -73,20 +73,6 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
 
         }
-        catch(\Exception $e) {
-
-                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Error por falla en memoria 4");
-                $keyConflicto = $key;
-                $busquedaConflicto = $busqueda;
-
-                foreach ($busquedas as $key => $bus) {
-                    if ($key > $keyConflicto)
-                        $this->getContainer()->get('ebay_service')->actualizarPublicaciones($bus);
-                }
-
-                $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
-
-        }
         catch(FatalErrorException $e) {
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por FatalError - ". $e->message);
         }
