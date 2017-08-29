@@ -58,6 +58,13 @@ class BusquedaEbay
      */
     private $categoriaEbay;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255, nullable=true)
+     */
+    private $estado_actual;    
+
 
     /**
      * Get id
@@ -195,4 +202,28 @@ class BusquedaEbay
         return $this->vendedorEbayId;
     }
 
+
+    /**
+     * Set estadoActual
+     *
+     * @param string $estadoActual
+     *
+     * @return BusquedaEbay
+     */
+    public function setEstadoActual($estadoActual)
+    {
+        $this->estado_actual = $estadoActual;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoActual
+     *
+     * @return string
+     */
+    public function getEstadoActual()
+    {
+        return $this->estado_actual;
+    }
 }

@@ -40,6 +40,8 @@ class EbayService
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
+        $this->cambiarEstadoBusqueda($busqueda, "Comienza actualización ..");
+
     	/* Creo servicios ebay */
     	$serviceFinding = $this->getFindingService();
     	$serviceShopping = $this->getShoppingService();
@@ -57,6 +59,7 @@ class EbayService
         }
         if ($intentos == 0) {
             $this->imprimo("Fin proceso con error");
+            $this->cambiarEstadoBusqueda($busqueda, "Error - No pudo conectarse con Ebay");
             return 0;
         }
         //////////////////////////////
@@ -131,8 +134,16 @@ class EbayService
 		    	     $this->em->getConnection()->exec( $sqlExec );
                 if ($sqlEspecificaciones != "")
                     $this->em->getConnection()->exec( $sqlEspecificaciones );
+                
+                unset($sqlEspecificaciones);
+                unset($sqlExec);
+
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
+
+                $porcentajeProcesado = round(($limit / $request->paginationInput->pageNumber) * 100) ;
+                $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
+
 		    }else {
                 $this->imprimo("Error procesando página");
                 $pageNumber--;
@@ -141,6 +152,7 @@ class EbayService
 		}
 
         $this->imprimo("Proceso terminado ");
+        $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
 		return $countInserts;
     }
 
@@ -386,5 +398,10 @@ class EbayService
         }
 
         return $sql;
+    }
+
+    private function cambiarEstadoBusqueda($busqueda, $texto) {
+        $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
+        $this->em->flush();
     }
 }

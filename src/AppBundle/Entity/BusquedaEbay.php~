@@ -58,6 +58,13 @@ class BusquedaEbay
      */
     private $categoriaEbay;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255, nullable=true)
+     */
+    private $estado_actual;    
+
 
     /**
      * Get id
@@ -188,6 +195,11 @@ class BusquedaEbay
     public function getCategoriaEbay()
     {
         return $this->categoriaEbay;
+    }
+
+    public function __toString()
+    {
+        return $this->vendedorEbayId;
     }
 
 }
