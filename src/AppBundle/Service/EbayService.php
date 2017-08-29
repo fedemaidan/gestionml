@@ -405,6 +405,7 @@ class EbayService
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
+        $busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
         $this->em->persist($busqueda);
         $this->em->flush();
