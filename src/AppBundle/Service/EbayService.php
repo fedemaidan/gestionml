@@ -129,6 +129,8 @@ class EbayService
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
 		            unset($requestSingle);
+                    unset($categoria);
+                    if ($publicacion) unset($publicacion);
 		    	}
 		    	
                 $sql = $sqlExec." ".$sqlEspecificaciones;
@@ -214,7 +216,7 @@ class EbayService
     		$this->em->persist($categoria);
     		$this->em->flush();
     	}
-    	unset($categoria);
+    	
     	return $categoria;
 
     }
