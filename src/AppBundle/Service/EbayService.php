@@ -144,11 +144,8 @@ class EbayService
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
                 unset($response);
-                unset($response->searchResult);
-                unset($response->searchResult->item);
                 unset($sql);
                 echo "memoria fin: " . memory_get_peak_usage();
-
 
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
