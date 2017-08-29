@@ -134,7 +134,7 @@ class EbayService
                     $this->unset2($datosItem);
                     unset($brand);
                     echo "espe";
-                    $this->unset2($especificaciones);
+                    //$this->unset2($especificaciones);
                     echo "rque";
 		            $this->unset2($requestSingle);
                     unset($categoria);
