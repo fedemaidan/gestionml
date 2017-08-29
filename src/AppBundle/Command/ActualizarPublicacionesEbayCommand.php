@@ -25,15 +25,57 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            throw new OutOfMemoryException("Error Processing Request", 1);
-            
+
             $busquedas = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findAll();
             foreach ($busquedas as $key => $busqueda) {
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
             }
         }
         catch(OutOfMemoryException $e) {
-                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria");
+
+                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 1");
+                $keyConflicto = $key;
+                $busquedaConflicto = $busqueda;
+
+                foreach ($busquedas as $key => $bus) {
+                    if ($key > $keyConflicto)
+                        $this->getContainer()->get('ebay_service')->actualizarPublicaciones($bus);
+                }
+
+                $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
+
+        }
+        catch(/OutOfMemoryException $e) {
+
+                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 2");
+                $keyConflicto = $key;
+                $busquedaConflicto = $busqueda;
+
+                foreach ($busquedas as $key => $bus) {
+                    if ($key > $keyConflicto)
+                        $this->getContainer()->get('ebay_service')->actualizarPublicaciones($bus);
+                }
+
+                $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
+
+        }
+        catch(\OutOfMemoryException $e) {
+
+                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 3");
+                $keyConflicto = $key;
+                $busquedaConflicto = $busqueda;
+
+                foreach ($busquedas as $key => $bus) {
+                    if ($key > $keyConflicto)
+                        $this->getContainer()->get('ebay_service')->actualizarPublicaciones($bus);
+                }
+
+                $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
+
+        }
+        catch(\Exception $e) {
+
+                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 4");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
