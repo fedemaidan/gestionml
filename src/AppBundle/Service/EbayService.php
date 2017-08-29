@@ -134,10 +134,20 @@ class EbayService
                 if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
+                echo "memoria init: " . memory_get_peak_usage();
+                $sqlEspecificaciones = null;
+                $sqlExec = null;
+                $response->searchResult->item = null;
+                $response->searchResult = null;
+                $response = null;
+                $sql = null;
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
                 unset($response);
+                unset($response->searchResult);
+                unset($response->searchResult->item);
                 unset($sql);
+                echo "memoria fin: " . memory_get_peak_usage();
 
 
 		    	$this->imprimo("Updates :" . $countUpdates);
