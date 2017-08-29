@@ -97,7 +97,7 @@ class EbayService
                     $requestSingle = new GetSingleItemRequestType();
                     $requestSingle->IncludeSelector = 'ItemSpecifics,Variations,Compatibility,Details,ShippingCosts,Description';
                     $requestSingle->ItemID = $item->itemId;
-                    $this->imprimo("eRequestSingle: " ( (memory_get_usage() /1024) /1024));
+                    $this->imprimo("eRequestSingle: " .( (memory_get_usage() /1024) /1024));
  
                     $datosItem = $serviceShopping->getSingleItem($requestSingle);
                     $categoria = $this->cargarCategoria($item->primaryCategory);
