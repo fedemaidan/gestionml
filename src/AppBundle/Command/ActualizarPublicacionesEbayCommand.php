@@ -45,7 +45,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
 
         }
-        catch(/OutOfMemoryException $e) {
+        catch(Symfony\Component\Debug\Exception\OutOfMemoryException $e) {
 
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 2");
                 $keyConflicto = $key;
@@ -59,7 +59,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
 
         }
-        catch(\OutOfMemoryException $e) {
+        catch(\Symfony\Component\Debug\Exception\OutOfMemoryException $e) {
 
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 3");
                 $keyConflicto = $key;
