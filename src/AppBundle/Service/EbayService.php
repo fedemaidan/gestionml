@@ -415,11 +415,14 @@ class EbayService
                 if (isset($obj->$key))
                     $this->unset2($obj->$key);
             }
+
+            var_dump(get_class($obj));
         }
         else {
             echo "no anduvo";
         }
         
+
         $obj = null;
     }
 }
