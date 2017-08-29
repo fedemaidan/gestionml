@@ -30,6 +30,16 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         }
         catch(Exception\OutOfMemoryException $e) {
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria");
+                $keyConflicto = $key;
+                $busquedaConflicto = $busqueda;
+
+                foreach ($busquedas as $key => $bus) {
+                    if ($key > $keyConflicto)
+                        $this->getContainer()->get('ebay_service')->actualizarPublicaciones($bus);
+                }
+
+                $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
+                
         }
         catch(Exception\FatalErrorException $e) {
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por FatalError - ". $e->message);
