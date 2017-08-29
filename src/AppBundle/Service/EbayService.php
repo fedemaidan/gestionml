@@ -325,11 +325,10 @@ class EbayService
             }
 
             $sql .= " WHERE id = ".$publicacion->getId().";";
-            $this->unset2($updateSql);
+            //$this->unset2($updateSql);
             return $sql;
         }
         $this->unset2($updateSql);
-
         return null;
     }
 
