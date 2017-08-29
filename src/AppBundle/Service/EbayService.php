@@ -72,7 +72,6 @@ class EbayService
 		$limit = $response->paginationOutput->totalPages;
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
-
             $sqlExec = "";
             $sqlEspecificaciones = "";
             $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
@@ -125,10 +124,15 @@ class EbayService
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
                         $countInserts++;
+                        unset($item);
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
+
+                    unset($datosItem);
+                    unset($brand);
+                    unset($especificaciones);
 		            unset($requestSingle);
                     unset($categoria);
                     if ($publicacion) unset($publicacion);
@@ -142,7 +146,7 @@ class EbayService
                 unset($sqlExec);
                 unset($response);
                 unset($sql);
-
+                gc_collect_cycles();
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
 
