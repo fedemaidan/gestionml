@@ -33,7 +33,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         }
         catch(OutOfMemoryException $e) {
 
-                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 1");
+                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Error por falla en memoria 1");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
@@ -47,7 +47,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         }
         catch(Symfony\Component\Debug\Exception\OutOfMemoryException $e) {
 
-                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 2");
+                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Error por falla en memoria 2");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
@@ -61,7 +61,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         }
         catch(\Symfony\Component\Debug\Exception\OutOfMemoryException $e) {
 
-                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 3");
+                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Error por falla en memoria 3");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
@@ -75,7 +75,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
         }
         catch(\Exception $e) {
 
-                $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria 4");
+                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Error por falla en memoria 4");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
