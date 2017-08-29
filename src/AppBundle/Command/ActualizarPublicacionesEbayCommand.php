@@ -29,8 +29,10 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
             gc_disable();
             $busquedas = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findAll();
             foreach ($busquedas as $key => $busqueda) {
+                $this->imprimo("Memory init: " . ( (memory_get_usage() /1024) /1024));
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
                 gc_collect_cycles();
+                $this->imprimo("Memory next: " . ( (memory_get_usage() /1024) /1024));
             }
         }
         catch(OutOfMemoryException $e) {

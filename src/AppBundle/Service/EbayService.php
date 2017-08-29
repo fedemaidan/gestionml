@@ -82,7 +82,7 @@ class EbayService
 
 		    $request->paginationInput->pageNumber = $pageNum;
 		    $response = $serviceFinding->findItemsAdvanced($request);
-            $this->imprimo("Response: " . ( (memory_get_usage() /1024) /1024));
+            
             $this->validarError($response);
 
 		    if ($response->ack !== 'Failure') {
@@ -91,20 +91,20 @@ class EbayService
 		        foreach ($response->searchResult->item as $item) {
 		        	/* Por cada item de la página */
                     
-                    $this->imprimo("Item: ". ( (memory_get_usage() /1024) /1024));
+            
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
-                    $this->imprimo("Publicacion: " . ( (memory_get_usage() /1024) /1024));
+            
                     $requestSingle = new GetSingleItemRequestType();
                     $requestSingle->IncludeSelector = 'ItemSpecifics,Variations,Compatibility,Details,ShippingCosts,Description';
                     $requestSingle->ItemID = $item->itemId;
-                    $this->imprimo("eRequestSingle: " .( (memory_get_usage() /1024) /1024));
+            
  
                     $datosItem = $serviceShopping->getSingleItem($requestSingle);
                     $categoria = $this->cargarCategoria($item->primaryCategory);
                     $imagenes = $this->cargoImagenes($item, $datosItem);
                     $especificaciones = $this->cargoEspecificaciones($datosItem);
                     $brand = array_key_exists("Brand", $especificaciones) ? $especificaciones["Brand"] : "";
-                    $this->imprimo("datos: ". ( (memory_get_usage() /1024) /1024));
+                    
                     if ($publicacion) {
                         /* Update si es necesario */
                         	$sqlUpdate = $this->update($publicacion, $item, $datosItem, $imagenes, $categoria, $brand );
@@ -138,13 +138,10 @@ class EbayService
                 if ($sql != " ")
 		    	    $this->em->getConnection()->exec( $sql );
                 
-                $this->imprimo("Memoria control init: " . ( (memory_get_usage() /1024) /1024));
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
                 unset($response);
                 unset($sql);
-                
-                $this->imprimo("Memoria control: " . ((memory_get_usage() /1024 ) /1024));
 
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
