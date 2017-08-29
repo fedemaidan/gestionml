@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\PublicacionEbay;
+use AppBundle\Entity\EspecificacionesProductoEbay;
 use AppBundle\Entity\CategoriaEbay;
 use DTS\eBaySDK\Shopping\Types\GetSingleItemRequestType;
 use DTS\eBaySDK\Finding\Types\FindItemsAdvancedRequest;
@@ -40,24 +41,27 @@ class EbayService
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
     	/* Creo servicios ebay */
-    	$service = $this->getFindingService();
+    	$serviceFinding = $this->getFindingService();
     	$serviceShopping = $this->getShoppingService();
 
     	/* Genero busqueda para calcular páginas*/
         $request = $this->generarRequestBusqueda($busqueda, 1, 200);
-		$response = $service->findItemsAdvanced($request);
+		$response = $serviceFinding->findItemsAdvanced($request);
 
-		if (isset($response->errorMessage)) {
-		    foreach ($response->errorMessage->error as $error) {
-		        printf(
-		            "%s: %s\n\n",
-		            $error->severity=== Enums\ErrorSeverity::C_ERROR ? 'Error' : 'Warning',
-		            $error->message
-		        );
-		    }
-		}
+        /* Intentar hasta que conecte */
+        $intentos = 10;
+        while ($this->validarError($response) && $intentos > 0) {
+            $response = $serviceFinding->findItemsAdvanced($request);
+            $intentos--;
+            $this->imprimo("Intentos conectar ... - ".$intentos);
+        }
+        if ($intentos == 0) {
+            $this->imprimo("Fin proceso con error");
+            return 0;
+        }
+        //////////////////////////////
 
-		$sqlExec = "";
+
 		$countInserts = 0;
 		$countUpdates = 0;
 
@@ -65,23 +69,25 @@ class EbayService
 		$limit = $response->paginationOutput->totalPages;
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
-			$this->imprimo("Comienzo página ". $pageNum);
+            $sqlExec = "";
+            $sqlEspecificaciones = "";
+			
+            $this->imprimo("Comienzo página ". $pageNum);
 
 		    $request->paginationInput->pageNumber = $pageNum;
-		    $response = $service->findItemsAdvanced($request);
+            var_dump($request->paginationInput->entriesPerPage);
+		    $response = $serviceFinding->findItemsAdvanced($request);
 
-
-			if (isset($response->errorMessage)) {
-			    foreach ($response->errorMessage->error as $error) {
-			    	$this->imprimo(($error->severity=== Enums\ErrorSeverity::C_ERROR ? 'Error' : 'Warning').": ". $error->message);
-			    }
-			}
+            $this->validarError($response);
 
 		    if ($response->ack !== 'Failure') {
 		    	//Si la busqueda no falla
 
 		        foreach ($response->searchResult->item as $item) {
-		        	
+		        	/* Por cada item de la página */
+                    $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
+                    
+                    
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
 
                     $requestSingle = new GetSingleItemRequestType();
@@ -91,16 +97,12 @@ class EbayService
                     $datosItem = $serviceShopping->getSingleItem($requestSingle);
                     $categoriaId = $this->cargarCategoria($item->primaryCategory);
                     $imagenes = $this->cargoImagenes($item, $datosItem);
-
-                    if (isset($datosItem->Item->ItemSpecifics) or isset($datosItem->Item->ItemCompatibilityList)) 
-                    {
-	                	//specip
-                	}
-
+                    $especificaciones = $this->cargoEspecificaciones($datosItem);
+                    $brand = array_key_exists("Brand", $especificaciones) ? $especificaciones["brand"] : "";
 
                     if ($publicacion) {
                         /* Update si es necesario */
-                        	$update = $this->sqlUpdate($publicacion, $item, $datosItem, $imagenes, $categoriaId );
+                        	$update = $this->sqlUpdate($publicacion, $item, $datosItem, $imagenes, $categoriaId, $brand );
 
                         	if ($update) {
                         		$sqlExec .= $update;
@@ -109,23 +111,33 @@ class EbayService
                     }
                     else {
 		                /* Inserto */
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay) values (null, '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."');";
+                        $maxId++;
+                        
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (". $maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoriaId . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$brand."');";
 
 		                $this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
                         $countInserts++;
                     }
+
+                    $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
+                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
 		        
 		    	}
 		    	
 
 		    	$this->em->getConnection()->exec( $sqlExec );
-		    	$this->imprimo("Proceso terminado ");
+                $this->em->getConnection()->exec( $sqlEspecificaciones );
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
-		    }
+		    }else {
+                $this->imprimo("Error procesando página");
+                $pageNumber--;
+            }
+
 		}
 
+        $this->imprimo("Proceso terminado ");
 		return $countInserts;
     }
 
@@ -246,7 +258,7 @@ class EbayService
 		        ]);
     }
 
-    private function sqlUpdate ($publicacion, $item, $datosItem, $imagenes , $categoriaId) {
+    private function sqlUpdate ($publicacion, $item, $datosItem, $imagenes , $categoriaId, $brand) {
     	$updateSql = array();
 
         if ($publicacion->getTitulo() != $item->title )
@@ -274,7 +286,12 @@ class EbayService
         }
         if ($publicacion->getCategoriaEbay()->getId() != $categoriaId)
         {
-            $updateSql[] = " categoria_ebay_id = '".$item->primaryCategory->categoryId."'";
+            $updateSql[] = " categoria_ebay_id = '".$categoriaId."'";
+        }
+
+        if ($publicacion->getBrand() != $brand)
+        {
+            $updateSql[] = " brand = '".$brand."'";
         }
 
         if (count($updateSql) > 0) {
@@ -301,5 +318,56 @@ class EbayService
 
     private function stringLimpia($str) {
     	return str_replace("'", "\'", $str);
+    }
+
+    private function validarError($response) {
+        $hayError = false;
+        if (isset($response->errorMessage)) {
+                foreach ($response->errorMessage->error as $error) {
+                    $hayError = true;
+                    $this->imprimo(($error->severity=== Enums\ErrorSeverity::C_ERROR ? 'Error' : 'Warning').": ". $error->message);
+                }
+            }
+
+        return $hayError;
+    }
+
+    private function cargoEspecificaciones($datosItem) {
+        $especificaciones = [];
+        if (isset($datosItem->Item->ItemSpecifics)) 
+        {
+            foreach ($datosItem->Item->ItemSpecifics->NameValueList as $key => $value) {
+                $especificaciones[$value->Name] = $value->Value[0];
+            }
+        }
+        return $especificaciones;
+    }
+
+    private function insertoEspecificaciones($especificaciones,$idPublicacion) {
+        $sql = "";
+        foreach ($especificaciones as $name => $value) {
+            $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
+                            ->findOneBy(["name" => $name, "value" => $value ]);
+            if ($espObj) {
+                $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $idPublicacion);
+                
+                //verificar asociacion con publicacion
+                if (!$tiene) {
+                    //si no la tiene -> inserto relacion con la publicacion
+                    $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
+                                    especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
+                }
+            }
+            else {
+                //Si no existe la especificación -> la creo y creo al relacion con la publicacion
+                $maxId = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
+                $maxId++;
+                $sql .= "insert into especificaciones_producto_ebay (id, name, value) values (".$maxId.",'".$this->stringLimpia($name)."','".$this->stringLimpia($value)."');";
+                $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
+                                    especificaciones_producto_ebay_id) values (".$idPublicacion.",".$maxId.");";
+            }
+        }
+
+        return $sql;
     }
 }

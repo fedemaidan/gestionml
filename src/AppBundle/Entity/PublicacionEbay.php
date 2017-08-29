@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class PublicacionEbay
 {
     const ORM_ENTITY = "AppBundle:PublicacionEbay";
+
+     public function __construct() {
+        $this->especificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * @var int
      *
@@ -60,6 +65,13 @@ class PublicacionEbay
     /**
      * @var string
      *
+     * @ORM\Column(name="brand", type="string", length=255, nullable=true)
+     */
+    private $brand;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="imagenes", type="string", length=1500, nullable=true)
      */
     private $imagenes;
@@ -84,6 +96,12 @@ class PublicacionEbay
      * @ORM\Column(name="estado_ebay", type="string", length=255)
      */
     private $estado_ebay;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="EspecificacionesProductoEbay", inversedBy="publicacionesEbay")
+     * @ORM\JoinTable(name="publicaciones_espeficaciciones_ebay")
+     */
+    private $especificaciones;
 
 
     /**
@@ -351,5 +369,67 @@ class PublicacionEbay
     public function getCategoriaEbay()
     {
         return $this->categoriaEbay;
+    }
+
+
+    public function getEspecificaciones() {
+        return $this->especificaciones;
+    }
+
+    public function setEspecificaciones($especificaciones) {
+        return $this->especificaciones = $especificaciones;
+    }
+
+    public function addEspeficicaciones($espe) {
+        $this->especificaciones[] = $espe;
+    }
+
+
+    /**
+     * Set brand
+     *
+     * @param string $brand
+     *
+     * @return PublicacionEbay
+     */
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return string
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Add especificacione
+     *
+     * @param \AppBundle\Entity\EspecificacionesProductoEbay $especificacione
+     *
+     * @return PublicacionEbay
+     */
+    public function addEspecificacione(\AppBundle\Entity\EspecificacionesProductoEbay $especificacione)
+    {
+        $this->especificaciones[] = $especificacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove especificacione
+     *
+     * @param \AppBundle\Entity\EspecificacionesProductoEbay $especificacione
+     */
+    public function removeEspecificacione(\AppBundle\Entity\EspecificacionesProductoEbay $especificacione)
+    {
+        $this->especificaciones->removeElement($especificacione);
     }
 }

@@ -15,16 +15,20 @@ class PublicacionEbayAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+
         $datagridMapper
-            ->add('id')
-            ->add('idEbay')
-            ->add('titulo')
-            ->add('precio_compra')
-            ->add('linkPublicacion')
-            ->add('vendedor')
-            ->add('cantidadVendidosEbay')
-            ->add('categoriaEbay')
-            ->add('estado_ebay')
+            
+                ->add('id')
+                ->add('idEbay')
+                ->add('titulo')
+                ->add('precio_compra')
+                ->add('linkPublicacion')
+                ->add('vendedor')
+                ->add('cantidadVendidosEbay')
+                ->add('categoriaEbay')
+                ->add('brand')
+                ->add('estado_ebay')
+                ->add('especificaciones')
         ;
     }
 
@@ -57,16 +61,22 @@ class PublicacionEbayAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('idEbay')
-            ->add('titulo')
-            ->add('precio_compra')
-            ->add('linkPublicacion')
-            ->add('vendedor')
-            ->add('imagenes')
-            ->add('cantidadVendidosEbay')
-            ->add('categoriaEbay')
-            ->add('estado_ebay')
+            ->with('General')
+                ->add('id')
+                ->add('idEbay')
+                ->add('titulo')
+                ->add('precio_compra')
+                ->add('linkPublicacion')
+                ->add('vendedor')
+                ->add('imagenes')
+                ->add('cantidadVendidosEbay')
+                ->add('categoriaEbay')
+                ->add('estado_ebay')
+            ->end()
+            ->with('Especificaciones')
+                ->add('especificaciones')
+            ->end()
+
         ;
     }
 
@@ -86,6 +96,8 @@ class PublicacionEbayAdmin extends AbstractAdmin
             ->add('cantidadVendidosEbay')
             ->add('categoriaEbay')
             ->add('estado_ebay')
+            ->add('brand')
+            ->add('especificaciones', null, array('label' => 'Especificaciones', 'expanded' => true, 'by_reference' => true, 'multiple' => true))
         ;
     }
 

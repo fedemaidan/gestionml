@@ -12,7 +12,7 @@ class CRUDController extends Controller
     {
         $object = $this->admin->getSubject();
 
-        exec("php /server/app/console ebay:actualizar:publicaciones --busqueda_id=".$object->getId()." >> /server/logs/logs_publicaciones.log &");
+        exec("php /server/app/console ebay:actualizar:publicacion --busqueda_id=".$object->getId()." >> /server/logs/logs_publicaciones.log &");
 
         $this->addFlash('sonata_flash_success', 'La carga de datos se esta realizando, pronto estaran cargados los resultados');
 
