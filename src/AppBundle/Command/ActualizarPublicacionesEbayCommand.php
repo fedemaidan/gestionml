@@ -6,7 +6,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use AppBundle\Entity\BusquedaEbay;
-use Symfony\Component\Debug\Exception;
+use Symfony\Component\Debug\Exception\OutOfMemoryException;
+use Symfony\Component\Debug\Exception\FatalErrorException;
+
 
 class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
 {
@@ -28,7 +30,7 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
             }
         }
-        catch(Exception\OutOfMemoryException $e) {
+        catch(OutOfMemoryException $e) {
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por falla en memoria");
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
@@ -39,9 +41,9 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 }
 
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
-                
+
         }
-        catch(Exception\FatalErrorException $e) {
+        catch(FatalErrorException $e) {
                 $this->cambiarEstadoBusqueda($busqueda, $this->getEstadoActual() . " - Error por FatalError - ". $e->message);
         }
 
