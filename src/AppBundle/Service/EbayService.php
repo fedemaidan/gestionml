@@ -130,13 +130,16 @@ class EbayService
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
                     $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
-
+                    echo "datos";
                     $this->unset2($datosItem);
                     unset($brand);
+                    echo "espe";
                     $this->unset2($especificaciones);
+                    echo "rque";
 		            $this->unset2($requestSingle);
                     unset($categoria);
                     unset($imagenes);
+                    echo "publ";
                     if ($publicacion) $this->unset2($publicacion);
 		    	}
 		    	
@@ -146,6 +149,7 @@ class EbayService
                 
                 unset($sqlEspecificaciones);
                 unset($sqlExec);
+                echo "response";
                 $this->unset2($response);
                 unset($sql);
                 gc_collect_cycles();
