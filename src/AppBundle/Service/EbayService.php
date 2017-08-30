@@ -50,7 +50,12 @@ class EbayService
     	/* Genero busqueda para calcular páginas*/
         $request = $this->generarRequestBusqueda($busqueda, 1, 100);
 		$response = $serviceFinding->findItemsAdvanced($request);
+        $limit = $response->paginationOutput->totalPages;
 
+        if ($limit > 100) {
+            $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
+            $response = $serviceFinding->findItemsAdvanced($request);
+        }
         /* Intentar hasta que conecte */
         $intentos = 10;
         while ($this->validarError($response) && $intentos > 0) {
@@ -70,8 +75,6 @@ class EbayService
 		$countUpdates = 0;
 
 		/* Recorro las páginas y actualizo publicaciones */
-		$limit = $response->paginationOutput->totalPages;
-        
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
 			
             $sqlExec = "";
