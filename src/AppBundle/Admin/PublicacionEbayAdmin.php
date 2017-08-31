@@ -107,6 +107,26 @@ class PublicacionEbayAdmin extends AbstractAdmin
 
         // Need to add again our foreign key field here
         $results[] = 'categoriaEbay';
+        $results[] = 'imagen1';
+        $results[] = 'imagen2';
+        $results[] = 'imagen3';
+        $results[] = 'imagen4';
+        $results[] = 'imagen5';
+        $results[] = 'imagen6';
+        $results[] = 'imagen7';
+
+        $results = array();
+        $results[] = 'titulo';
+        $results[] = 'categoriaEbay';
+        $results[] = 'descripcion';
+        $results[] = 'precio_compra';
+        $results[] = 'imagen0';
+        $results[] = 'imagen1';
+        $results[] = 'imagen2';
+        $results[] = 'imagen3';
+        $results[] = 'imagen4';
+        $results[] = 'imagen5';
+
         return $results;
     }
 }

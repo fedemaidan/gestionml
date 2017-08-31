@@ -302,10 +302,14 @@ class PublicacionEbay
     }
 
     public function getImagenPrincipal() {
+        return "<img src='".$this->getImagenUrlByIndex(0)."'></img>";
+    }
+
+    public function getImagenUrlByIndex($i) {
         $ima = explode(',', $this->getImagenes());
-        return "<img src='".$ima[0]."'></img>";
-        
-        
+        if (count($ima) > $i)
+            return $ima[$i];
+        return "";
     }
 
 
@@ -432,4 +436,43 @@ class PublicacionEbay
     {
         $this->especificaciones->removeElement($especificacione);
     }
+
+    /* Funciones para el excel */
+
+    public function getImagen0() {
+        return $this->getImagenUrlByIndex(0);
+    }
+
+    public function getImagen1() {
+        return $this->getImagenUrlByIndex(1);
+    }
+
+    public function getImagen2() {
+        return $this->getImagenUrlByIndex(2);
+    }
+
+    public function getImagen3() {
+        return $this->getImagenUrlByIndex(3);
+    }
+
+    public function getImagen4() {
+        return $this->getImagenUrlByIndex(4);
+    }
+
+    public function getImagen5() {
+        return $this->getImagenUrlByIndex(5);
+    }
+
+    public function getImagen6() {
+        return $this->getImagenUrlByIndex(6);
+    }
+
+    public function getImagen7() {
+        return $this->getImagenUrlByIndex(7);
+    }
+
+    public function getDescripcion() {
+        return "Descripción";
+    }
+
 }
