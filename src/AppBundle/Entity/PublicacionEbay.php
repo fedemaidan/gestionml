@@ -44,7 +44,7 @@ class PublicacionEbay
     /**
      * @var string
      *
-     * @ORM\Column(name="precio_compra", type="string", length=255)
+     * @ORM\Column(name="precio_compra", type="decimal", precision=7, scale=2)
      */
     private $precio_compra;
 
@@ -79,7 +79,7 @@ class PublicacionEbay
     /**
      * @var string
      *
-     * @ORM\Column(name="cantidad_vendidos_ebay", type="string", length=255)
+     * @ORM\Column(name="cantidad_vendidos_ebay", type="integer")
      */
     private $cantidadVendidosEbay;
 

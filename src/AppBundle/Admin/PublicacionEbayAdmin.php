@@ -40,10 +40,10 @@ class PublicacionEbayAdmin extends AbstractAdmin
         $listMapper
             ->add('imagenPrincipal','html')
             ->add('titulo')
-            ->add('precio_compra')
+            ->add('precio_compra','number')
             ->add('linkPublicacion','url')
             ->add('vendedor')
-            ->add('cantidadVendidosEbay')
+            ->add('cantidadVendidosEbay','number')
             ->add('categoriaEbay')
             ->add('_action', null, array(
                 'actions' => array(
@@ -73,9 +73,9 @@ class PublicacionEbayAdmin extends AbstractAdmin
                 ->add('categoriaEbay')
                 ->add('estado_ebay')
             ->end()
-            ->with('Especificaciones')
+          /*  ->with('Especificaciones')
                 ->add('especificaciones')
-            ->end()
+            ->end()*/
 
         ;
     }
