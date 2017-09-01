@@ -125,7 +125,7 @@ class EbayService
                         $maxId++;
                         
 
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."');";
 
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
@@ -295,8 +295,8 @@ class EbayService
         	$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
             
         }
-        if ($publicacion->getImagenes() != $this->stringLimpia($imagenes)) {
-        	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes)."'";
+        if ($publicacion->getImagenes() != $this->stringLimpia($imagenes,1500)) {
+        	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes,1500)."'";
             
         } 
         if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
