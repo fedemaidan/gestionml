@@ -25,19 +25,14 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-
-            
             $busquedas = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findAll();
             foreach ($busquedas as $key => $busqueda) {
-                $this->imprimo("Memory init: " . ( (memory_get_usage() /1024) /1024));
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
-            
-                $this->imprimo("Memory next: " . ( (memory_get_usage() /1024) /1024));
             }
         }
         catch(\Exception $e) {
 
-                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Exception");
+                $this->cambiarEstadoBusqueda($busqueda, $busqueda->getEstadoActual() . " - Exception - ".$e->getMessage());
                 $keyConflicto = $key;
                 $busquedaConflicto = $busqueda;
 
@@ -47,13 +42,11 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
                 }
 
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busquedaConflicto);
-
         }
-        
-        
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
+        $busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
         $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
         $this->getContainer()->get('doctrine')->getEntityManager()->persist($busqueda);
         $this->getContainer()->get('doctrine')->getEntityManager()->flush();

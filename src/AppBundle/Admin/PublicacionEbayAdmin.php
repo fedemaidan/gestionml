@@ -106,6 +106,7 @@ class PublicacionEbayAdmin extends AbstractAdmin
         $results = $this->getModelManager()->getExportFields($this->getClass()); 
 
         // Need to add again our foreign key field here
+        /*
         $results[] = 'categoriaEbay';
         $results[] = 'imagen1';
         $results[] = 'imagen2';
@@ -114,7 +115,8 @@ class PublicacionEbayAdmin extends AbstractAdmin
         $results[] = 'imagen5';
         $results[] = 'imagen6';
         $results[] = 'imagen7';
-
+        */
+        
         $results = array();
         $results[] = 'titulo';
         $results[] = 'categoriaEbay';
@@ -127,6 +129,11 @@ class PublicacionEbayAdmin extends AbstractAdmin
         $results[] = 'imagen4';
         $results[] = 'imagen5';
 
+        $results[] = 'cantidadVendidosEbay';
+        $results[] = 'vendedor';
+        $results[] = 'brand';
+
+        
         return $results;
     }
 }
