@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+
 class PublicacionEbayAdmin extends AbstractAdmin
 {
     /**
@@ -25,10 +26,13 @@ class PublicacionEbayAdmin extends AbstractAdmin
                 ->add('linkPublicacion')
                 ->add('vendedor')
                 ->add('cantidadVendidosEbay')
-                ->add('categoriaEbay')
+                ->add('categoriaEbay',null, array(), null, ['multiple' => true] )
                 ->add('brand')
+                ->add('model')
+                ->add('mpn')
+                ->add('upc')
                 ->add('estado_ebay')
-                //->add('especificaciones')
+                ->add('especificaciones','doctrine_orm_model_autocomplete',[], null, ['property'=>'value', 'multiple' => true])
         ;
     }
 
@@ -68,6 +72,10 @@ class PublicacionEbayAdmin extends AbstractAdmin
                 ->add('precio_compra')
                 ->add('linkPublicacion')
                 ->add('vendedor')
+                ->add('brand')
+                ->add('model')
+                ->add('mpn')
+                ->add('upc')
                 ->add('imagenes')
                 ->add('cantidadVendidosEbay')
                 ->add('categoriaEbay')
@@ -97,6 +105,9 @@ class PublicacionEbayAdmin extends AbstractAdmin
             ->add('categoriaEbay')
             ->add('estado_ebay')
             ->add('brand')
+            ->add('model')
+            ->add('mpn')
+            ->add('upc')
             ->add('especificaciones', null, array('label' => 'Especificaciones', 'expanded' => true, 'by_reference' => true, 'multiple' => true))
         ;
     }
@@ -132,7 +143,9 @@ class PublicacionEbayAdmin extends AbstractAdmin
         $results[] = 'cantidadVendidosEbay';
         $results[] = 'vendedor';
         $results[] = 'brand';
-
+        $results[] = 'model';
+        $results[] = 'mpn';
+        $results[] = 'upc';
         
         return $results;
     }

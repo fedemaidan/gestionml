@@ -44,7 +44,7 @@ class PublicacionEbay
     /**
      * @var string
      *
-     * @ORM\Column(name="precio_compra", type="string", length=255)
+     * @ORM\Column(name="precio_compra", type="decimal", precision=7, scale=2)
      */
     private $precio_compra;
 
@@ -72,6 +72,27 @@ class PublicacionEbay
     /**
      * @var string
      *
+     * @ORM\Column(name="model", type="string", length=255, nullable=true)
+     */
+    private $model;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mpn", type="string", length=255, nullable=true)
+     */
+    private $mpn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="upc", type="string", length=255, nullable=true)
+     */
+    private $upc;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="imagenes", type="string", length=1500, nullable=true)
      */
     private $imagenes;
@@ -79,7 +100,7 @@ class PublicacionEbay
     /**
      * @var string
      *
-     * @ORM\Column(name="cantidad_vendidos_ebay", type="string", length=255)
+     * @ORM\Column(name="cantidad_vendidos_ebay", type="integer")
      */
     private $cantidadVendidosEbay;
 
@@ -302,10 +323,14 @@ class PublicacionEbay
     }
 
     public function getImagenPrincipal() {
+        return "<img src='".$this->getImagenUrlByIndex(0)."'></img>";
+    }
+
+    public function getImagenUrlByIndex($i) {
         $ima = explode(',', $this->getImagenes());
-        return "<img src='".$ima[0]."'></img>";
-        
-        
+        if (count($ima) > $i)
+            return $ima[$i];
+        return "";
     }
 
 
@@ -432,4 +457,43 @@ class PublicacionEbay
     {
         $this->especificaciones->removeElement($especificacione);
     }
+
+    /* Funciones para el excel */
+
+    public function getImagen0() {
+        return $this->getImagenUrlByIndex(0);
+    }
+
+    public function getImagen1() {
+        return $this->getImagenUrlByIndex(1);
+    }
+
+    public function getImagen2() {
+        return $this->getImagenUrlByIndex(2);
+    }
+
+    public function getImagen3() {
+        return $this->getImagenUrlByIndex(3);
+    }
+
+    public function getImagen4() {
+        return $this->getImagenUrlByIndex(4);
+    }
+
+    public function getImagen5() {
+        return $this->getImagenUrlByIndex(5);
+    }
+
+    public function getImagen6() {
+        return $this->getImagenUrlByIndex(6);
+    }
+
+    public function getImagen7() {
+        return $this->getImagenUrlByIndex(7);
+    }
+
+    public function getDescripcion() {
+        return "Descripción";
+    }
+
 }

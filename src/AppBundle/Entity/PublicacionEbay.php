@@ -72,6 +72,27 @@ class PublicacionEbay
     /**
      * @var string
      *
+     * @ORM\Column(name="model", type="string", length=255, nullable=true)
+     */
+    private $model;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mpn", type="string", length=255, nullable=true)
+     */
+    private $mpn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="upc", type="string", length=255, nullable=true)
+     */
+    private $upc;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="imagenes", type="string", length=1500, nullable=true)
      */
     private $imagenes;
@@ -475,4 +496,76 @@ class PublicacionEbay
         return "Descripción";
     }
 
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return PublicacionEbay
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set mpn
+     *
+     * @param string $mpn
+     *
+     * @return PublicacionEbay
+     */
+    public function setMpn($mpn)
+    {
+        $this->mpn = $mpn;
+
+        return $this;
+    }
+
+    /**
+     * Get mpn
+     *
+     * @return string
+     */
+    public function getMpn()
+    {
+        return $this->mpn;
+    }
+
+    /**
+     * Set upc
+     *
+     * @param string $upc
+     *
+     * @return PublicacionEbay
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+
+        return $this;
+    }
+
+    /**
+     * Get upc
+     *
+     * @return string
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
 }

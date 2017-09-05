@@ -21,3 +21,9 @@ services:
         arguments: [~, AppBundle\Entity\PublicacionEbay, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Ebay, label: PublicacionEbay, pager_type: simple }
+
+    app.admin.especificaciones_producto_ebay:
+        class: AppBundle\Admin\EspecificacionesProductoEbayAdmin
+        arguments: [~, AppBundle\Entity\EspecificacionesProductoEbay, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: EspecificacionesProductoEbay }

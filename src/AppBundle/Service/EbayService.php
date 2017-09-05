@@ -107,11 +107,16 @@ class EbayService
                     $categoria = $this->cargarCategoria($item->primaryCategory);
                     $imagenes = $this->cargoImagenes($item, $datosItem);
                     $especificaciones = $this->cargoEspecificaciones($datosItem);
-                    $brand = array_key_exists("Brand", $especificaciones) ? $especificaciones["Brand"] : "";
+                    $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
+                    $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
+                    $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
+                    $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
+
+                    
                     
                     if ($publicacion) {
                         /* Update si es necesario */
-                        	$sqlUpdate = $this->update($publicacion, $item, $datosItem, $imagenes, $categoria, $brand );
+                        	$sqlUpdate = $this->update($publicacion, $item, $datosItem, $imagenes, $categoria, $brand, $model, $mpn, $upc );
 
                             if ($sqlUpdate) {
                                        $sqlExec .= $sqlUpdate;
@@ -125,7 +130,7 @@ class EbayService
                         $maxId++;
                         
 
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand, model, mpn, upc) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."','".$this->stringLimpia($model)."','".$this->stringLimpia($mpn)."','".$this->stringLimpia($upc)."');";
 
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         $sqlExec .= $sql;
@@ -276,7 +281,7 @@ class EbayService
 		        ]);
     }
 
-    private function update($publicacion, $item, $datosItem, $imagenes , $categoria, $brand) {
+    private function update($publicacion, $item, $datosItem, $imagenes , $categoria, $brand, $model, $mpn, $upc) {
     	$updateSql = array();
 
         if ($this->stringLimpia($publicacion->getTitulo()) != $this->stringLimpia($item->title) )
@@ -321,6 +326,22 @@ class EbayService
         {
             $updateSql[] = " brand = '".$brand."'";
         }
+
+        if ($publicacion->getModel() != $model)
+        {
+            $updateSql[] = " model = '".$model."'";
+        }
+
+        if ($publicacion->getMpn() != $mpn)
+        {
+            $updateSql[] = " mpn = '".$mpn."'";
+        }
+        
+        if ($publicacion->getUpc() != $upc)
+        {
+            $updateSql[] = " upc = '".$upc."'";
+        }
+
 
         if (count($updateSql) > 0) {
             $this->imprimo("Actualizo publicación " . $item->itemId);
@@ -434,5 +455,9 @@ class EbayService
         
 
         $obj = null;
+    }
+
+    private function cargoEspecificacionEspecial($especificaciones, $espe) {
+        return array_key_exists($espe, $especificaciones) ? $especificaciones[$espe] : "";
     }
 }
