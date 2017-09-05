@@ -20,4 +20,16 @@ class PublicacionEbayRepository extends \Doctrine\ORM\EntityRepository
 			    ->getSingleScalarResult();
 
 	}
+
+	public function findPaginated($first, $max) {
+		return $this->getEntityManager()->createQueryBuilder()
+			    ->select('e')
+			    ->setFirstResult($first)
+			    ->setMaxResults($max)
+			    ->from(PublicacionEbay::ORM_ENTITY, 'e')
+			    ->getQuery()
+			    ->getResult();
+
+	}
+
 }

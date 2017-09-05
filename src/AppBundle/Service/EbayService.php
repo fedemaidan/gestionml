@@ -7,6 +7,7 @@ use AppBundle\Entity\EspecificacionesProductoEbay;
 use AppBundle\Entity\CategoriaEbay;
 use DTS\eBaySDK\Shopping\Types\GetSingleItemRequestType;
 use DTS\eBaySDK\Finding\Types\FindItemsAdvancedRequest;
+use DTS\eBaySDK\Shopping\Types\GetItemStatusRequestType;
 use DTS\eBaySDK\Constants;
 use DTS\eBaySDK\Finding\Services;
 use DTS\eBaySDK\Finding\Types;
@@ -38,6 +39,50 @@ class EbayService
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
     }
 
+    public function limpiarPublicacionesInactivas() {
+        $first = 1;
+        $max = 20;
+        $publicaciones = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findPaginated($first, $max);
+        $first = $first + $max;
+        $borrar = [];
+
+        while (count($publicaciones)) {
+
+            //generar filtro
+            $serviceShopping = $this->getShoppingService();
+            $request = new GetItemStatusRequestType();
+
+            foreach ($publicaciones as $key => $publicacion) {
+                //agrego filtro
+                $request->ItemID[] = $publicacion->getIdEbay();
+            }
+
+            //buscar estados
+            $response = $serviceShopping->getItemStatus($request);
+            
+            
+            foreach ($response->Item as $item) {
+                if ($item->ListingStatus != "Active"){
+                    $borrar[] = $item->ItemID;
+                }
+            }
+
+            //actualizar first and maxx
+            $first = $first + $max;
+            $publicaciones = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findPaginated($first, $max);
+        }
+
+        $contadorBorrados = 0;
+        foreach ($borrar as $itemId) {
+            $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($itemId);
+            $this->em->remove($publicacion);
+            $contadorBorrados++;
+        }
+        
+        $this->imprimo("Publicaciones borradas -> ".$contadorBorrados);
+        $this->em->flush();
+        $this->imprimo("Fin limpieza");
+    }
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
@@ -205,6 +250,13 @@ class EbayService
 		$itemFilter->name = 'Seller';
 		$itemFilter->value[] = $busqueda->getVendedorEbayId();
 		$request->itemFilter[] = $itemFilter;
+
+        if ($busqueda->getFiltrarNew()) {
+            $itemFilter = new Types\ItemFilter();
+            $itemFilter->name = 'Condition';
+            $itemFilter->value[] = "New";
+            $request->itemFilter[] = $itemFilter;
+        }
 
         if ($busqueda->getPrecioMinimo()) {
             $request->itemFilter[] = new Types\ItemFilter([
