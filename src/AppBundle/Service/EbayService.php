@@ -212,9 +212,11 @@ class EbayService
                 $this->em->clear();
                 $sql = null;
                 gc_collect_cycles();
+                /*
                 $this->imprimo("Memory 1: " . ( (memory_get_usage() /1024) /1024));
                 $this->imprimo("Memory 2: " . ( (memory_get_peak_usage() /1024) /1024));
                 $this->imprimo("Memory 3: " . ( (memory_get_peak_usage(true) /1024) /1024));
+                */
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
 
