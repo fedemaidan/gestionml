@@ -18,7 +18,6 @@ class DameCategoriasCommand extends Command
     ;
 }
 
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $archivo = $input->getOption('archivo');
