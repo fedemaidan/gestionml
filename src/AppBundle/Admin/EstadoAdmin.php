@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class EspecificacionesProductoEbayAdmin extends AbstractAdmin
+class EstadoAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,8 +17,11 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('descripcion')
+            ->add('codigo')
+            ->add('tiempoMinimoEstimado')
+            ->add('tiempoMaximoEstimado')
         ;
     }
 
@@ -29,14 +32,17 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('descripcion')
+            ->add('codigo')
+            ->add('tiempoMinimoEstimado')
+            ->add('tiempoMaximoEstimado')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -48,8 +54,11 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('descripcion')
+            ->add('codigo')
+            ->add('tiempoMinimoEstimado')
+            ->add('tiempoMaximoEstimado')
         ;
     }
 
@@ -60,8 +69,11 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('descripcion')
+            ->add('codigo')
+            ->add('tiempoMinimoEstimado')
+            ->add('tiempoMaximoEstimado')
         ;
     }
 }

@@ -496,4 +496,76 @@ class PublicacionEbay
         return "Descripción";
     }
 
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return PublicacionEbay
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set mpn
+     *
+     * @param string $mpn
+     *
+     * @return PublicacionEbay
+     */
+    public function setMpn($mpn)
+    {
+        $this->mpn = $mpn;
+
+        return $this;
+    }
+
+    /**
+     * Get mpn
+     *
+     * @return string
+     */
+    public function getMpn()
+    {
+        return $this->mpn;
+    }
+
+    /**
+     * Set upc
+     *
+     * @param string $upc
+     *
+     * @return PublicacionEbay
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+
+        return $this;
+    }
+
+    /**
+     * Get upc
+     *
+     * @return string
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
 }

@@ -27,3 +27,52 @@ services:
         arguments: [~, AppBundle\Entity\EspecificacionesProductoEbay, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: EspecificacionesProductoEbay }
+
+    app.admin.reserva:
+        class: AppBundle\Admin\ReservaAdmin
+        arguments: [~, AppBundle\Entity\Reserva, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Reserva }
+        public: true
+
+    app.admin.cuenta:
+        class: AppBundle\Admin\CuentaAdmin
+        arguments: [~, AppBundle\Entity\Cuenta, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Cuenta }
+        public: true
+
+    app.admin.estado:
+        class: AppBundle\Admin\EstadoAdmin
+        arguments: [~, AppBundle\Entity\Estado, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Estado }
+        public: true
+
+    app.admin.producto:
+        class: AppBundle\Admin\ProductoAdmin
+        arguments: [~, AppBundle\Entity\Producto, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Producto }
+        public: true
+
+    app.admin.tipo_de_entrega:
+        class: AppBundle\Admin\TipoDeEntregaAdmin
+        arguments: [~, AppBundle\Entity\TipoDeEntrega, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDeEntrega }
+        public: true
+
+    app.admin.tipo_de_pago:
+        class: AppBundle\Admin\TipoDePagoAdmin
+        arguments: [~, AppBundle\Entity\TipoDePago, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDePago }
+        public: true
+
+    app.admin.tipo_de_venta:
+        class: AppBundle\Admin\TipoDeVentaAdmin
+        arguments: [~, AppBundle\Entity\TipoDeVenta, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDeVenta }
+        public: true

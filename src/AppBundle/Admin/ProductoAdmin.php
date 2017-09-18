@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class EspecificacionesProductoEbayAdmin extends AbstractAdmin
+class ProductoAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,8 +17,10 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('marca')
+            ->add('modelo')
+            ->add('cantidad')
         ;
     }
 
@@ -29,14 +31,16 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('marca')
+            ->add('modelo')
+            ->add('cantidad')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -47,9 +51,10 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('marca')
+            ->add('modelo')
+            ->add('cantidad')
         ;
     }
 
@@ -60,8 +65,10 @@ class EspecificacionesProductoEbayAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('name')
-            ->add('value')
+            ->add('nombre')
+            ->add('marca')
+            ->add('modelo')
+            ->add('cantidad')
         ;
     }
 }

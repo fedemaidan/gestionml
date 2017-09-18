@@ -33,14 +33,17 @@ class MandarMailsProveedoresCommand extends ContainerAwareCommand
 	        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	           $producto = $data[0];
                $email = $data[1];
+               $precio = $data[2];
+               $texto = $producto." - ".$precio;
 
-               if (array_key_exists($email, $proveedores))
-                    $proveedores[$email][] = $producto;
-                else{
-                    $proveedores[$email] = array();
-                    $proveedores[$email][] = $producto;
-                }
-
+               if (!empty($email)) {
+                  if (array_key_exists($email, $proveedores))
+                    $proveedores[$email][] = $texto;
+                  else{
+                      $proveedores[$email] = array();
+                      $proveedores[$email][] = $texto;
+                  }
+               }
 	      }
       }
       
@@ -49,18 +52,34 @@ class MandarMailsProveedoresCommand extends ContainerAwareCommand
       foreach ($proveedores as $email => $productos) {
 
           $transport = \Swift_SmtpTransport::newInstance('smtp.live.com', 587, 'tls')
-                            ->setUsername('fede_915@hotmail.com')
-                            ->setPassword('1324neco');
-                $textoProductos = implode(", ", $productos);
+                            ->setUsername('mariano_cardenes1@hotmail.com')
+                            ->setPassword('od2wsv56cf8?');
+                
+                $aux = [];
+
+                foreach ($productos as $key => $value) {
+                  if (!array_key_exists($value, $aux)) {
+                    $aux[$value] = 1;
+                  }
+                  else {
+                   $aux[$value]++; 
+                  }
+                }
+
+                $textoProductos = "";
+                foreach ($aux as $producto => $cantidad) {
+                  $textoProductos = $textoProductos  . " ". $cantidad. " - ".$producto. "\n";
+                }
+                
                 
                
-               $texto = "Hola ".$textoProductos." como";
+               $texto = "Hi, how are you? I,m Mariano. I am a reseller in Argentina and I buy very often. My ebay Users´re: mmbuys (249) and mv-maria (258). I´m looking for this items, I reelevated these prices that are from ebay: \n Qty - Items - PRICE ($)\n ".$textoProductos."\n I could make the payment as soon as possible. If the purchase I make it out of ebay, I make the payment directly for paypal, what is the best price you can make me? I hope your answer, thank you very much! Mariano";
                
                $mailer = \Swift_Mailer::newInstance($transport);
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject("Asunto")
-                    ->setFrom('fede_915@hotmail.com')
+                    ->setSubject("New order")
+                    ->setFrom('mariano_cardenes1@hotmail.com')
                     ->setTo($email)
                     ->setBody($texto);
 
