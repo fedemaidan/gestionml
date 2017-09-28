@@ -90,34 +90,45 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$tipoDeVenta = $this->dameTipoDeVenta($data[3]);
     	$tipoDePago = $this->dameTipoDePago($data[4]);
     	$precio = $this->damePrecio($data[6]);
+        $moneda = $this->dameMoneda($data[6]);
     	$tipoDeEntrega = $this->dameTipoDeEntrega($data[7]);
     	$info = $data[9];
     	$sena = $data[10];
-    	$cliente = $data[12];
+    	$datosCliente = $data[12];
+        $mailCliente = $this->dameMailCliente($datosCliente);
     	$cuenta = $this->dameCuenta($data[13]);
-    	$cuentaUsados = $this->dameCuentaUsados($data[14]);
+
+    	$cuentaPago = $this->dameCuentaPago($data[14]);
     	$linkUsados = $this->dameLinkUsados($data[14], $data[15]);
+
     	$codigoReserva = intval($data[24]);
         $estado = $this->dameEstado($data);
+
 
     	$reserva->setFechaAlta($fechaAlta);
     	$reserva->setProducto($producto);
     	$reserva->setTipoDeVenta($tipoDeVenta);
-    	$reserva->setTipoDePago($tipoDePago);
+    	$reserva->setTipoDePago1($tipoDePago);
         $reserva->setTipoDeEntrega($tipoDeEntrega);
+        $reserva->setMoneda($moneda);
     	$reserva->setPrecio($precio);
     	$reserva->setInformacion($info);
+        $reserva->setMailCliente($mailCliente);
     	$reserva->setSena($sena == '' ? 0 : $sena);
-    	$reserva->setCliente($cliente);
-    	$reserva->setCuenta($cuenta);
-    	$reserva->setCuentaUsados($cuentaUsados);
+    	$reserva->setDatosCliente($datosCliente);
+    	$reserva->setCuentaPrincipal($cuenta);
+        $reserva->setCuentaPago($cuentaPago);
     	$reserva->setLinkUsados($linkUsados);
     	$reserva->setCodigoReserva($codigoReserva);
         $reserva->setEstado($estado);
         
+        if ($estado->getCodigo() == Estado::ENTREGADO) {
+            $reserva->setValorPago1($precio);
+        }
 
         $this->getContainer()->get('doctrine')->getManager()->persist($reserva);
         $this->getContainer()->get('doctrine')->getManager()->flush();
+
     }
 
     private function dameFechaValida($fecha) {
@@ -216,7 +227,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     }
 
-    private function dameCuentaUsados($cuentaTexto) {
+    private function dameCuentaPago($cuentaTexto) {
 
     }
 
@@ -234,5 +245,36 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
         }
 
         return $link;
+    }
+
+    private function dameMoneda($precio) {
+        if (strstr(strtoupper($precio), "USD")) {
+            return "DOLARES";
+        }
+        else {
+            return "PESOS";
+        }
+    }
+
+    private function dameMailCliente($datosCliente) {
+        if (!empty($datosCliente)) {
+            $array = explode(' ', $datosCliente);
+
+            foreach ($array as $key => $email_a) {
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+
+            $array = explode(PHP_EOL, $datosCliente);
+
+            foreach ($array as $key => $email_a) {
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+        }
+
+        return null;
     }
 }

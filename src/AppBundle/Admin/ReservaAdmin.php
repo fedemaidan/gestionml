@@ -17,20 +17,33 @@ class ReservaAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
+            ->add('estado')
             ->add('fechaAlta')
             ->add('fechaModificacion')
             ->add('precio')
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
             ->add('linkUsados')
-            ->add('cliente')
-            ->add('estado')
+            ->add('mailCliente')
+            ->add('facebookCliente')
+            ->add('telefonoCliente')
+            ->add('datosCliente')
+            ->add('moneda', null, [],  'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
             ->add('productoNoCargado')
             ->add('codigoReserva')
             ->add('producto')
-            ->add('tipoDePago')
+            ->add('tipoDePago_1')
+            ->add('valorPago1')
+            ->add('tipoDePago_2')
+            ->add('valorPago2')
+            ->add('tipoDePago_3')
+            ->add('valorPago3')
+            ->add('tipoDePago_4')
+            ->add('valorPago4')
             ->add('tipoDeEntrega')
             ->add('tipoDeVenta')
+            ->add('cuentaPago')
+            ->add('cuentaPrincipal')
         ;
     }
 
@@ -47,11 +60,10 @@ class ReservaAdmin extends AbstractAdmin
             ->add('precio')
             ->add('sena', null, array( 'label' => 'Seña'))
             ->add('linkUsados','url')
-            ->add('tipoDePago')
+            ->add('tipoDePago_1')
             ->add('tipoDeEntrega')
             ->add('tipoDeVenta')
             ->add('estado')
-            ->add('cliente')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -69,6 +81,7 @@ class ReservaAdmin extends AbstractAdmin
     {
         $formMapper
             //->add('id')
+            ->add('estado',null, ["required" => true])
             ->add('fechaAlta','sonata_type_datetime_picker',array(
                     'dp_side_by_side'       => true,
                     'dp_use_current'        => true,
@@ -83,16 +96,28 @@ class ReservaAdmin extends AbstractAdmin
                 'minimum_input_length' => 1
             ))
             ->add('productoNoCargado')
-            ->add('tipoDePago')
-            ->add('tipoDeEntrega')
-            ->add('tipoDeVenta')
-            ->add('estado')
+            ->add('cuentaPrincipal')
+            ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
             ->add('precio',  'number', array( 'precision' => 3))
-            ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
+            ->add('tipoDeVenta')
+            ->add('tipoDePago_1')
+            ->add('valorPago1')
+            ->add('tipoDePago_2')
+            ->add('valorPago2')
+            ->add('tipoDePago_3')
+            ->add('valorPago3')
+            ->add('tipoDePago_4')
+            ->add('valorPago4')
+            ->add('cuentaPago')
+            ->add('informacion', null, array( 'label' => 'Información'))
             ->add('linkUsados')
-            ->add('cliente')
+            ->add('mailCliente')
+            ->add('facebookCliente')
+            ->add('telefonoCliente')
+            ->add('datosCliente','textarea',["required" => false])
             ->add('codigoReserva')
+            ->add('tipoDeEntrega')
         ;
     }
 
@@ -110,13 +135,25 @@ class ReservaAdmin extends AbstractAdmin
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
             ->add('linkUsados','url')
-            ->add('cliente')
+            ->add('mailCliente')
+            ->add('facebookCliente')
+            ->add('telefonoCliente')
+            ->add('datosCliente')
             ->add('producto')
             ->add('productoNoCargado')
             ->add('codigoReserva')
-            ->add('tipoDePago')
+            ->add('tipoDePago_1')
+            ->add('valorPago1')
+            ->add('tipoDePago_2')
+            ->add('valorPago2')
+            ->add('tipoDePago_3')
+            ->add('valorPago3')
+            ->add('tipoDePago_4')
+            ->add('valorPago4')
             ->add('tipoDeEntrega')
             ->add('tipoDeVenta')
+            ->add('cuentaPago')
+            ->add('cuentaPrincipal')
         ;
     }
 }

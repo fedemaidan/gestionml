@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reserva
@@ -45,6 +46,39 @@ class Reserva
      */
     private $precio;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_1", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago1;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_2", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago2;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_3", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago3;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_4", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago4;
+
+
     /**
      * @var string
      *
@@ -59,6 +93,7 @@ class Reserva
      */
     private $sena;
 
+
     /**
      * @var string
      *
@@ -69,9 +104,30 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="cliente", type="string", length=1000, nullable=true)
+     * @ORM\Column(name="datos_cliente", type="string", length=1000, nullable=true)
      */
-    private $cliente;
+    private $datosCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail_cliente", type="string", length=255, nullable=true)
+     */
+    private $mailCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook_cliente", type="string", length=255, nullable=true)
+     */
+    private $facebookCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono_cliente", type="string", length=255, nullable=true)
+     */
+    private $telefonoCliente;
 
     /**
      * @var string
@@ -79,6 +135,14 @@ class Reserva
      * @ORM\Column(name="producto_no_cargado", type="string", length=255, nullable=true)
      */
     private $productoNoCargado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="moneda", type="string", length=255, nullable=true)
+     * @Assert\Choice({"PESOS", "DOLARES"})
+     */
+    private $moneda;
 
     /**
      * @var string
@@ -99,7 +163,28 @@ class Reserva
      * @ORM\ManyToOne(targetEntity="TipoDePago")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $tipoDePago;
+    private $tipoDePago_1;
+
+    /**
+     * @var TipoDePago
+     * @ORM\ManyToOne(targetEntity="TipoDePago")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tipoDePago_2;
+
+    /**
+     * @var TipoDePago
+     * @ORM\ManyToOne(targetEntity="TipoDePago")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tipoDePago_3;
+
+    /**
+     * @var TipoDePago
+     * @ORM\ManyToOne(targetEntity="TipoDePago")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tipoDePago_4;
 
     /**
      * @var Estado
@@ -121,14 +206,14 @@ class Reserva
      * @ORM\ManyToOne(targetEntity="Cuenta")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $cuenta;
+    private $cuentaPrincipal;
 
     /**
      * @var Cuenta
      * @ORM\ManyToOne(targetEntity="Cuenta")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $cuentaUsados;
+    private $cuentaPago;
 
     /**
      * @var Producto
@@ -294,30 +379,6 @@ class Reserva
 
 
     /**
-     * Set cliente
-     *
-     * @param string $cliente
-     *
-     * @return Reserva
-     */
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-
-        return $this;
-    }
-
-    /**
-     * Get cliente
-     *
-     * @return string
-     */
-    public function getCliente()
-    {
-        return $this->cliente;
-    }
-
-    /**
      * Set productoNoCargado
      *
      * @param string $productoNoCargado
@@ -387,30 +448,6 @@ class Reserva
     public function getTipoDeVenta()
     {
         return $this->tipoDeVenta;
-    }
-
-    /**
-     * Set tipoDePago
-     *
-     * @param \AppBundle\Entity\TipoDePago $tipoDePago
-     *
-     * @return Reserva
-     */
-    public function setTipoDePago(\AppBundle\Entity\TipoDePago $tipoDePago = null)
-    {
-        $this->tipoDePago = $tipoDePago;
-
-        return $this;
-    }
-
-    /**
-     * Get tipoDePago
-     *
-     * @return \AppBundle\Entity\TipoDePago
-     */
-    public function getTipoDePago()
-    {
-        return $this->tipoDePago;
     }
 
     /**
@@ -555,5 +592,389 @@ class Reserva
     public function getCuentaUsados()
     {
         return $this->cuentaUsados;
+    }
+
+    /**
+     * Set moneda
+     *
+     * @param string $moneda
+     *
+     * @return Reserva
+     */
+    public function setMoneda($moneda = "PESO")
+    {
+        $this->moneda = $moneda;
+
+        return $this;
+    }
+
+    /**
+     * Get moneda
+     *
+     * @return string
+     */
+    public function getMoneda()
+    {
+        return $this->moneda;
+    }
+
+    /**
+     * Set tipoDePago2
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago2
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago2(\AppBundle\Entity\TipoDePago $tipoDePago2 = null)
+    {
+        $this->tipoDePago_2 = $tipoDePago2;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago2
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago2()
+    {
+        return $this->tipoDePago_2;
+    }
+
+    /**
+     * Set tipoDePago3
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago3
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago3(\AppBundle\Entity\TipoDePago $tipoDePago3 = null)
+    {
+        $this->tipoDePago_3 = $tipoDePago3;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago3
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago3()
+    {
+        return $this->tipoDePago_3;
+    }
+
+    /**
+     * Set datosCliente
+     *
+     * @param string $datosCliente
+     *
+     * @return Reserva
+     */
+    public function setDatosCliente($datosCliente)
+    {
+        $this->datosCliente = $datosCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get datosCliente
+     *
+     * @return string
+     */
+    public function getDatosCliente()
+    {
+        return $this->datosCliente;
+    }
+
+    /**
+     * Set mailCliente
+     *
+     * @param string $mail|
+     *
+     * @return Reserva
+     */
+    public function setMailCliente($mailCliente)
+    {
+        $this->mailCliente = $mailCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get mailCliente
+     *
+     * @return string
+     */
+    public function getMailCliente()
+    {
+        return $this->mailCliente;
+    }
+
+    /**
+     * Set facebookCliente
+     *
+     * @param string $facebookCliente
+     *
+     * @return Reserva
+     */
+    public function setFacebookCliente($facebookCliente)
+    {
+        $this->facebookCliente = $facebookCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookCliente
+     *
+     * @return string
+     */
+    public function getFacebookCliente()
+    {
+        return $this->facebookCliente;
+    }
+
+    /**
+     * Set telefonoCliente
+     *
+     * @param string $telefonoCliente
+     *
+     * @return Reserva
+     */
+    public function setTelefonoCliente($telefonoCliente)
+    {
+        $this->telefonoCliente = $telefonoCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get telefonoCliente
+     *
+     * @return string
+     */
+    public function getTelefonoCliente()
+    {
+        return $this->telefonoCliente;
+    }
+
+    /**
+     * Set cuentaIngreso
+     *
+     * @param \AppBundle\Entity\Cuenta $cuentaIngreso
+     *
+     * @return Reserva
+     */
+    public function setCuentaIngreso(\AppBundle\Entity\Cuenta $cuentaIngreso = null)
+    {
+        $this->cuentaIngreso = $cuentaIngreso;
+
+        return $this;
+    }
+
+    /**
+     * Get cuentaIngreso
+     *
+     * @return \AppBundle\Entity\Cuenta
+     */
+    public function getCuentaIngreso()
+    {
+        return $this->cuentaIngreso;
+    }
+
+    /**
+     * Set cuentaPago
+     *
+     * @param \AppBundle\Entity\Cuenta $cuentaPago
+     *
+     * @return Reserva
+     */
+    public function setCuentaPago(\AppBundle\Entity\Cuenta $cuentaPago = null)
+    {
+        $this->cuentaPago = $cuentaPago;
+
+        return $this;
+    }
+
+    /**
+     * Get cuentaPago
+     *
+     * @return \AppBundle\Entity\Cuenta
+     */
+    public function getCuentaPago()
+    {
+        return $this->cuentaPago;
+    }
+
+    /**
+     * Set cuentaPrincipal
+     *
+     * @param \AppBundle\Entity\Cuenta $cuentaPrincipal
+     *
+     * @return Reserva
+     */
+    public function setCuentaPrincipal(\AppBundle\Entity\Cuenta $cuentaPrincipal = null)
+    {
+        $this->cuentaPrincipal = $cuentaPrincipal;
+
+        return $this;
+    }
+
+    /**
+     * Get cuentaPrincipal
+     *
+     * @return \AppBundle\Entity\Cuenta
+     */
+    public function getCuentaPrincipal()
+    {
+        return $this->cuentaPrincipal;
+    }
+
+    /**
+     * Set valorPago1
+     *
+     * @param string $valorPago1
+     *
+     * @return Reserva
+     */
+    public function setValorPago1($valorPago1)
+    {
+        $this->valorPago1 = $valorPago1;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago1
+     *
+     * @return string
+     */
+    public function getValorPago1()
+    {
+        return $this->valorPago1;
+    }
+
+    /**
+     * Set valorPago2
+     *
+     * @param string $valorPago2
+     *
+     * @return Reserva
+     */
+    public function setValorPago2($valorPago2)
+    {
+        $this->valorPago2 = $valorPago2;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago2
+     *
+     * @return string
+     */
+    public function getValorPago2()
+    {
+        return $this->valorPago2;
+    }
+
+    /**
+     * Set valorPago3
+     *
+     * @param string $valorPago3
+     *
+     * @return Reserva
+     */
+    public function setValorPago3($valorPago3)
+    {
+        $this->valorPago3 = $valorPago3;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago3
+     *
+     * @return string
+     */
+    public function getValorPago3()
+    {
+        return $this->valorPago3;
+    }
+
+    /**
+     * Set valorPago4
+     *
+     * @param string $valorPago4
+     *
+     * @return Reserva
+     */
+    public function setValorPago4($valorPago4)
+    {
+        $this->valorPago4 = $valorPago4;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago4
+     *
+     * @return string
+     */
+    public function getValorPago4()
+    {
+        return $this->valorPago4;
+    }
+
+    /**
+     * Set tipoDePago1
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago1
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago1(\AppBundle\Entity\TipoDePago $tipoDePago1 = null)
+    {
+        $this->tipoDePago_1 = $tipoDePago1;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago1
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago1()
+    {
+        return $this->tipoDePago_1;
+    }
+
+    /**
+     * Set tipoDePago4
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago4
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago4(\AppBundle\Entity\TipoDePago $tipoDePago4 = null)
+    {
+        $this->tipoDePago_4 = $tipoDePago4;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago4
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago4()
+    {
+        return $this->tipoDePago_4;
     }
 }

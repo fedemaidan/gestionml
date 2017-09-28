@@ -31,7 +31,8 @@
         "sonata-project/user-bundle": "~3.0",
         "ornicar/gravatar-bundle" : "~1.0",
         "dts/ebay-sdk-php": "^13.0",
-        "gedmo/doctrine-extensions": "^2.4"
+        "gedmo/doctrine-extensions": "^2.4",
+        "simplethings/entity-audit-bundle": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

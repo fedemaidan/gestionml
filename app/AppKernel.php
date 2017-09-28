@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

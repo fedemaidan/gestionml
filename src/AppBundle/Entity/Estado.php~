@@ -12,6 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Estado
 {
+          
+    const ORM_ENTITY = "AppBundle:Estado";
+    const DEVUELTO_GARANTIA = "DEVUELTO_GARANTIA";
+    const CANCELADO_INNOVA = "CANCELADO_INNOVA";
+    const ENTREGADO = "ENTREGADO";
+    const DEPOSITO_INNOVA = "DEPOSITO_INNOVA";
+    const CANCELADO_CLIENTE = "CANCELADO_CLIENTE";
+    const DEPOSITO_ARG = "DEPOSITO_ARG";
+    const IMPORTANDO = "IMPORTANDO";
+    const DEPOSITO_EEUU = "DEPOSITO_EEUU";
+    const COMPRADO = "COMPRADO";
+    const PROCESO_DE_COMPRA = "PROCESO_DE_COMPRA";
+    const RESERVADO = "RESERVADO";
+    const PRIMER_CONTACTO = "PRIMER_CONTACTO";
+
     /**
      * @var int
      *
