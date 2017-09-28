@@ -12,6 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoDeEntrega
 {
+
+    const ORM_ENTITY = "AppBundle:TipoDeEntrega";
+    const RETIRO = "RETIRO";
+    const REMIS_CON_CARGO = "REMIS_CON_CARGO";
+    const REMIS_SIN_CARGO = "REMIS_SIN_CARGO";
+    const ETIQUETA_OCA = "ETIQUETA_OCA";
+    const ENVIOS_OCA = "ENVIOS_OCA";
+
+
     /**
      * @var int
      *

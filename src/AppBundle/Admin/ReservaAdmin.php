@@ -24,9 +24,13 @@ class ReservaAdmin extends AbstractAdmin
             ->add('sena', null, array( 'label' => 'Seña'))
             ->add('linkUsados')
             ->add('cliente')
+            ->add('estado')
             ->add('productoNoCargado')
-            ->add('codigoItem')
+            ->add('codigoReserva')
             ->add('producto')
+            ->add('tipoDePago')
+            ->add('tipoDeEntrega')
+            ->add('tipoDeVenta')
         ;
     }
 
@@ -42,7 +46,11 @@ class ReservaAdmin extends AbstractAdmin
             ->add('fechaModificacion', 'datetime', array( 'label' => 'Última modificación', 'format' => 'Y-m-d H:i'))
             ->add('precio')
             ->add('sena', null, array( 'label' => 'Seña'))
-            ->add('linkUsados')
+            ->add('linkUsados','url')
+            ->add('tipoDePago')
+            ->add('tipoDeEntrega')
+            ->add('tipoDeVenta')
+            ->add('estado')
             ->add('cliente')
             ->add('_action', null, array(
                 'actions' => array(
@@ -78,12 +86,13 @@ class ReservaAdmin extends AbstractAdmin
             ->add('tipoDePago')
             ->add('tipoDeEntrega')
             ->add('tipoDeVenta')
+            ->add('estado')
             ->add('precio',  'number', array( 'precision' => 3))
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
             ->add('linkUsados')
             ->add('cliente')
-            ->add('codigoItem')
+            ->add('codigoReserva')
         ;
     }
 
@@ -94,16 +103,20 @@ class ReservaAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('fechaAlta')
-            ->add('fechaModificacion')
+            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
+            ->add('fechaModificacion', 'datetime', array( 'label' => 'Última modificación', 'format' => 'Y-m-d H:i'))
             ->add('precio')
+            ->add('estado')
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
-            ->add('linkUsados')
+            ->add('linkUsados','url')
             ->add('cliente')
+            ->add('producto')
             ->add('productoNoCargado')
-            ->add('codigoItem')
+            ->add('codigoReserva')
             ->add('tipoDePago')
+            ->add('tipoDeEntrega')
+            ->add('tipoDeVenta')
         ;
     }
 }

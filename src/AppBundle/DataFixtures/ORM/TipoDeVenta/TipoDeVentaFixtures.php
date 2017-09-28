@@ -12,7 +12,7 @@ class TipoDeVentaFixtures extends Fixture
         
     	$pedidoConSena = new TipoDeVenta();
     	$pedidoConSena->setNombre("Pedido con seña");
-        $pedidoConSena->setCodigo("PEDIDO_SON_SENA");
+        $pedidoConSena->setCodigo("PEDIDO_CON_SENA");
 
     	$pedidoSinSena = new TipoDeVenta();
     	$pedidoSinSena->setNombre("Pedido sin seña");

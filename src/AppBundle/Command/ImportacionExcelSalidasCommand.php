@@ -7,21 +7,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use AppBundle\Entity\Reserva;
 use AppBundle\Entity\Producto;
+use AppBundle\Entity\TipoDeVenta;
+use AppBundle\Entity\TipoDeEntrega;
+use AppBundle\Entity\TipoDePago;
+use AppBundle\Entity\Estado;
 
 
 class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 {
-	private $contador = 0;
 	private $row = 0;
 	private $ultimaFechaValida =  null;
+    
+
     protected function configure()
-{
-    $this
-        ->setName('app:importacion:reservas')
-        ->setDescription('Importación de reservas del excel del drive')
-        ->addOption('archivo', null,         InputOption::VALUE_REQUIRED,    'Archivo de csv');
-    ;
-}
+    {
+        $this
+            ->setName('app:importacion:reservas')
+            ->setDescription('Importación de reservas del excel del drive')
+            ->addOption('archivo', null,         InputOption::VALUE_REQUIRED,    'Archivo de csv');
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -34,21 +38,47 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
         }
  		
  		
- 		
+ 		$array = [];
         if (($handle = fopen($archivo, "r")) !== FALSE) {
-	        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                /*
+                $t = $this->dameTipoDeEntrega($data[7]);
+
+                //$array[$data[7]] = 1;
+                
+                if (array_key_exists($data[7], $array)) {
+                
+                    if ($t)
+                        $array[$t->getId()]++;
+                    else
+                        $array[0]++;
+                }
+                else {
+                
+                    if ($t)
+                        $array[$t->getId()] = 1;
+                    else
+                        $array[0] = 1;
+                }
+	        	*/
+
 	        	
-	        	if ($this->row > 1)
+                if ($this->row > 1)
 	           	    $this->cargarReserva($data);
 	           	$this->row++;
+                
 	      }
       	}
+        
       
-      echo $this->contador." sobre ".$this->row;
       fclose($handle);
     }
 
     private function cargarReserva($data) {
+        
+        if (trim($data[1]) == "")
+            return;
+
     	$reserva = new Reserva();
     	$fechaAlta = $this->dameFechaValida($data[0]);
     	$producto = $this->dameProducto($data[1], $data[17]);
@@ -59,7 +89,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     	$tipoDeVenta = $this->dameTipoDeVenta($data[3]);
     	$tipoDePago = $this->dameTipoDePago($data[4]);
-    	$precio = $data[6];
+    	$precio = $this->damePrecio($data[6]);
     	$tipoDeEntrega = $this->dameTipoDeEntrega($data[7]);
     	$info = $data[9];
     	$sena = $data[10];
@@ -67,22 +97,27 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$cuenta = $this->dameCuenta($data[13]);
     	$cuentaUsados = $this->dameCuentaUsados($data[14]);
     	$linkUsados = $this->dameLinkUsados($data[14], $data[15]);
-    	$codigoReserva = $data[19];
+    	$codigoReserva = intval($data[24]);
+        $estado = $this->dameEstado($data);
 
     	$reserva->setFechaAlta($fechaAlta);
     	$reserva->setProducto($producto);
     	$reserva->setTipoDeVenta($tipoDeVenta);
     	$reserva->setTipoDePago($tipoDePago);
+        $reserva->setTipoDeEntrega($tipoDeEntrega);
     	$reserva->setPrecio($precio);
     	$reserva->setInformacion($info);
-    	$reserva->setSena($sena);
+    	$reserva->setSena($sena == '' ? 0 : $sena);
     	$reserva->setCliente($cliente);
     	$reserva->setCuenta($cuenta);
     	$reserva->setCuentaUsados($cuentaUsados);
     	$reserva->setLinkUsados($linkUsados);
-    	$reserva->setCodigReserva($codigoReserva):
+    	$reserva->setCodigoReserva($codigoReserva);
+        $reserva->setEstado($estado);
+        
 
-    	dump($reserva);die;
+        $this->getContainer()->get('doctrine')->getManager()->persist($reserva);
+        $this->getContainer()->get('doctrine')->getManager()->flush();
     }
 
     private function dameFechaValida($fecha) {
@@ -99,19 +134,82 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     }
 
     private function dameProducto($productoTexto) {
-    	
+    	$producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByNombre($productoTexto);
+        if (!$producto) {
+            $producto = new Producto();
+            $producto->setNombre($productoTexto);
+            $producto->setCantidad(0);
+            $this->getContainer()->get('doctrine')->getManager()->persist($producto);
+            $this->getContainer()->get('doctrine')->getManager()->flush();
+        }
+
+        return $producto;
     }
 
     private function dameTipoDeVenta($tipoDeVentaTexto) {
-
+        switch ($tipoDeVentaTexto) {
+            case "Stock" :
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeVenta::ORM_ENTITY)->findOneByCodigo(TipoDeVenta::STOCK);
+            case "Pedido sin/seña" :
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeVenta::ORM_ENTITY)->findOneByCodigo(TipoDeVenta::PEDIDO_SIN_SENA );
+            case "Pedido c/seña" :
+            case "Pedido con/eña" :
+            case "Pedido con/seña" :
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeVenta::ORM_ENTITY)->findOneByCodigo(TipoDeVenta::PEDIDO_CON_SENA);
+            default:
+                return null;
+                break;
+        }
     }
 
     private function dameTipoDePago($tipoDePagoTexto) {
-
+        switch ($tipoDePagoTexto) {
+            case "EFECTIVO":
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDePago::ORM_ENTITY)->findOneByCodigo(TipoDePago::EFECTIVO);
+            case "MP-USADOS":
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDePago::ORM_ENTITY)->findOneByCodigo(TipoDePago::MP_USADOS);
+            case "MP-OROFULL":
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDePago::ORM_ENTITY)->findOneByCodigo(TipoDePago::MP_NUEVOS);
+            default:
+                return null;
+                break;
+        }
     }
 
     private function dameTipoDeEntrega($tipoDeEntregaTexto) {
+        switch ($tipoDeEntregaTexto) {
+            case 'Retira':
+            case 'RETIRA':
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeEntrega::ORM_ENTITY)->findOneByCodigo(TipoDeEntrega::RETIRO);
+            case 'Remis s/cargo':
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeEntrega::ORM_ENTITY)->findOneByCodigo(TipoDeEntrega::REMIS_SIN_CARGO);
+            case 'Remis c/cargo':
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeEntrega::ORM_ENTITY)->findOneByCodigo(TipoDeEntrega::REMIS_CON_CARGO);
+            case 'Etiqueta OCA':
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeEntrega::ORM_ENTITY)->findOneByCodigo(TipoDeEntrega::ETIQUETA_OCA);
+            case 'Envio OCA a domicilio comun':
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(TipoDeEntrega::ORM_ENTITY)->findOneByCodigo(TipoDeEntrega::ENVIOS_OCA);
+            default:
+                return null;
+                break;
+        }
+    }
 
+    private function dameEstado($data) {
+        
+        for( $key = 0; $key < 16; $key++) {
+            $value = $data[$key];
+            if (strstr(strtoupper($value), "CANCELAD")) {
+                return  $this->getContainer()->get('doctrine')->getManager()->getRepository(Estado::ORM_ENTITY)->findOneByCodigo(Estado::CANCELADO_CLIENTE);
+            }
+        }
+
+        $fin = $data[8];
+        if($fin == "si") {
+            return  $this->getContainer()->get('doctrine')->getManager()->getRepository(Estado::ORM_ENTITY)->findOneByCodigo(Estado::ENTREGADO);
+        }
+
+        return  $this->getContainer()->get('doctrine')->getManager()->getRepository(Estado::ORM_ENTITY)->findOneByCodigo(Estado::RESERVADO);
     }
     
     private function dameCuenta($cuentaTexto) {
@@ -122,7 +220,19 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     }
 
-    private function dameLinkUsados($cuentaUsadosTexto, $link) {
+    private function damePrecio($precio) {
+        if (is_numeric($precio))
+            return $precio;
+        else
+            return 0;
+    }
 
+    private function dameLinkUsados($cuentaUsadosTexto, $link) {
+        $pos = strpos($link, 'http://');
+        if ($pos === false) {
+            return $cuentaUsadosTexto;
+        }
+
+        return $link;
     }
 }

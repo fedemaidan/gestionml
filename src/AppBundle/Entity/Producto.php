@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Producto
 {
+    const ORM_ENTITY = "AppBundle:Producto";
     /**
      * @var int
      *
@@ -31,14 +32,14 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="marca", type="string", length=255)
+     * @ORM\Column(name="marca", type="string", length=255, nullable=true))
      */
     private $marca;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="modelo", type="string", length=255)
+     * @ORM\Column(name="modelo", type="string", length=255, nullable=true))
      */
     private $modelo;
 
@@ -139,7 +140,7 @@ class Producto
      *
      * @return Producto
      */
-    public function setCantidad($cantidad)
+    public function setCantidad($cantidad = 0)
     {
         $this->cantidad = $cantidad;
 

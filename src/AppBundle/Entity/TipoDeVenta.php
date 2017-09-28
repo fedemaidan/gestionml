@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoDeVenta
 {
+    const ORM_ENTITY = "AppBundle:TipoDeVenta";
+    const STOCK = "STOCK";
+    const PEDIDO_SIN_SENA = "PEDIDO_SIN_SENA";
+    const PEDIDO_CON_SENA = "PEDIDO_CON_SENA";
     /**
      * @var int
      *

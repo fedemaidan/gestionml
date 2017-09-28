@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoDePago
 {
+
+    const ORM_ENTITY = "AppBundle:TipoDePago";
+    const EFECTIVO = "EFECTIVO";
+    const MP_USADOS = "MP_USADOS";
+    const MP_NUEVOS = "MP_NUEVOS";
+    
     /**
      * @var int
      *

@@ -15,6 +15,11 @@ class EstadosFixtures extends Fixture
         $PRIMER_CONTACTO->setCodigo("PRIMER_CONTACTO");
         $PRIMER_CONTACTO->setDescripcion("El cliente consulta sobre el producto");
         
+        $RESERVADO = new Estado();
+        $RESERVADO->setNombre("Reservado");
+        $RESERVADO->setCodigo("RESERVADO");
+        $RESERVADO->setDescripcion("El cliente reserva el producto");
+
         $PROCESO_DE_COMPRA = new Estado();
         $PROCESO_DE_COMPRA->setNombre("Proceso de compra");
         $PROCESO_DE_COMPRA->setCodigo("PROCESO_DE_COMPRA");
@@ -40,6 +45,11 @@ class EstadosFixtures extends Fixture
         $DEPOSITO_ARG->setCodigo("DEPOSITO_ARG");
         $DEPOSITO_ARG->setDescripcion("El producto esta en el deposito de argentina de la empresa de importación");
 
+        $ENTREGADO = new Estado();
+        $ENTREGADO->setNombre("Entregado");
+        $ENTREGADO->setCodigo("ENTREGADO");
+        $ENTREGADO->setDescripcion("El producto fue entregado al cliente");
+
         $CANCELADO_CLIENTE = new Estado();
         $CANCELADO_CLIENTE->setNombre("Cancelado por cliente");
         $CANCELADO_CLIENTE->setCodigo("CANCELADO_CLIENTE");
@@ -62,12 +72,14 @@ class EstadosFixtures extends Fixture
 
 
     	$manager->persist($PRIMER_CONTACTO);
+        $manager->persist($RESERVADO);
     	$manager->persist($PROCESO_DE_COMPRA);
     	$manager->persist($COMPRADO);
         $manager->persist($DEPOSITO_EEUU);
         $manager->persist($IMPORTANDO);
         $manager->persist($DEPOSITO_ARG);
         $manager->persist($DEPOSITO_INNOVA);
+        $manager->persist($ENTREGADO);
         $manager->persist($CANCELADO_INNOVA);
         $manager->persist($CANCELADO_CLIENTE);
         $manager->persist($DEVUELTO_GARANTIA);
