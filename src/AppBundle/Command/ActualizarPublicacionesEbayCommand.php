@@ -16,7 +16,8 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
 {
     $this
         ->setName('ebay:actualizar:publicaciones')
-        ->setDescription('Actualizar publicaciones ebay.');
+        ->setDescription('Actualizar publicaciones ebay.')
+        ->addOption('desde', null,         InputOption::VALUE_OPTIONAL,    'desde');
 }
 	/*
 		php app/console ebay:actualizar:publicaciones 
@@ -27,7 +28,14 @@ class ActualizarPublicacionesEbayCommand extends ContainerAwareCommand
 
         try {
             $busquedas = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findAll();
+
+            
+            $desde = $input->getOption('desde');
+
             foreach ($busquedas as $key => $busqueda) {
+                if ($desde && $desde > $key)
+                    continue;
+
                 $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
             }
 
