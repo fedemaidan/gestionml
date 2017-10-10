@@ -81,7 +81,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     	$reserva = new Reserva();
     	$fechaAlta = $this->dameFechaValida($data[0]);
-    	$producto = $this->dameProducto($data[1], $data[17]);
+    	$producto = $this->dameProducto($data[1], $data[22]);
     	
     	if ($producto->getNombre() == "Otros") {
     		$reserva->setProductoNoCargado($data[1]);
@@ -93,9 +93,11 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
         $moneda = $this->dameMoneda($data[6]);
     	$tipoDeEntrega = $this->dameTipoDeEntrega($data[7]);
     	$info = $data[9];
-    	$sena = $data[10];
+    	$sena = is_numeric($data[10]) ? $data[10]: null;
     	$datosCliente = $data[12];
+
         $mailCliente = $this->dameMailCliente($datosCliente);
+
     	$cuenta = $this->dameCuenta($data[13]);
 
     	$cuentaPago = $this->dameCuentaPago($data[14]);
@@ -144,14 +146,11 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     }
 
-    private function dameProducto($productoTexto) {
-    	$producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByNombre($productoTexto);
+    private function dameProducto($productoTexto, $productoCodigo) {
+        
+    	$producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByCodigo($productoCodigo);
         if (!$producto) {
-            $producto = new Producto();
-            $producto->setNombre($productoTexto);
-            $producto->setCantidad(0);
-            $this->getContainer()->get('doctrine')->getManager()->persist($producto);
-            $this->getContainer()->get('doctrine')->getManager()->flush();
+            $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByNombre("Otros");
         }
 
         return $producto;
@@ -261,6 +260,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
             $array = explode(' ', $datosCliente);
 
             foreach ($array as $key => $email_a) {
+                $email_a = trim($email_a);
                 if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
                     return $email_a;
                 }
@@ -269,10 +269,81 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
             $array = explode(PHP_EOL, $datosCliente);
 
             foreach ($array as $key => $email_a) {
+                $email_a = trim($email_a);
                 if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
                     return $email_a;
                 }
             }
+            
+            foreach ($array as $key => $cadena) {
+                $variable =  explode(' ', $cadena);
+                
+                foreach ($variable as $key => $value) {
+                    $email_a = trim($email_a);
+                    if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                        return $email_a;
+                    }
+                }
+
+                $variable =  explode(':', $cadena);
+                foreach ($variable as $key => $value) {
+                    $email_a = trim($email_a);
+                    if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                        return $email_a;
+                    }
+                }
+            }
+
+            $array = explode('/', $datosCliente);
+
+            foreach ($array as $key => $email_a) {
+                $email_a = trim($email_a);
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+
+            $array = explode(':', $datosCliente);
+
+            foreach ($array as $key => $email_a) {
+                $email_a = trim($email_a);
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+
+            $array = explode('-', $datosCliente);
+
+            foreach ($array as $key => $email_a) {
+                $email_a = trim($email_a);
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+
+            $email_a = trim($datosCliente);
+            if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+            }
+
+            $datosCliente = utf8_encode($datosCliente);
+            $arrayReplace = [":", " ", ",", "-", "/","Â"," ",'"'];
+            $replace = str_replace($arrayReplace, PHP_EOL, $datosCliente);
+            
+            $array = explode(PHP_EOL, $replace);
+
+            
+            foreach ($array as $key => $email_a) {
+                
+                $email_a = trim($email_a);
+                $email_a = trim($email_a,".");
+                $email_a = trim($email_a,",");    
+                
+                if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+                    return $email_a;
+                }
+            }
+
         }
 
         return null;

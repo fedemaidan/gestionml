@@ -15,3 +15,6 @@ shell-db:
 
 importar-reservas:
 	php app/console app:importacion:reservas --archivo=/server/src/AppBundle/Resources/public/reservas.csv
+
+importar-productos:
+	php app/console app:importacion:productos --archivo=/server/src/AppBundle/Resources/public/productos.csv

@@ -451,30 +451,6 @@ class Reserva
     }
 
     /**
-     * Set tipoDePago
-     *
-     * @param \AppBundle\Entity\TipoDePago $tipoDePago
-     *
-     * @return Reserva
-     */
-    public function setTipoDePago(\AppBundle\Entity\TipoDePago $tipoDePago = null)
-    {
-        $this->tipoDePago = $tipoDePago;
-
-        return $this;
-    }
-
-    /**
-     * Get tipoDePago
-     *
-     * @return \AppBundle\Entity\TipoDePago
-     */
-    public function getTipoDePago()
-    {
-        return $this->tipoDePago;
-    }
-
-    /**
      * Set estado
      *
      * @param \AppBundle\Entity\Estado $estado
@@ -856,5 +832,149 @@ class Reserva
     public function getCuentaPrincipal()
     {
         return $this->cuentaPrincipal;
+    }
+
+    /**
+     * Set valorPago1
+     *
+     * @param string $valorPago1
+     *
+     * @return Reserva
+     */
+    public function setValorPago1($valorPago1)
+    {
+        $this->valorPago1 = $valorPago1;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago1
+     *
+     * @return string
+     */
+    public function getValorPago1()
+    {
+        return $this->valorPago1;
+    }
+
+    /**
+     * Set valorPago2
+     *
+     * @param string $valorPago2
+     *
+     * @return Reserva
+     */
+    public function setValorPago2($valorPago2)
+    {
+        $this->valorPago2 = $valorPago2;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago2
+     *
+     * @return string
+     */
+    public function getValorPago2()
+    {
+        return $this->valorPago2;
+    }
+
+    /**
+     * Set valorPago3
+     *
+     * @param string $valorPago3
+     *
+     * @return Reserva
+     */
+    public function setValorPago3($valorPago3)
+    {
+        $this->valorPago3 = $valorPago3;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago3
+     *
+     * @return string
+     */
+    public function getValorPago3()
+    {
+        return $this->valorPago3;
+    }
+
+    /**
+     * Set valorPago4
+     *
+     * @param string $valorPago4
+     *
+     * @return Reserva
+     */
+    public function setValorPago4($valorPago4)
+    {
+        $this->valorPago4 = $valorPago4;
+
+        return $this;
+    }
+
+    /**
+     * Get valorPago4
+     *
+     * @return string
+     */
+    public function getValorPago4()
+    {
+        return $this->valorPago4;
+    }
+
+    /**
+     * Set tipoDePago1
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago1
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago1(\AppBundle\Entity\TipoDePago $tipoDePago1 = null)
+    {
+        $this->tipoDePago_1 = $tipoDePago1;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago1
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago1()
+    {
+        return $this->tipoDePago_1;
+    }
+
+    /**
+     * Set tipoDePago4
+     *
+     * @param \AppBundle\Entity\TipoDePago $tipoDePago4
+     *
+     * @return Reserva
+     */
+    public function setTipoDePago4(\AppBundle\Entity\TipoDePago $tipoDePago4 = null)
+    {
+        $this->tipoDePago_4 = $tipoDePago4;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDePago4
+     *
+     * @return \AppBundle\Entity\TipoDePago
+     */
+    public function getTipoDePago4()
+    {
+        return $this->tipoDePago_4;
     }
 }

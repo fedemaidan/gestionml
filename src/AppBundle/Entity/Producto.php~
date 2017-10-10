@@ -32,16 +32,144 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="marca", type="string", length=255, nullable=true))
+     * @ORM\Column(name="codigo", type="string", length=255)
+     */
+    private $codigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categoria_interna", type="string", length=255, nullable=true)
+     */
+    private $categoria_interna;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categoria_match_ml", type="string", length=255, nullable=true)
+     */
+    private $categoria_match_ml;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rotacion", type="string", length=255, nullable=true)
+     */
+    private $rotacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="peso", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $peso;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="peso_caja", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $peso_caja;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ancho", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $ancho;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="largo", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $largo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profundidad", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $profundidad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precio_minimo", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $precio_minimo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precio_maximo", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $precio_maximo;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="marca", type="string", length=255, nullable=true)
      */
     private $marca;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="modelo", type="string", length=255, nullable=true))
+     * @ORM\Column(name="modelo", type="string", length=255, nullable=true)
      */
     private $modelo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modelo2", type="string", length=255, nullable=true)
+     */
+    private $modelo2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modelo3", type="string", length=255, nullable=true)
+     */
+    private $modelo3;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenido_paquete", type="string", length=610, nullable=true)
+     */
+    private $contenido_paquete;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="web_oficial", type="string", length=255, nullable=true)
+     */
+    private $web_oficial;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="manual_url", type="string", length=255, nullable=true)
+     */
+    private $manual_url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="origen", type="string", length=255, nullable=true)
+     */
+    private $origen;
+
+
 
     /**
      * @var string

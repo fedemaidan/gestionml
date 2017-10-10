@@ -225,8 +225,6 @@ class EbayService
                 $pageNumber--;
             }
 
-
-
 		}
 
         $this->unset2($serviceFinding);
