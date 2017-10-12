@@ -176,15 +176,32 @@ class EbayService
                         
 
 		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand, model, mpn, upc) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."','".$this->stringLimpia($model)."','".$this->stringLimpia($mpn)."','".$this->stringLimpia($upc)."');";
+                        
+                        $publicacion = new PublicacionEbay();
+                        $publicacion->setIdEbay($item->itemId);
+                        $publicacion->setTitulo($this->stringLimpia($item->title));
+                        $publicacion->setPrecioCompra($item->sellingStatus->currentPrice->value);
+                        $publicacion->setLinkPublicacion($this->stringLimpia($item->viewItemURL));
+                        $publicacion->setImagenes($this->stringLimpia($imagenes,1500));
+                        $publicacion->setCantidadVendidosEbay($datosItem->Item->QuantitySold);
+                        $publicacion->setCategoriaEbay($categoria);
+                        $publicacion->setVendedor($busqueda->getVendedorEbayId());
+                        $publicacion->setEstadoEbay($item->sellingStatus->sellingState);
+                        $publicacion->setBrand($this->stringLimpia($brand));
+                        $publicacion->setModel($this->stringLimpia($model));
+                        $publicacion->setMpn($this->stringLimpia($mpn));
+                        $publicacion->setUpc($this->stringLimpia($upc));
+                        $this->em->persist($publicacion);
+
 
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
-                        $sqlExec .= $sql;
+                        //$sqlExec .= $sql;
                         $countInserts++;
                         unset($sql);
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
-                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$idPublicacion);
+                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$publicacion);
                     
                     $this->unset2($datosItem);
                     $brand = null;
@@ -199,9 +216,11 @@ class EbayService
 		    	}
 		    	
                 $sql = $sqlExec." ".$sqlEspecificaciones;
-                if ($sql != " ")
-		    	    $this->em->getConnection()->exec( $sql );
                 
+                /*if ($sql != " ")
+		    	    $this->em->getConnection()->exec( $sql );
+                */
+
                 $porcentajeProcesado = round(($request->paginationInput->pageNumber / $limit) * 100) ;
                 $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado");
 
@@ -212,11 +231,11 @@ class EbayService
                 $this->em->clear();
                 $sql = null;
                 gc_collect_cycles();
-                /*
+                
                 $this->imprimo("Memory 1: " . ( (memory_get_usage() /1024) /1024));
                 $this->imprimo("Memory 2: " . ( (memory_get_peak_usage() /1024) /1024));
                 $this->imprimo("Memory 3: " . ( (memory_get_peak_usage(true) /1024) /1024));
-                */
+                
 		    	$this->imprimo("Updates :" . $countUpdates);
 		    	$this->imprimo("Inserts :" . $countInserts);
 
@@ -229,6 +248,7 @@ class EbayService
 
         $this->unset2($serviceFinding);
         $this->unset2($serviceShopping);
+        $this->em->flush();
         gc_collect_cycles();
         $this->imprimo("Proceso terminado ");
         $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
@@ -338,63 +358,78 @@ class EbayService
 
         if ($this->stringLimpia($publicacion->getTitulo()) != $this->stringLimpia($item->title) )
         {
-        	$updateSql[] = " titulo = '".$this->stringLimpia($item->title)."'";
+        	//$updateSql[] = " titulo = '".$this->stringLimpia($item->title)."'";
+            $publicacion->setTitulo($this->stringLimpia($item->title));
+            $this->em->persist($publicacion);
             
      	}
         if ($publicacion->getPrecioCompra() != $item->sellingStatus->currentPrice->value )  
         {
-        	$updateSql[] = " precio_compra = '".$this->stringLimpia($item->sellingStatus->currentPrice->value)."'";
-            
-            
+        	//$updateSql[] = " precio_compra = '".$this->stringLimpia($item->sellingStatus->currentPrice->value)."'";
+            $publicacion->setPrecioCompra($this->stringLimpia($item->sellingStatus->currentPrice->value));
+            $this->em->persist($publicacion);
         }
         if ($this->stringLimpia($publicacion->getLinkPublicacion()) != $this->stringLimpia($item->viewItemURL))
         {
-        	$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
+        	//$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
+            $publicacion->setLinkPublicacion($this->stringLimpia($item->viewItemURL));
+            $this->em->persist($publicacion);
             
         }
         if ($publicacion->getImagenes() != $this->stringLimpia($imagenes,1500)) {
-        	$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes,1500)."'";
-            
+        	//$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes,1500)."'";
+            $publicacion->setImagenes($this->stringLimpia($imagenes,1500));
+            $this->em->persist($publicacion);
         } 
         if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
         {
-			$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
-            
-            
+			//$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
+            $publicacion->setCantidadVendidosEbay($datosItem->Item->QuantitySold);
+            $this->em->persist($publicacion);
         } 
         if ($publicacion->getEstadoEbay() != $item->sellingStatus->sellingState)
         {
-			$updateSql[] = " estado_ebay = '".$item->sellingStatus->sellingState."'";
-            
-            
+			//$updateSql[] = " estado_ebay = '".$item->sellingStatus->sellingState."'";
+            $publicacion->setEstadoEbay($item->sellingStatus->sellingState);
+            $this->em->persist($publicacion);
         }
         if ($publicacion->getCategoriaEbay()->getId() != $categoria->getId())
         {
-            $updateSql[] = " categoria_ebay_id = '".$categoria->getId()."'";
-            
+            //$updateSql[] = " categoria_ebay_id = '".$categoria->getId()."'";
+            $publicacion->setCategoriaEbay($categoria);
+            $this->em->persist($publicacion);
         }
 
         if ($publicacion->getBrand() != $brand)
         {
-            $updateSql[] = " brand = '".$brand."'";
+            //$updateSql[] = " brand = '".$brand."'";
+            $publicacion->setBrand($brand);
+            $this->em->persist($publicacion);
         }
 
         if ($publicacion->getModel() != $model)
         {
-            $updateSql[] = " model = '".$model."'";
+            //$updateSql[] = " model = '".$model."'";
+            $publicacion->setModel($model);
+            $this->em->persist($publicacion);
         }
 
         if ($publicacion->getMpn() != $mpn)
         {
-            $updateSql[] = " mpn = '".$mpn."'";
+            //$updateSql[] = " mpn = '".$mpn."'";
+            $publicacion->setMpn($mpn);
+            $this->em->persist($publicacion);
         }
         
         if ($publicacion->getUpc() != $upc)
         {
-            $updateSql[] = " upc = '".$upc."'";
+            //$updateSql[] = " upc = '".$upc."'";
+            $publicacion->setUpc($upc);
+            $this->em->persist($publicacion);
         }
 
 
+        /*
         if (count($updateSql) > 0) {
             $this->imprimo("Actualizo publicación " . $item->itemId);
 
@@ -415,7 +450,7 @@ class EbayService
             return $sql;
         }
         $this->unset2($updateSql);
-
+        */
         return null;
     }
 
@@ -450,7 +485,7 @@ class EbayService
         return $especificaciones;
     }
 
-    private function insertoEspecificaciones($especificaciones,$idPublicacion) {
+    private function insertoEspecificaciones($especificaciones,$publicacion) {
         $sql = "";
         foreach ($especificaciones as $name => $value) {
             $espObj = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)
@@ -465,13 +500,17 @@ class EbayService
 
             }
 
-            $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $idPublicacion);
+            $tiene = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->tieneRelacionConPublicacionId($espObj->getId(), $publicacion->getId());
             
             //verificar asociacion con publicacion
             if (!$tiene) {
                 //si no la tiene -> inserto relacion con la publicacion
-                $sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
-                                especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
+                $publicacion->addEspeficicaciones($espObj);
+                $this->em->persist($espObj);
+                $this->em->persist($publicacion);
+                /*$sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
+                              especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
+                              */
             }
         }
 
@@ -482,7 +521,7 @@ class EbayService
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
         $busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
-        $busqueda->setEstadoActual(date('Y-m-d h:i:s')." - ".$texto);
+        $busqueda->setEstadoActual(date('Y-m-d H:i:s')." - ".$texto);
         $this->em->persist($busqueda);
         $this->em->flush();
     }
