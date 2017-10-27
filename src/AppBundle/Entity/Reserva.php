@@ -118,6 +118,34 @@ class Reserva
     /**
      * @var string
      *
+     * @ORM\Column(name="nombre_cliente", type="string", length=255, nullable=true)
+     */
+    private $nombreCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_documento_cliente", type="string", length=255, nullable=true)
+     */
+    private $tipoDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_documento_cliente", type="string", length=255, nullable=true)
+     */
+    private $numeroDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido_cliente", type="string", length=255, nullable=true)
+     */
+    private $apellidoCliente;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="facebook_cliente", type="string", length=255, nullable=true)
      */
     private $facebookCliente;
@@ -128,6 +156,106 @@ class Reserva
      * @ORM\Column(name="telefono_cliente", type="string", length=255, nullable=true)
      */
     private $telefonoCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="provincia_entrega", type="string", length=255, nullable=true)
+     */
+    private $provinciaEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localidad_entrega", type="string", length=255, nullable=true)
+     */
+    private $localidadEntrega;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="calle_entrega", type="string", length=255, nullable=true)
+     */
+    private $calleEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altura_entrega", type="string", length=255, nullable=true)
+     */
+    private $alturaEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="piso_entrega", type="string", length=255, nullable=true)
+     */
+    private $pisoEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="departamento_entrega", type="string", length=255, nullable=true)
+     */
+    private $departamentoEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_postal_entrega", type="string", length=255, nullable=true)
+     */
+    private $codigoPostalEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_cliente_entrega", type="string", length=255, nullable=true)
+     */
+    private $costoClienteEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_nosotros_entrega", type="string", length=255, nullable=true)
+     */
+    private $costoNosotrosEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_recibe_entrega", type="string", length=255, nullable=true)
+     */
+    private $nombreRecibeEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="celular_recibe_entrega", type="string", length=255, nullable=true)
+     */
+    private $celularRecibeEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fecha_entrega", type="string", length=255, nullable=true)
+     */
+    private $fechaEntrega;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="factura", type="string", length=255, nullable=true)
+     */
+    private $factura;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones_entrega", type="string", length=255, nullable=true)
+     */
+    private $observacionesEntrega;    
+
 
     /**
      * @var string
@@ -976,5 +1104,437 @@ class Reserva
     public function getTipoDePago4()
     {
         return $this->tipoDePago_4;
+    }
+
+    /**
+     * Set nombreCliente
+     *
+     * @param string $nombreCliente
+     *
+     * @return Reserva
+     */
+    public function setNombreCliente($nombreCliente)
+    {
+        $this->nombreCliente = $nombreCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreCliente
+     *
+     * @return string
+     */
+    public function getNombreCliente()
+    {
+        return $this->nombreCliente;
+    }
+
+    /**
+     * Set tipoDocumento
+     *
+     * @param string $tipoDocumento
+     *
+     * @return Reserva
+     */
+    public function setTipoDocumento($tipoDocumento)
+    {
+        $this->tipoDocumento = $tipoDocumento;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDocumento
+     *
+     * @return string
+     */
+    public function getTipoDocumento()
+    {
+        return $this->tipoDocumento;
+    }
+
+    /**
+     * Set numeroDocumento
+     *
+     * @param string $numeroDocumento
+     *
+     * @return Reserva
+     */
+    public function setNumeroDocumento($numeroDocumento)
+    {
+        $this->numeroDocumento = $numeroDocumento;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroDocumento
+     *
+     * @return string
+     */
+    public function getNumeroDocumento()
+    {
+        return $this->numeroDocumento;
+    }
+
+    /**
+     * Set apellidoCliente
+     *
+     * @param string $apellidoCliente
+     *
+     * @return Reserva
+     */
+    public function setApellidoCliente($apellidoCliente)
+    {
+        $this->apellidoCliente = $apellidoCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get apellidoCliente
+     *
+     * @return string
+     */
+    public function getApellidoCliente()
+    {
+        return $this->apellidoCliente;
+    }
+
+    /**
+     * Set provinciaEntrega
+     *
+     * @param string $provinciaEntrega
+     *
+     * @return Reserva
+     */
+    public function setProvinciaEntrega($provinciaEntrega)
+    {
+        $this->provinciaEntrega = $provinciaEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get provinciaEntrega
+     *
+     * @return string
+     */
+    public function getProvinciaEntrega()
+    {
+        return $this->provinciaEntrega;
+    }
+
+    /**
+     * Set localidadEntrega
+     *
+     * @param string $localidadEntrega
+     *
+     * @return Reserva
+     */
+    public function setLocalidadEntrega($localidadEntrega)
+    {
+        $this->localidadEntrega = $localidadEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get localidadEntrega
+     *
+     * @return string
+     */
+    public function getLocalidadEntrega()
+    {
+        return $this->localidadEntrega;
+    }
+
+    /**
+     * Set calleEntrega
+     *
+     * @param string $calleEntrega
+     *
+     * @return Reserva
+     */
+    public function setCalleEntrega($calleEntrega)
+    {
+        $this->calleEntrega = $calleEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get calleEntrega
+     *
+     * @return string
+     */
+    public function getCalleEntrega()
+    {
+        return $this->calleEntrega;
+    }
+
+    /**
+     * Set alturaEntrega
+     *
+     * @param string $alturaEntrega
+     *
+     * @return Reserva
+     */
+    public function setAlturaEntrega($alturaEntrega)
+    {
+        $this->alturaEntrega = $alturaEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get alturaEntrega
+     *
+     * @return string
+     */
+    public function getAlturaEntrega()
+    {
+        return $this->alturaEntrega;
+    }
+
+    /**
+     * Set pisoEntrega
+     *
+     * @param string $pisoEntrega
+     *
+     * @return Reserva
+     */
+    public function setPisoEntrega($pisoEntrega)
+    {
+        $this->pisoEntrega = $pisoEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get pisoEntrega
+     *
+     * @return string
+     */
+    public function getPisoEntrega()
+    {
+        return $this->pisoEntrega;
+    }
+
+    /**
+     * Set departamentoEntrega
+     *
+     * @param string $departamentoEntrega
+     *
+     * @return Reserva
+     */
+    public function setDepartamentoEntrega($departamentoEntrega)
+    {
+        $this->departamentoEntrega = $departamentoEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get departamentoEntrega
+     *
+     * @return string
+     */
+    public function getDepartamentoEntrega()
+    {
+        return $this->departamentoEntrega;
+    }
+
+    /**
+     * Set codigoPostalEntrega
+     *
+     * @param string $codigoPostalEntrega
+     *
+     * @return Reserva
+     */
+    public function setCodigoPostalEntrega($codigoPostalEntrega)
+    {
+        $this->codigoPostalEntrega = $codigoPostalEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoPostalEntrega
+     *
+     * @return string
+     */
+    public function getCodigoPostalEntrega()
+    {
+        return $this->codigoPostalEntrega;
+    }
+
+    /**
+     * Set costoClienteEntrega
+     *
+     * @param string $costoClienteEntrega
+     *
+     * @return Reserva
+     */
+    public function setCostoClienteEntrega($costoClienteEntrega)
+    {
+        $this->costoClienteEntrega = $costoClienteEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get costoClienteEntrega
+     *
+     * @return string
+     */
+    public function getCostoClienteEntrega()
+    {
+        return $this->costoClienteEntrega;
+    }
+
+    /**
+     * Set costoNosotrosEntrega
+     *
+     * @param string $costoNosotrosEntrega
+     *
+     * @return Reserva
+     */
+    public function setCostoNosotrosEntrega($costoNosotrosEntrega)
+    {
+        $this->costoNosotrosEntrega = $costoNosotrosEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get costoNosotrosEntrega
+     *
+     * @return string
+     */
+    public function getCostoNosotrosEntrega()
+    {
+        return $this->costoNosotrosEntrega;
+    }
+
+    /**
+     * Set nombreRecibeEntrega
+     *
+     * @param string $nombreRecibeEntrega
+     *
+     * @return Reserva
+     */
+    public function setNombreRecibeEntrega($nombreRecibeEntrega)
+    {
+        $this->nombreRecibeEntrega = $nombreRecibeEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreRecibeEntrega
+     *
+     * @return string
+     */
+    public function getNombreRecibeEntrega()
+    {
+        return $this->nombreRecibeEntrega;
+    }
+
+    /**
+     * Set celularRecibeEntrega
+     *
+     * @param string $celularRecibeEntrega
+     *
+     * @return Reserva
+     */
+    public function setCelularRecibeEntrega($celularRecibeEntrega)
+    {
+        $this->celularRecibeEntrega = $celularRecibeEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get celularRecibeEntrega
+     *
+     * @return string
+     */
+    public function getCelularRecibeEntrega()
+    {
+        return $this->celularRecibeEntrega;
+    }
+
+    /**
+     * Set fechaEntrega
+     *
+     * @param string $fechaEntrega
+     *
+     * @return Reserva
+     */
+    public function setFechaEntrega($fechaEntrega)
+    {
+        $this->fechaEntrega = $fechaEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaEntrega
+     *
+     * @return string
+     */
+    public function getFechaEntrega()
+    {
+        return $this->fechaEntrega;
+    }
+
+    /**
+     * Set factura
+     *
+     * @param string $factura
+     *
+     * @return Reserva
+     */
+    public function setFactura($factura)
+    {
+        $this->factura = $factura;
+
+        return $this;
+    }
+
+    /**
+     * Get factura
+     *
+     * @return string
+     */
+    public function getFactura()
+    {
+        return $this->factura;
+    }
+
+    /**
+     * Set observacionesEntrega
+     *
+     * @param string $observacionesEntrega
+     *
+     * @return Reserva
+     */
+    public function setObservacionesEntrega($observacionesEntrega)
+    {
+        $this->observacionesEntrega = $observacionesEntrega;
+
+        return $this;
+    }
+
+    /**
+     * Get observacionesEntrega
+     *
+     * @return string
+     */
+    public function getObservacionesEntrega()
+    {
+        return $this->observacionesEntrega;
     }
 }

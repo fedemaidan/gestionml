@@ -118,6 +118,34 @@ class Reserva
     /**
      * @var string
      *
+     * @ORM\Column(name="nombre_cliente", type="string", length=255, nullable=true)
+     */
+    private $nombreCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_documento_cliente", type="string", length=255, nullable=true)
+     */
+    private $tipoDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_documento_cliente", type="string", length=255, nullable=true)
+     */
+    private $numeroDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido_cliente", type="string", length=255, nullable=true)
+     */
+    private $apellidoCliente;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="facebook_cliente", type="string", length=255, nullable=true)
      */
     private $facebookCliente;
@@ -128,6 +156,106 @@ class Reserva
      * @ORM\Column(name="telefono_cliente", type="string", length=255, nullable=true)
      */
     private $telefonoCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="provincia_entrega", type="string", length=255, nullable=true)
+     */
+    private $provinciaEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localidad_entrega", type="string", length=255, nullable=true)
+     */
+    private $localidadEntrega;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="calle_entrega", type="string", length=255, nullable=true)
+     */
+    private $calleEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altura_entrega", type="string", length=255, nullable=true)
+     */
+    private $alturaEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="piso_entrega", type="string", length=255, nullable=true)
+     */
+    private $pisoEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="departamento_entrega", type="string", length=255, nullable=true)
+     */
+    private $departamentoEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_postal_entrega", type="string", length=255, nullable=true)
+     */
+    private $codigoPostalEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_cliente_entrega", type="string", length=255, nullable=true)
+     */
+    private $costoClienteEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_nosotros_entrega", type="string", length=255, nullable=true)
+     */
+    private $costoNosotrosEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_recibe_entrega", type="string", length=255, nullable=true)
+     */
+    private $nombreRecibeEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="celular_recibe_entrega", type="string", length=255, nullable=true)
+     */
+    private $celularRecibeEntrega;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fecha_entrega", type="string", length=255, nullable=true)
+     */
+    private $fechaEntrega;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="factura", type="string", length=255, nullable=true)
+     */
+    private $factura;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones_entrega", type="string", length=255, nullable=true)
+     */
+    private $observacionesEntrega;    
+
 
     /**
      * @var string

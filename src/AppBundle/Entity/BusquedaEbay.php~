@@ -199,7 +199,7 @@ class BusquedaEbay
 
     public function __toString()
     {
-        return $this->vendedorEbayId;
+        return $this->vendedorEbayId != null ? $this->vendedorEbayId : "";
     }
 
 
