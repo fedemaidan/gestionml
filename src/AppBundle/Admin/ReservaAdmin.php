@@ -80,8 +80,7 @@ class ReservaAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Principal')
-            
+            ->with('Principal')
             //->add('id')
             ->add('estado',null, ["required" => true])
             ->add('fechaAlta','sonata_type_datetime_picker',array(
@@ -100,8 +99,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('productoNoCargado')
             ->add('cuentaPrincipal')
             ->end()
-            ->end()
-            ->tab('Cliente')
+            ->with('Cliente')
             ->add('mailCliente')
             ->add('facebookCliente')
             ->add('telefonoCliente')
@@ -111,8 +109,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('apellidoCliente')
             ->add('datosCliente','textarea',["required" => false])
             ->end()
-            ->end()
-            ->tab('Pago')
+            ->with('Pago')
             ->add('linkUsados')
             ->add('cuentaPrincipal')
             ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
@@ -130,8 +127,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('cuentaPago')
             ->add('factura')
             ->end()
-            ->end()
-            ->tab('Entrega')
+            ->with('Entrega')
             ->add('tipoDeEntrega')
             ->add('costoClienteEntrega')
             ->add('costoNosotrosEntrega')
@@ -147,11 +143,11 @@ class ReservaAdmin extends AbstractAdmin
             ->add('fechaEntrega')
             ->add('observacionesEntrega')
             ->end()
-            ->end()
-            ->tab('Otros')
+            ->with('Otros')
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('codigoReserva')
             ->end()
+            ->with('------')
             ->end()
         ;
     }
