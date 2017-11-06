@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Reserva
 {
+
     /**
      * @var int
      *
@@ -104,6 +105,14 @@ class Reserva
     /**
      * @var string
      *
+     * @ORM\Column(name="contactos_con_cliente", type="string", length=2000, nullable=true)
+     */
+    private $contactosConCliente;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="datos_cliente", type="string", length=1000, nullable=true)
      */
     private $datosCliente;
@@ -121,6 +130,21 @@ class Reserva
      * @ORM\Column(name="nombre_cliente", type="string", length=255, nullable=true)
      */
     private $nombreCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_carga", type="string", length=255, nullable=true)
+     */
+    private $numeroCarga;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaEstimada", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaEstimada;
 
     /**
      * @var string
@@ -349,6 +373,27 @@ class Reserva
      * @ORM\JoinColumn(nullable=true)
      */
     private $producto;
+
+    /**
+     * @var OrdenDeCompra
+     * @ORM\ManyToOne(targetEntity="OrdenDeCompra")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $ordenDeCompra;
+
+    /**
+     * @var OrdenDeCompra
+     * @ORM\ManyToOne(targetEntity="SeleccionDeCompra")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $seleccionDeCompra;
+
+    /**
+     * @var CargaImportacion
+     * @ORM\ManyToOne(targetEntity="CargaImportacion")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $cargaImportacion;
 
 
     /**
@@ -1536,5 +1581,153 @@ class Reserva
     public function getObservacionesEntrega()
     {
         return $this->observacionesEntrega;
+    }
+
+    /**
+     * Set contactosConCliente
+     *
+     * @param string $contactosConCliente
+     *
+     * @return Reserva
+     */
+    public function setContactosConCliente($contactosConCliente)
+    {
+        $this->contactosConCliente = $contactosConCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get contactosConCliente
+     *
+     * @return string
+     */
+    public function getContactosConCliente()
+    {
+        return $this->contactosConCliente;
+    }
+
+    /**
+     * Set numeroCarga
+     *
+     * @param string $numeroCarga
+     *
+     * @return Reserva
+     */
+    public function setNumeroCarga($numeroCarga)
+    {
+        $this->numeroCarga = $numeroCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroCarga
+     *
+     * @return string
+     */
+    public function getNumeroCarga()
+    {
+        return $this->numeroCarga;
+    }
+
+    /**
+     * Set fechaEstimada
+     *
+     * @param \DateTime $fechaEstimada
+     *
+     * @return Reserva
+     */
+    public function setFechaEstimada($fechaEstimada)
+    {
+        $this->fechaEstimada = $fechaEstimada;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaEstimada
+     *
+     * @return \DateTime
+     */
+    public function getFechaEstimada()
+    {
+        return $this->fechaEstimada;
+    }
+
+    /**
+     * Set ordenDeCompra
+     *
+     * @param \AppBundle\Entity\OrdenDeCompra $ordenDeCompra
+     *
+     * @return Reserva
+     */
+    public function setOrdenDeCompra(\AppBundle\Entity\OrdenDeCompra $ordenDeCompra = null)
+    {
+        $this->ordenDeCompra = $ordenDeCompra;
+
+        return $this;
+    }
+
+    /**
+     * Get ordenDeCompra
+     *
+     * @return \AppBundle\Entity\OrdenDeCompra
+     */
+    public function getOrdenDeCompra()
+    {
+        return $this->ordenDeCompra;
+    }
+
+    /**
+     * Set seleccionDeCompra
+     *
+     * @param \AppBundle\Entity\SeleccionDeCompra $seleccionDeCompra
+     *
+     * @return Reserva
+     */
+    public function setSeleccionDeCompra(\AppBundle\Entity\SeleccionDeCompra $seleccionDeCompra = null)
+    {
+        $this->seleccionDeCompra = $seleccionDeCompra;
+
+        return $this;
+    }
+
+    /**
+     * Get seleccionDeCompra
+     *
+     * @return \AppBundle\Entity\SeleccionDeCompra
+     */
+    public function getSeleccionDeCompra()
+    {
+        return $this->seleccionDeCompra;
+    }
+
+    /**
+     * Set cargaImportacion
+     *
+     * @param \AppBundle\Entity\CargaImportacion $cargaImportacion
+     *
+     * @return Reserva
+     */
+    public function setCargaImportacion(\AppBundle\Entity\CargaImportacion $cargaImportacion = null)
+    {
+        $this->cargaImportacion = $cargaImportacion;
+
+        return $this;
+    }
+
+    /**
+     * Get cargaImportacion
+     *
+     * @return \AppBundle\Entity\CargaImportacion
+     */
+    public function getCargaImportacion()
+    {
+        return $this->cargaImportacion;
+    }
+
+    public function __toString() {
+        return $this->id." - ".$this->producto->getNombre();        
     }
 }

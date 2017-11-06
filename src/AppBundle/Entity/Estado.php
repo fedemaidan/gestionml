@@ -25,7 +25,6 @@ class Estado
     const COMPRADO = "COMPRADO";
     const PROCESO_DE_COMPRA = "PROCESO_DE_COMPRA";
     const RESERVADO = "RESERVADO";
-    const PRIMER_CONTACTO = "PRIMER_CONTACTO";
 
     /**
      * @var int

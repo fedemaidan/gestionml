@@ -76,6 +76,13 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     private function cargarReserva($data) {
         
+        $codigoReserva = intval($data[24]);
+
+        $reserva = $this->getContainer()->get('doctrine')->getManager()->getRepository(Reserva::class)->findOneByCodigoReserva($codigoReserva);
+
+        if ($reserva)
+            return 0;
+
         if (trim($data[1]) == "")
             return;
 
@@ -103,7 +110,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$cuentaPago = $this->dameCuentaPago($data[14]);
     	$linkUsados = $this->dameLinkUsados($data[14], $data[15]);
 
-    	$codigoReserva = intval($data[24]);
+    	
         $estado = $this->dameEstado($data);
 
 
@@ -149,6 +156,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     private function dameProducto($productoTexto, $productoCodigo) {
         
     	$producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByCodigo($productoCodigo);
+
         if (!$producto) {
             $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::ORM_ENTITY)->findOneByNombre("Otros");
         }

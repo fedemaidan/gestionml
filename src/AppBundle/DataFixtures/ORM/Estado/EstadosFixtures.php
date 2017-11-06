@@ -10,11 +10,6 @@ class EstadosFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         
-    	$PRIMER_CONTACTO = new Estado();
-    	$PRIMER_CONTACTO->setNombre("Primer contacto");
-        $PRIMER_CONTACTO->setCodigo("PRIMER_CONTACTO");
-        $PRIMER_CONTACTO->setDescripcion("El cliente consulta sobre el producto");
-        
         $RESERVADO = new Estado();
         $RESERVADO->setNombre("Reservado");
         $RESERVADO->setCodigo("RESERVADO");
@@ -71,7 +66,6 @@ class EstadosFixtures extends Fixture
         $DEVUELTO_GARANTIA->setDescripcion(" Se devolvió por ejecución de la garantía");
 
 
-    	$manager->persist($PRIMER_CONTACTO);
         $manager->persist($RESERVADO);
     	$manager->persist($PROCESO_DE_COMPRA);
     	$manager->persist($COMPRADO);

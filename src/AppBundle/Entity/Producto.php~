@@ -286,12 +286,22 @@ class Producto
     }
 
     public function __toString() {
-        if ($this->getNombre() != null) {
+        $aux = "";
+        if ($this->getMarca() != null) {
+            $aux .= $this->getMarca();
+        }
+        $aux .= "_";
+
+        if ($this->getModelo() != null) {
+            $aux .= $this->getModelo();
+        }
+
+        
+        if ($aux == "_") {
             return $this->getNombre();
-        }
-        else {
-            return "";
-        }
+        } 
+
+        return $aux;
         
     }
 

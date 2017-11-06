@@ -76,3 +76,24 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDeVenta }
         public: true
+
+    app.admin.carga_importacion:
+        class: AppBundle\Admin\CargaImportacionAdmin
+        arguments: [~, AppBundle\Entity\CargaImportacion, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CargaImportacion }
+        public: true
+
+    app.admin.orden_de_compra:
+        class: AppBundle\Admin\OrdenDeCompraAdmin
+        arguments: [~, AppBundle\Entity\OrdenDeCompra, , AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Orden de compra }
+        public: true
+
+    app.admin.seleccion_de_compra:
+        class: AppBundle\Admin\SeleccionDeCompraAdmin
+        arguments: [~, AppBundle\Entity\SeleccionDeCompra, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: SeleccionDeCompra }
+        public: true

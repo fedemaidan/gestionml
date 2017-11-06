@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\BusquedaEbay;
 use AppBundle\Utils\Meli\Meli;
 use Symfony\Component\Finder\Finder;
-
+use Symfony\Component\Form\Extension\Core\Type as FormType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
     
 class DefaultController extends Controller
 {
@@ -43,4 +44,34 @@ class DefaultController extends Controller
         ));
     }
 
+
+    /**
+     * @Route("/cargaMasivaOrdenCompra", name="cargaMasivaOrdenCompra")
+     */
+    public function cargaMasivaOrdenDeCompraAction(Request $request)
+    {
+        
+        $form =  $this->createFormBuilder()
+            ->setAction($this->generateUrl('cargaMasivaOrdenCompra'));
+        $form->add('archivo','file');
+        $form->add('Cargar', FormType\SubmitType::class, [
+            'label' => 'Cargar',
+        ]);
+
+        $form = $form->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            
+            $this->addFlash('sonata_flash_success', 'Si te cabe, re piola');
+            $url = 'admin/app/ordendecompra/list';
+            return new RedirectResponse($url);
+        }
+
+        return $this->render('AppBundle:Default:list__action_carga_masiva_orden_compra.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
+
+
+}

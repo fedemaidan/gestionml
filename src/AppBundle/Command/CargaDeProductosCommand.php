@@ -36,7 +36,7 @@ class CargaDeProductosCommand extends ContainerAwareCommand
         }
  		
  		
- 		$array = [];
+ 		    $array = [];
         if (($handle = fopen($archivo, "r")) !== FALSE) {
 	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
                 
@@ -54,6 +54,9 @@ class CargaDeProductosCommand extends ContainerAwareCommand
     protected function cargarProducto($data) {
     	$data = $this->limipiarArray($data);
     	
+      if ($data[1] == null || empty($data[1]))
+        return 0;
+
     	$producto = new Producto();
     	$producto->setMarca($data[1]);
         $producto->setModelo($data[2]);
@@ -66,10 +69,7 @@ class CargaDeProductosCommand extends ContainerAwareCommand
         $producto->setCategoriaInterna($data[3]);
         $producto->setCategoriaMatchMl($data[4]);
         $producto->setDescripcion($data[5]);
-        if ($data[5] == null)
-        	$producto->setNombre($producto->getMarca()."_".$producto->getModelo());
-        else
-        	$producto->setNombre($data[5]);
+        $producto->setNombre($producto->getMarca()."_".$producto->getModelo());
        	$producto->setPeso($data[6]);
        	$producto->setPesoCaja($data[7]);
        	$producto->setAncho($data[10]);
