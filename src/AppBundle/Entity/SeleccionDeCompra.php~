@@ -54,7 +54,7 @@ class SeleccionDeCompra
 
     /**
      * @var Reserva
-     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="cargaImportacion")
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="seleccionDeCompra")
      */
     private $reservas;
 
@@ -168,4 +168,38 @@ class SeleccionDeCompra
 
     
 
+
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return SeleccionDeCompra
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
 }

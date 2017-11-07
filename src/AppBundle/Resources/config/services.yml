@@ -9,6 +9,16 @@ services:
         class:     AppBundle\Service\EbayService
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+    
+    compras_service:
+        class:     AppBundle\Service\ComprasService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+    
+    cargas_service:
+        class:     AppBundle\Service\CargasImportacionService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
 
     app.admin.categoria_ebay:
         class: AppBundle\Admin\CategoriaEbayAdmin
@@ -32,68 +42,68 @@ services:
         class: AppBundle\Admin\ReservaAdmin
         arguments: [~, AppBundle\Entity\Reserva, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Reserva }
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Reserva }
         public: true
 
     app.admin.cuenta:
         class: AppBundle\Admin\CuentaAdmin
         arguments: [~, AppBundle\Entity\Cuenta, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Cuenta }
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: Cuenta }
         public: true
 
     app.admin.estado:
         class: AppBundle\Admin\EstadoAdmin
         arguments: [~, AppBundle\Entity\Estado, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Estado }
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: Estado }
         public: true
 
     app.admin.producto:
         class: AppBundle\Admin\ProductoAdmin
         arguments: [~, AppBundle\Entity\Producto, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: Producto }
-        public: true
-
-    app.admin.tipo_de_entrega:
-        class: AppBundle\Admin\TipoDeEntregaAdmin
-        arguments: [~, AppBundle\Entity\TipoDeEntrega, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDeEntrega }
-        public: true
-
-    app.admin.tipo_de_pago:
-        class: AppBundle\Admin\TipoDePagoAdmin
-        arguments: [~, AppBundle\Entity\TipoDePago, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDePago }
-        public: true
-
-    app.admin.tipo_de_venta:
-        class: AppBundle\Admin\TipoDeVentaAdmin
-        arguments: [~, AppBundle\Entity\TipoDeVenta, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Reserva, label: TipoDeVenta }
-        public: true
-
-    app.admin.carga_importacion:
-        class: AppBundle\Admin\CargaImportacionAdmin
-        arguments: [~, AppBundle\Entity\CargaImportacion, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: CargaImportacion }
-        public: true
-
-    app.admin.orden_de_compra:
-        class: AppBundle\Admin\OrdenDeCompraAdmin
-        arguments: [~, AppBundle\Entity\OrdenDeCompra, , AppBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Orden de compra }
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Producto }
         public: true
 
     app.admin.seleccion_de_compra:
         class: AppBundle\Admin\SeleccionDeCompraAdmin
         arguments: [~, AppBundle\Entity\SeleccionDeCompra, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: SeleccionDeCompra }
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Selección de compra }
+        public: true
+
+    app.admin.tipo_de_entrega:
+        class: AppBundle\Admin\TipoDeEntregaAdmin
+        arguments: [~, AppBundle\Entity\TipoDeEntrega, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: TipoDeEntrega }
+        public: true
+
+    app.admin.tipo_de_pago:
+        class: AppBundle\Admin\TipoDePagoAdmin
+        arguments: [~, AppBundle\Entity\TipoDePago, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: TipoDePago }
+        public: true
+
+    app.admin.tipo_de_venta:
+        class: AppBundle\Admin\TipoDeVentaAdmin
+        arguments: [~, AppBundle\Entity\TipoDeVenta, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: TipoDeVenta }
+        public: true
+
+    app.admin.orden_de_compra:
+        class: AppBundle\Admin\OrdenDeCompraAdmin
+        arguments: [~, AppBundle\Entity\OrdenDeCompra, , AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Orden de compra }
+        public: true
+
+    app.admin.carga_importacion:
+        class: AppBundle\Admin\CargaImportacionAdmin
+        arguments: [~, AppBundle\Entity\CargaImportacion, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Cargas de importación }
         public: true

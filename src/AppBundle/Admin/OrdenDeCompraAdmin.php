@@ -21,11 +21,8 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('precio')
-            ->add('tarjetas')
             ->add('informacion')
             ->add('fechaAlta')
-            ->add('vendedorEbayId')
         ;
     }
 
@@ -36,12 +33,10 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('precio')
-            ->add('tarjetas')
             ->add('informacion')
             ->add('reservas')
+            ->add('pagosValidos','boolean')
             ->add('fechaAlta')
-            ->add('vendedorEbayId')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -58,11 +53,8 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('precio')
-            ->add('tarjetas')
             ->add('reservas')
             ->add('informacion')
-            ->add('vendedorEbayId')
         ;
     }
 
@@ -73,11 +65,27 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('precio')
-            ->add('tarjetas')
+            ->add('pagosValidosTexto', null, array( 'label' => 'Pagos validos'))
             ->add('informacion')
             ->add('fechaAlta')
-            ->add('vendedorEbayId')
+            ->add('reservas')
+            ->add('proveedor')
+            ->add('cuentaEbayCompra')
+            ->add('warehouse')
+            ->add('shipping')
+            ->add('costoTotal')
+            ->add('tarjeta1')
+            ->add('pago1')
+            ->add('tarjeta2')
+            ->add('pago2')
+            ->add('tarjeta3')
+            ->add('pago3')
+            ->add('tarjeta4')
+            ->add('pago4')
+            ->add('tarjeta5')
+            ->add('pago5')
+
+
         ;
     }
 

@@ -54,15 +54,6 @@ class SeleccionDeCompraAdmin extends AbstractAdmin
         $formMapper
             ->add('limiteDinero')
             ->add('informacion')
-            ->add('fechaAlta','sonata_type_datetime_picker',array(
-                    'dp_side_by_side'       => true,
-                    'dp_use_current'        => true,
-                    'dp_use_seconds'        => false,
-                    'dp_collapse'           => true,
-                    'dp_calendar_weeks'     => false,
-                    'dp_view_mode'          => 'days',
-                    'format'                => 'yyyy-MM-dd H:m'
-            ))
             ->add('reservas')
             ->add('file', 'file', array(
                 'required' => false,
@@ -127,16 +118,15 @@ class SeleccionDeCompraAdmin extends AbstractAdmin
 
                 /* Buscar reserva y cargarle la selección de compra */
                 $reserva = $em->getRepository(Reserva::class)->findOneById($data[0]);
+                /* TIRAR EXCEPTION SI NO ESTA LA RESERVA O SU ESTADO NO ES VALIDO */
                 $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
                 $reserva->setSeleccionDeCompra($entity);
                 $reserva->setEstado($estado);
                 $em->persist($reserva);
-               // var_dump($reserva);die;
 
           }
         }
 
-//        $em->flush();
         // Empty the 
         $entity->setFile(null);
     }

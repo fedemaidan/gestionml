@@ -7,6 +7,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use AppBundle\Entity\CargaImportacion;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Route\RouteCollection;
+use AppBundle\Entity\Estado;
+use AppBundle\Entity\Reserva;
 
 class CargaImportacionAdmin extends AbstractAdmin
 {
@@ -17,9 +23,9 @@ class CargaImportacionAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('numero')
+            ->add('numeroVuelo')
             ->add('empresaEnvio')
-            ->add('estado')
+            ->add('estado', null, [],  'choice', ['choices' => [ CargaImportacion::ESTADO_GENERADA => "Generada", CargaImportacion::ESTADO_RECIBIDA => 'Recibida']])
         ;
     }
 
@@ -30,7 +36,7 @@ class CargaImportacionAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('numero')
+            ->add('numeroVuelo')
             ->add('empresaEnvio')
             ->add('estado')
             ->add('reservas')
@@ -50,10 +56,16 @@ class CargaImportacionAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('numero')
-            ->add('reservas')
+            ->add('estado','choice', ['choices' => [ CargaImportacion::ESTADO_GENERADA => "Generada", CargaImportacion::ESTADO_RECIBIDA => 'Recibida']])
+            ->add('numeroVuelo')
             ->add('empresaEnvio')
-            ->add('estado')
+            ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
+            ->add('reservas')
+            ->add('file', 'file', array(
+                'required' => false,
+                'data_class' => null,
+                'label' => 'Reserva seleccionadas CSV'
+            ))
         ;
     }
 
@@ -64,9 +76,77 @@ class CargaImportacionAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('numero')
+            ->add('numeroVuelo')
             ->add('empresaEnvio')
             ->add('estado')
         ;
     }
+
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin && !in_array($action, array('edit', 'show', 'list'))) {
+            return;
+        }
+
+        $url = $this->routeGenerator->generate('descargarCsvReservasParaCargaImportacion');
+
+        $menu->addChild('Download CVS para carga', array('uri' => $url));
+    }
+
+
+    // Called on submit create form.
+    public function prePersist($entity)
+    {
+        $this->manageFileUpload($entity);
+
+        return $entity;
+    }
+
+    // Called on submit edit form.
+    public function preUpdate($entity)
+    {
+        $this->manageFileUpload($entity);
+
+         if ($entity->getEstado() == CargaImportacion::ESTADO_RECIBIDA) {
+            $em =  $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
+            $reservas = $em->getRepository(Reserva::class)->findByCargaImportacion($entity);
+            foreach ($reservas as $key => $reserva) {
+                $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::DEPOSITO_INNOVA);
+                $reserva->setEstado($estado);
+            }
+         }
+
+        return $entity;
+    }
+
+    protected function manageFileUpload($entity)
+    {
+        $em =  $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
+
+        if (null === $entity->getFile()) {
+            return;
+        }
+
+        $row = 0;
+        if (($handle = fopen($entity->getFile(), "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                $row++;
+                if ($row == 1) continue;
+
+                $reserva = $em->getRepository(Reserva::class)->findOneById($data[6]);
+                /* TIRAR EXCEPTION SI NO ESTA LA RESERVA O SU ESTADO NO ES VALIDO */
+
+                $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::IMPORTANDO);
+                $reserva->setCargaImportacion($entity);
+                $reserva->setCostoCompraProductoDeclarado($data[2]);
+                $reserva->setEstado($estado);
+                $em->persist($reserva);
+
+          }
+        }
+        
+        // Empty the 
+        $entity->setFile(null);
+    }
+
 }

@@ -10,7 +10,8 @@ use AppBundle\Utils\Meli\Meli;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\Extension\Core\Type as FormType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-    
+use Symfony\Component\HttpFoundation\Response;
+
 class DefaultController extends Controller
 {
     /**
@@ -62,7 +63,12 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            $data = $form->getData();
+            $archivo = $data["archivo"];
+
             
+            $this->container->get('compras_service')->cargaMasivaOrdenDeCompra($archivo);
+
             $this->addFlash('sonata_flash_success', 'Si te cabe, re piola');
             $url = 'admin/app/ordendecompra/list';
             return new RedirectResponse($url);
@@ -73,5 +79,18 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/descargarCsvReservasParaCargaImportacion", name="descargarCsvReservasParaCargaImportacion")
+     */
+    public function descargarCsvReservasParaCargaImportacionAction() {
+        $response = new Response();
+        $contenido = $this->container->get('cargas_service')->csvContent_pendiente_carga();
+        $response->setContent($contenido);
 
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="carga.csv"');
+
+        return $response;
+
+    }
 }

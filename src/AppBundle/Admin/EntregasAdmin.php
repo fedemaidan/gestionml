@@ -8,10 +8,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ReservaAdmin extends AbstractAdmin
+class EntregasAdmin extends AbstractAdmin
 {
-
-    protected $baseRoutePattern = 'reserva';
+	protected $baseRoutePattern = 'entrega';
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -24,25 +23,13 @@ class ReservaAdmin extends AbstractAdmin
             ->add('fechaAlta')
             ->add('fechaModificacion')
             ->add('precioVenta')
-            ->add('informacion', null, array( 'label' => 'Información'))
-            ->add('sena', null, array( 'label' => 'Seña'))
-            ->add('linkUsados')
             ->add('mailCliente')
             ->add('facebookCliente')
             ->add('telefonoCliente')
             ->add('datosCliente')
             ->add('moneda', null, [],  'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
             ->add('productoNoCargado')
-            ->add('codigoReserva')
             ->add('producto')
-            ->add('tipoDePago_1')
-            ->add('valorPago1')
-            ->add('tipoDePago_2')
-            ->add('valorPago2')
-            ->add('tipoDePago_3')
-            ->add('valorPago3')
-            ->add('tipoDePago_4')
-            ->add('valorPago4')
             ->add('tipoDeEntrega')
             ->add('tipoDeVenta')
             ->add('cuentaPago')

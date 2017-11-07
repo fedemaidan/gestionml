@@ -43,9 +43,23 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="precio", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="costo_compra_producto", type="decimal",  precision=7, scale=2)
      */
-    private $precio;
+    private $costoCompraProducto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_compra_producto_declarado", type="decimal",  precision=7, scale=2)
+     */
+    private $costoCompraProductoDeclarado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precioVenta", type="decimal",  precision=7, scale=2)
+     */
+    private $precioVenta;
 
 
     /**
@@ -132,17 +146,9 @@ class Reserva
     private $nombreCliente;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_carga", type="string", length=255, nullable=true)
-     */
-    private $numeroCarga;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaEstimada", type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
      */
     private $fechaEstimada;
 
@@ -262,7 +268,7 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="fecha_entrega", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fecha_entrega", type="datetime", nullable=true)
      */
     private $fechaEntrega;    
 
@@ -295,6 +301,13 @@ class Reserva
      * @Assert\Choice({"PESOS", "DOLARES"})
      */
     private $moneda;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tracking", type="string", length=255, nullable=true)
+     */
+    private $tracking;
 
     /**
      * @var string
@@ -452,30 +465,6 @@ class Reserva
     public function getFechaModificacion()
     {
         return $this->fechaModificacion;
-    }
-
-    /**
-     * Set precio
-     *
-     * @param string $precio
-     *
-     * @return Reserva
-     */
-    public function setPrecio($precio)
-    {
-        $this->precio = $precio;
-
-        return $this;
-    }
-
-    /**
-     * Get precio
-     *
-     * @return string
-     */
-    public function getPrecio()
-    {
-        return $this->precio;
     }
 
     /**
@@ -1608,30 +1597,6 @@ class Reserva
     }
 
     /**
-     * Set numeroCarga
-     *
-     * @param string $numeroCarga
-     *
-     * @return Reserva
-     */
-    public function setNumeroCarga($numeroCarga)
-    {
-        $this->numeroCarga = $numeroCarga;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroCarga
-     *
-     * @return string
-     */
-    public function getNumeroCarga()
-    {
-        return $this->numeroCarga;
-    }
-
-    /**
      * Set fechaEstimada
      *
      * @param \DateTime $fechaEstimada
@@ -1728,6 +1693,103 @@ class Reserva
     }
 
     public function __toString() {
-        return $this->id." - ".$this->producto->getNombre();        
+        $nombreProducto = $this->producto ? $this->producto->getNombre() : $this->productoNoCargado;
+        return $this->id." - ".$nombreProducto;        
+    }
+
+    /**
+     * Set costoCompraProducto
+     *
+     * @param string $costoCompraProducto
+     *
+     * @return Reserva
+     */
+    public function setCostoCompraProducto($costoCompraProducto)
+    {
+        $this->costoCompraProducto = $costoCompraProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get costoCompraProducto
+     *
+     * @return string
+     */
+    public function getCostoCompraProducto()
+    {
+        return $this->costoCompraProducto;
+    }
+
+    /**
+     * Set precioVenta
+     *
+     * @param string $precioVenta
+     *
+     * @return Reserva
+     */
+    public function setPrecioVenta($precioVenta)
+    {
+        $this->precioVenta = $precioVenta;
+
+        return $this;
+    }
+
+    /**
+     * Get precioVenta
+     *
+     * @return string
+     */
+    public function getPrecioVenta()
+    {
+        return $this->precioVenta;
+    }
+
+    /**
+     * Set tracking
+     *
+     * @param string $tracking
+     *
+     * @return Reserva
+     */
+    public function setTracking($tracking)
+    {
+        $this->tracking = $tracking;
+
+        return $this;
+    }
+
+    /**
+     * Get tracking
+     *
+     * @return string
+     */
+    public function getTracking()
+    {
+        return $this->tracking;
+    }
+
+    /**
+     * Set costoCompraProductoDeclarado
+     *
+     * @param string $costoCompraProductoDeclarado
+     *
+     * @return Reserva
+     */
+    public function setCostoCompraProductoDeclarado($costoCompraProductoDeclarado)
+    {
+        $this->costoCompraProductoDeclarado = $costoCompraProductoDeclarado;
+
+        return $this;
+    }
+
+    /**
+     * Get costoCompraProductoDeclarado
+     *
+     * @return string
+     */
+    public function getCostoCompraProductoDeclarado()
+    {
+        return $this->costoCompraProductoDeclarado;
     }
 }

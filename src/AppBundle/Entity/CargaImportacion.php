@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -15,11 +16,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 class CargaImportacion
 {
 
+    const ESTADO_GENERADA = "Generada";
+    const ESTADO_RECIBIDA = "Recibida";
+
     public function __construct()
     {
         $this->reservas = new ArrayCollection();
     }
-
 
 
     /**
@@ -34,9 +37,9 @@ class CargaImportacion
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=255)
+     * @ORM\Column(name="numero_vuelo", type="string", length=255, nullable=true)
      */
-    private $numero;
+    private $numeroVuelo;
 
     /**
      * @var string
@@ -48,15 +51,32 @@ class CargaImportacion
     /**
      * @var int
      *
-     * @ORM\Column(name="estado", type="integer")
+     * @ORM\Column(name="estado", type="string", length=255, nullable=true)
      */
     private $estado;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_estimada_llegada", type="datetime", nullable=true)
+     */
+    private $fechaEstimadaLlegada;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="informacion", type="string", length=2000, nullable=true)
+     */
+    private $informacion;
 
     /**
      * @var Reserva
      * @ORM\OneToMany(targetEntity="Reserva", mappedBy="cargaImportacion")
      */
     private $reservas;
+
+    // Unmapped property used for file upload
+    protected $file;
 
 
     /**
@@ -67,30 +87,6 @@ class CargaImportacion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set numero
-     *
-     * @param string $numero
-     *
-     * @return CargaImportacion
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    /**
-     * Get numero
-     *
-     * @return string
-     */
-    public function getNumero()
-    {
-        return $this->numero;
     }
 
     /**
@@ -120,7 +116,7 @@ class CargaImportacion
     /**
      * Set estado
      *
-     * @param integer $estado
+     * @param string $estado
      *
      * @return CargaImportacion
      */
@@ -134,7 +130,7 @@ class CargaImportacion
     /**
      * Get estado
      *
-     * @return int
+     * @return string
      */
     public function getEstado()
     {
@@ -173,5 +169,99 @@ class CargaImportacion
     public function getReservas()
     {
         return $this->reservas;
+    }
+
+    /**
+     * Set numeroVuelo
+     *
+     * @param string $numeroVuelo
+     *
+     * @return CargaImportacion
+     */
+    public function setNumeroVuelo($numeroVuelo)
+    {
+        $this->numeroVuelo = $numeroVuelo;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroVuelo
+     *
+     * @return string
+     */
+    public function getNumeroVuelo()
+    {
+        return $this->numeroVuelo;
+    }
+
+    /**
+     * Set fechaEstimadaLlegada
+     *
+     * @param \DateTime $fechaEstimadaLlegada
+     *
+     * @return CargaImportacion
+     */
+    public function setFechaEstimadaLlegada($fechaEstimadaLlegada)
+    {
+        $this->fechaEstimadaLlegada = $fechaEstimadaLlegada;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaEstimadaLlegada
+     *
+     * @return \DateTime
+     */
+    public function getFechaEstimadaLlegada()
+    {
+        return $this->fechaEstimadaLlegada;
+    }
+
+
+     /////////////////FILE/////////////////////////////
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set informacion
+     *
+     * @param string $informacion
+     *
+     * @return CargaImportacion
+     */
+    public function setInformacion($informacion)
+    {
+        $this->informacion = $informacion;
+
+        return $this;
+    }
+
+    /**
+     * Get informacion
+     *
+     * @return string
+     */
+    public function getInformacion()
+    {
+        return $this->informacion;
     }
 }
