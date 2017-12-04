@@ -60,6 +60,17 @@ class CargaImportacionAdmin extends AbstractAdmin
             ->add('numeroVuelo')
             ->add('empresaEnvio')
             ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
+            ->add('fechaEstimadaLlegada','sonata_type_datetime_picker',array(
+                    'dp_side_by_side'       => true,
+                    'dp_use_current'        => true,
+                    'dp_use_seconds'        => false,
+                    'dp_collapse'           => true,
+                    'dp_calendar_weeks'     => false,
+                    'dp_view_mode'          => 'days',
+                    'format'                => 'yyyy-MM-dd H:m',
+                    'label'                 => 'Fecha estimada de llegada',
+                    "required"              => false
+            ))
             ->add('reservas')
             ->add('file', 'file', array(
                 'required' => false,

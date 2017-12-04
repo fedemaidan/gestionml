@@ -18,3 +18,4 @@ importar-reservas:
 
 importar-productos:
 	php app/console app:importacion:productos --archivo=/server/src/AppBundle/Resources/public/productos.csv
+	php app/console app:importacion:productos:extras --archivo=/server/src/AppBundle/Resources/public/productos_extras.csv

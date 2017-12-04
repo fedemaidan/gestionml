@@ -43,14 +43,14 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="costo_compra_producto", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="costo_compra_producto", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $costoCompraProducto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="costo_compra_producto_declarado", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="costo_compra_producto_declarado", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $costoCompraProductoDeclarado;
 
@@ -417,6 +417,10 @@ class Reserva
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**

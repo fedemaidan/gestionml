@@ -19,9 +19,9 @@ class ReservaAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+            ->add('id', null, ['label' => "N° de reserva"])
             ->add('estado')
-            ->add('fechaAlta')
+            ->add('fechaAlta','doctrine_orm_date', array('input_type' => 'timestamp'))
             ->add('fechaModificacion')
             ->add('precioVenta')
             ->add('informacion', null, array( 'label' => 'Información'))
@@ -56,13 +56,14 @@ class ReservaAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
+            ->add('id', null, ['label' => "N° Res"])
             ->add('producto')
             ->add('precioVenta')
             ->add('estado')
             ->add('tipoDeEntrega')
             ->add('fechaEntrega')
             ->add('_action', null, array(
+                'label'   => "Acciones",
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
@@ -175,7 +176,7 @@ class ReservaAdmin extends AbstractAdmin
     {
         $showMapper
         ->with('Principal')
-            ->add('id')
+            ->add('id', null, ['label' => "N° de reserva"])
             ->add('estado',null, ["required" => true])
             ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
             ->add('fechaModificacion', 'datetime', array( 'label' => 'Última modificación', 'format' => 'Y-m-d H:i'))

@@ -38,15 +38,21 @@ class CargaDeProductosCommand extends ContainerAwareCommand
  		
  		    $array = [];
         if (($handle = fopen($archivo, "r")) !== FALSE) {
-	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                
-				if ($this->row > 1)
-	           	    $this->cargarProducto($data);
-	           	$this->row++;
-                
-	      }
+    	      while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                    
+    				if ($this->row > 1)
+    	           	    $this->cargarProducto($data);
+    	           	$this->row++;
+                    
+    	      }
       	}
-        
+
+      $producto = new Producto();
+      $producto->setNombre("Otros");
+      $producto->setCodigo("OTROS");
+      $producto->setCantidad(0);
+      
+      $this->getContainer()->get('doctrine')->getManager()->persist($producto);
       $this->getContainer()->get('doctrine')->getManager()->flush();
       fclose($handle);
     }

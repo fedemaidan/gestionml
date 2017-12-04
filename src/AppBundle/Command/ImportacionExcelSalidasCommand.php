@@ -29,6 +29,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->getContainer()->get('doctrine')->getManager()->getConnection()->getConfiguration()->setSQLLogger(null);
     	$this->ultimaFechaValida =\DateTime::createFromFormat('j/m/Y', '01/01/1980');
         $archivo = $input->getOption('archivo');
         
@@ -66,6 +67,11 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
                 if ($this->row > 1)
 	           	    $this->cargarReserva($data);
 	           	$this->row++;
+
+                if ($this->row % 100 == 0) {
+                    $this->getContainer()->get('doctrine')->getManager()->flush();
+                    $this->getContainer()->get('doctrine')->getManager()->clear();
+                }
                 
 	      }
       	}
@@ -120,7 +126,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$reserva->setTipoDePago1($tipoDePago);
         $reserva->setTipoDeEntrega($tipoDeEntrega);
         $reserva->setMoneda($moneda);
-    	$reserva->setPrecio($precio);
+    	$reserva->setPrecioVenta($precio);
     	$reserva->setInformacion($info);
         $reserva->setMailCliente($mailCliente);
     	$reserva->setSena($sena == '' ? 0 : $sena);
@@ -128,6 +134,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$reserva->setCuentaPrincipal($cuenta);
         $reserva->setCuentaPago($cuentaPago);
     	$reserva->setLinkUsados($linkUsados);
+        $reserva->setId($codigoReserva);
     	$reserva->setCodigoReserva($codigoReserva);
         $reserva->setEstado($estado);
         
@@ -135,8 +142,11 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
             $reserva->setValorPago1($precio);
         }
 
+        $metadata = $this->getContainer()->get('doctrine')->getManager()->getClassMetaData(get_class($reserva));
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+
         $this->getContainer()->get('doctrine')->getManager()->persist($reserva);
-        $this->getContainer()->get('doctrine')->getManager()->flush();
+        
 
     }
 
@@ -220,6 +230,10 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
             if (strstr(strtoupper($value), "CANCELAD")) {
                 return  $this->getContainer()->get('doctrine')->getManager()->getRepository(Estado::ORM_ENTITY)->findOneByCodigo(Estado::CANCELADO_CLIENTE);
             }
+        }
+
+        if (strstr(strtoupper($data[0]), "XX") || empty($data[0])) {
+            return  $this->getContainer()->get('doctrine')->getManager()->getRepository(Estado::ORM_ENTITY)->findOneByCodigo(Estado::CANCELADO_CLIENTE);
         }
 
         $fin = $data[8];
