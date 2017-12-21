@@ -35,7 +35,6 @@ class CargaDeProductosExtrasCommand extends ContainerAwareCommand
             throw new InvalidArgumentException("No existe el archivo $archivo");
         }
  		
- 		
  		    $array = [];
         if (($handle = fopen($archivo, "r")) !== FALSE) {
 	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
@@ -43,7 +42,6 @@ class CargaDeProductosExtrasCommand extends ContainerAwareCommand
 				if ($this->row > 0)
 	           	    $this->cargarProducto($data);
 	           	$this->row++;
-                
 	      }
       	}
         
@@ -59,7 +57,11 @@ class CargaDeProductosExtrasCommand extends ContainerAwareCommand
         $producto = new Producto();
         $producto->setCodigo($data[0]);
         $producto->setNombre($data[1]);  
-        $producto->setCantidad(0);
+        $producto->setCantidad($data[5]);
+        $this->getContainer()->get('doctrine')->getManager()->persist($producto);  
+      }
+      else if ($producto) {
+        $producto->setCantidad($data[5]);
         $this->getContainer()->get('doctrine')->getManager()->persist($producto);  
       }
     	

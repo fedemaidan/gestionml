@@ -19,3 +19,6 @@ importar-reservas:
 importar-productos:
 	php app/console app:importacion:productos --archivo=/server/src/AppBundle/Resources/public/productos.csv
 	php app/console app:importacion:productos:extras --archivo=/server/src/AppBundle/Resources/public/productos_extras.csv
+
+
+#limpiar set foreign_key_checks=0; truncate table reserva; truncate table producto; truncate table reserva_audit; truncate table producto_audit; set foreign_key_checks=1;
