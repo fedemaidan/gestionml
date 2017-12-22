@@ -12,6 +12,14 @@ class ReservaAdmin extends AbstractAdmin
 {
 
     protected $baseRoutePattern = 'reserva';
+    protected $datagridValues = [
+
+        // reverse order (default = 'ASC')
+        '_sort_order' => 'DESC',
+
+        // name of the ordered field (default = the model's id field, if any)
+        '_sort_by' => 'fechaModificacion',
+    ];
 
     /**
      * @param DatagridMapper $datagridMapper
