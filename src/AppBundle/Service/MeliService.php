@@ -63,7 +63,7 @@ class MeliService
     					
     					$pictures = "";
 		    			foreach ($datosItem->pictures as $key => $value) {
-		    				$pictures .= $value->url;
+		    				$pictures .= $value->url.",";
 		    			}
 
 		    			$publicacion->setImagenes($pictures);

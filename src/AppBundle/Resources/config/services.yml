@@ -1,4 +1,11 @@
 services:
+    app.admin.publicacion_ml:
+        class: AppBundle\Admin\PublicacionMLAdmin
+        arguments: [~, AppBundle\Entity\PublicacionML, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones }
+        public: true
+        
     app.admin.busqueda_ebay:
         class: AppBundle\Admin\BusquedaEbayAdmin
         arguments: [~, AppBundle\Entity\BusquedaEbay, AppBundle:CRUD]
@@ -111,4 +118,11 @@ services:
         arguments: [~, AppBundle\Entity\CargaImportacion, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestión, label: Cargas de importación }
+        public: true
+
+    app.admin.publicacion_ml:
+        class: AppBundle\Admin\PublicacionMLAdmin
+        arguments: [~, AppBundle\Entity\PublicacionML, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones }
         public: true

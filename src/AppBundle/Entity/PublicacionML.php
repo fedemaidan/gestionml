@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PublicacionML
 {
+
     /**
      * @var int
      *
@@ -440,4 +441,26 @@ class PublicacionML
     {
         $this->atributos->removeElement($atributo);
     }
+
+//trait
+    public function getImagenesFoto() {
+        $ima = explode(',', $this->getImagenes());
+        $retornar = "";
+        foreach ($ima as $key => $value) {
+            $retornar .= "<img src='".$value."'></img>";
+        }
+        return $retornar;
+    }
+
+public function getImagenUrlByIndex($i) {
+        $ima = explode(',', $this->getImagenes());
+        if (count($ima) > $i)
+            return $ima[$i];
+        return "";
+    }
+
+public function getImagenPrincipal() {
+        return "<img src='".$this->getImagenUrlByIndex(0)."'></img>";
+    }
+
 }
