@@ -604,4 +604,16 @@ class OrdenDeCompra
         $pagosRealizados = $this->pagosTotal();
         return intval($pagosRealizados) == intval($this->costoTotal());
     }
+
+    public function tieneDatosDistintosA($ordenDeCompra) {
+        $validables = ["getShipping", "getCuentaEbayCompra", "getProveedor", "getWarehouse", "getTarjeta1", "getTarjeta2", "getTarjeta3", "getTarjeta4", "getTarjeta5", "getPago1", "getPago2", "getPago3", "getPago4", "getPago5" ];
+
+        foreach ($validables as $key => $get) {
+            if ($this->$get() != $ordenDeCompra->$get())
+                return substr($get,3);
+        }    
+
+        return 0;            
+    }
+
 }

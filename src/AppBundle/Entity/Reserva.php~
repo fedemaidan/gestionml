@@ -43,14 +43,14 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="costo_compra_producto", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="costo_compra_producto", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $costoCompraProducto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="costo_compra_producto_declarado", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="costo_compra_producto_declarado", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $costoCompraProductoDeclarado;
 
@@ -268,7 +268,7 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="fecha_entrega", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fecha_entrega", type="datetime", nullable=true)
      */
     private $fechaEntrega;    
 
@@ -417,6 +417,10 @@ class Reserva
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
@@ -1693,7 +1697,8 @@ class Reserva
     }
 
     public function __toString() {
-        return $this->id." - ".$this->producto->getNombre();        
+        $nombreProducto = $this->producto ? $this->producto->getNombre() : $this->productoNoCargado;
+        return $this->id." - ".$nombreProducto;        
     }
 
     /**

@@ -10,6 +10,11 @@ services:
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
     
+    meli_service:
+        class:     AppBundle\Service\MeliService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
     compras_service:
         class:     AppBundle\Service\ComprasService
         arguments:

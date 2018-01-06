@@ -6,6 +6,7 @@
 {% block tab_menu %} {% endblock %}
 
 {% block form %}
+	<a href="{{ path('descargarCsvBaseParaOrdenCompra') }}">Descargar base con items en <b>Selección de compra</b></a>
 	<h1>Carga masiva orden de compra</h1>
 	{{ form(form) }}
 {% endblock %}

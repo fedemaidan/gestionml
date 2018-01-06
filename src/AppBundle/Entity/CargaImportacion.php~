@@ -240,4 +240,28 @@ class CargaImportacion
     {
         return $this->file;
     }
+
+    /**
+     * Set informacion
+     *
+     * @param string $informacion
+     *
+     * @return CargaImportacion
+     */
+    public function setInformacion($informacion)
+    {
+        $this->informacion = $informacion;
+
+        return $this;
+    }
+
+    /**
+     * Get informacion
+     *
+     * @return string
+     */
+    public function getInformacion()
+    {
+        return $this->informacion;
+    }
 }

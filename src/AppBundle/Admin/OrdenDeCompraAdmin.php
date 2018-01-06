@@ -53,8 +53,22 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('reservas')
+            ->add('proveedor')
             ->add('informacion')
+            ->add('reservas')
+            ->add('cuentaEbayCompra')
+            ->add('warehouse')
+            ->add('shipping')
+            ->add('tarjeta1')
+            ->add('pago1')
+            ->add('tarjeta2')
+            ->add('pago2')
+            ->add('tarjeta3')
+            ->add('pago3')
+            ->add('tarjeta4')
+            ->add('pago4')
+            ->add('tarjeta5')
+            ->add('pago5')
         ;
     }
 
@@ -68,12 +82,13 @@ class OrdenDeCompraAdmin extends AbstractAdmin
             ->add('pagosValidosTexto', null, array( 'label' => 'Pagos validos'))
             ->add('informacion')
             ->add('fechaAlta')
+            ->add('costoTotal')
+            ->add('pagosTotal')
             ->add('reservas')
             ->add('proveedor')
             ->add('cuentaEbayCompra')
             ->add('warehouse')
             ->add('shipping')
-            ->add('costoTotal')
             ->add('tarjeta1')
             ->add('pago1')
             ->add('tarjeta2')
@@ -84,9 +99,7 @@ class OrdenDeCompraAdmin extends AbstractAdmin
             ->add('pago4')
             ->add('tarjeta5')
             ->add('pago5')
-
-
-        ;
+            ;
     }
 
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)

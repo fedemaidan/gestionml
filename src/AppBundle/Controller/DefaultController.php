@@ -25,6 +25,7 @@ class DefaultController extends Controller
         ));
     }
 
+
     /**
      * @Route("/testingEbay", name="ebay_test")
      */
@@ -66,11 +67,16 @@ class DefaultController extends Controller
             $data = $form->getData();
             $archivo = $data["archivo"];
 
+            try {
+                $this->container->get('compras_service')->cargaMasivaOrdenDeCompra($archivo);    
+                $this->addFlash('sonata_flash_success', 'Ordenes creadas correctamente');
+                $url = 'admin/app/ordendecompra/list';
+            }
+            catch(\Exception $e) {
+                $this->addFlash('sonata_flash_error', 'Error: '.$e->getMessage());
+                $url = $this->generateUrl('cargaMasivaOrdenCompra');
+            }
             
-            $this->container->get('compras_service')->cargaMasivaOrdenDeCompra($archivo);
-
-            $this->addFlash('sonata_flash_success', 'Si te cabe, re piola');
-            $url = 'admin/app/ordendecompra/list';
             return new RedirectResponse($url);
         }
 
@@ -89,6 +95,32 @@ class DefaultController extends Controller
 
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', 'attachment; filename="carga.csv"');
+
+        return $response;
+
+    }
+
+    /**
+     * @Route("/descargarCsvBaseParaOrdenCompra", name="descargarCsvBaseParaOrdenCompra")
+     */
+    public function descargarCsvBaseParaOrdenCompraAction() {
+        $response = new Response();
+        $contenido = $this->container->get('compras_service')->csvContent_seleccion_compra();
+        $response->setContent($contenido);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="OrdenesCompraBase.csv"');
+
+        return $response;
+
+    }
+
+    /**
+     * @Route("/testApiCategorias", name="testApiCategorias")
+     */
+    public function testApiCategoriasAction() {
+        $response = new Response();
+        $contenido = $this->container->get('meli_service')->buscarPublicacionesPorCategoria();
+        
 
         return $response;
 
