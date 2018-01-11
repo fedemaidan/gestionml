@@ -88,7 +88,8 @@ class MeliService
 	                        }
 
                             if ($atributo->getIdMl() == 'UPC') {
-                                $publicacion->setUpc($atributo->getValueName());
+                                
+                                    $publicacion->setUpc((int)$atributo->getValueName());
                             }
 
                             if ($atributo->getIdMl() == 'BRAND') {
@@ -103,6 +104,9 @@ class MeliService
                                 $publicacion->setMpn($atributo->getValueName());
                             }
 
+                            if ($atributo->getIdMl() == 'EAN') {
+                                $publicacion->setEan($atributo->getValueName());
+                            }
 	                        $publicacion->addAtributo($atributo);
 		    			}
     				}
