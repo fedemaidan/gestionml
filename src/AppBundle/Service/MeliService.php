@@ -105,7 +105,7 @@ class MeliService
                             }
 
                             if ($atributo->getIdMl() == 'EAN') {
-                                $publicacion->setEan($atributo->getValueName());
+                                $publicacion->setEan((int)$atributo->getValueName());
                             }
 	                        $publicacion->addAtributo($atributo);
 		    			}
