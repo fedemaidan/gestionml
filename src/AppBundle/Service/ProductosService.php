@@ -43,7 +43,7 @@ class ProductosService
         foreach ($publicacionesML as $key => $publiML) {
             $producto = $this->dameProducto($publiML);
             $publiML->setProducto($producto);
-            
+            $this->em->persist($publiML);
                 $this->em->flush(); 
             
         }
