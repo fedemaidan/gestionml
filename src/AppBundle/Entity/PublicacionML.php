@@ -102,9 +102,23 @@ class PublicacionML
     /**
      * @var string
      *
-     * @ORM\Column(name="upc", type="string", length=255, nullable=true)
+     * @ORM\Column(name="upc", type="bigint", nullable=true)
      */
     private $upc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ean", type="bigint", nullable=true)
+     */
+    private $ean;
+    
+    /**
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $producto;
 
     /**
      * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionML")

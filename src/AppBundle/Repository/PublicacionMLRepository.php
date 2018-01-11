@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class PublicacionMLRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function damePublicacionesProducto($producto) {
+		$query  = $this->createQueryBuilder('p');
+     
+		if ($producto) {
+			$query->where('producto = $producto')
+		}
+		else {
+			$query->where('producto IS NULL')
+		}
+
+		return $query->getQuery()->getResult();
+	}
+
 }

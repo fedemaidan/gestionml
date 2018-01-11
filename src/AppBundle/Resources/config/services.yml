@@ -26,7 +26,11 @@ services:
         class:     AppBundle\Service\ComprasService
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
-    
+
+    productos_service:
+        class:     AppBundle\Service\ProductosService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
     cargas_service:
         class:     AppBundle\Service\CargasImportacionService
         arguments:

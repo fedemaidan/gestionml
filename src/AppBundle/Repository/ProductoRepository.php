@@ -10,4 +10,25 @@ namespace AppBundle\Repository;
  */
 class ProductoRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function dameProductos($brand, $model, $upc, $mpn, $ean) {
+		
+		$query  = $this->createQueryBuilder('p');
+     
+		if ($brand && $model) {
+			$query->orWhere('(brand = $brand and model = $model)')
+		}
+		if ($upc) {
+			$query->orWhere('upc = $upc')
+		}
+		if ($mpn) {
+			$query->orWhere('mpn = $mpn')
+		}
+		if ($ean) {
+			$query->orWhere('ean = $ean')
+		}
+
+		return $query->getQuery()->getResult();
+	
+	}
+
 }

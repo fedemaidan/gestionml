@@ -143,6 +143,27 @@ class Producto
     /**
      * @var string
      *
+     * @ORM\Column(name="ean", type="bigint", nullable=true)
+     */
+    private $ean;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mpn", type="string", length=255, nullable=true)
+     */
+    private $mpn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="upc", type="bigint", nullable=true)
+     */
+    private $upc;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="contenido_paquete", type="string", length=610, nullable=true)
      */
     private $contenido_paquete;
