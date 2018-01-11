@@ -28,4 +28,7 @@ update-ml-netbooks:
 
 update-ml-tablets:
 	php app/console ml:actualizar:publicaciones --categoria_ml='MLA82085'
+
+update-all: update-ml-netbooks update-ml-tablets
+	php app/console productos:update
 #limpiar set foreign_key_checks=0; truncate table reserva; truncate table producto; truncate table reserva_audit; truncate table producto_audit; set foreign_key_checks=1;

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PublicacionML
 {
+
     /**
      * @var int
      *
@@ -101,9 +102,23 @@ class PublicacionML
     /**
      * @var string
      *
-     * @ORM\Column(name="upc", type="string", length=255, nullable=true)
+     * @ORM\Column(name="upc", type="bigint", nullable=true)
      */
     private $upc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ean", type="bigint", nullable=true)
+     */
+    private $ean;
+    
+    /**
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $producto;
 
     /**
      * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionML")
@@ -327,5 +342,139 @@ class PublicacionML
         $this->atributos[] = $attr;
     }
 
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->atributos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Set brand
+     *
+     * @param string $brand
+     *
+     * @return PublicacionML
+     */
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return string
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return PublicacionML
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set mpn
+     *
+     * @param string $mpn
+     *
+     * @return PublicacionML
+     */
+    public function setMpn($mpn)
+    {
+        $this->mpn = $mpn;
+
+        return $this;
+    }
+
+    /**
+     * Get mpn
+     *
+     * @return string
+     */
+    public function getMpn()
+    {
+        return $this->mpn;
+    }
+
+    /**
+     * Set upc
+     *
+     * @param string $upc
+     *
+     * @return PublicacionML
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+
+        return $this;
+    }
+
+    /**
+     * Get upc
+     *
+     * @return string
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
+
+    /**
+     * Remove atributo
+     *
+     * @param \AppBundle\Entity\AtributoML $atributo
+     */
+    public function removeAtributo(\AppBundle\Entity\AtributoML $atributo)
+    {
+        $this->atributos->removeElement($atributo);
+    }
+
+//trait
+    public function getImagenesFoto() {
+        $ima = explode(',', $this->getImagenes());
+        $retornar = "";
+        foreach ($ima as $key => $value) {
+            $retornar .= "<img src='".$value."'></img>";
+        }
+        return $retornar;
+    }
+
+public function getImagenUrlByIndex($i) {
+        $ima = explode(',', $this->getImagenes());
+        if (count($ima) > $i)
+            return $ima[$i];
+        return "";
+    }
+
+public function getImagenPrincipal() {
+        return "<img src='".$this->getImagenUrlByIndex(0)."'></img>";
+    }
+
+}

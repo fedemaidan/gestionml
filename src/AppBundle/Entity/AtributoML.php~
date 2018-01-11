@@ -217,5 +217,9 @@ class AtributoML
     {
         return $this->attributeGroupName;
     }
-}
 
+    public function __toString()
+    {
+        return $this->name. ": ". $this->valueName;
+    }
+}

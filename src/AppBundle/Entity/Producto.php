@@ -757,4 +757,76 @@ class Producto
     {
         return $this->origen;
     }
+
+    /**
+     * Set ean
+     *
+     * @param integer $ean
+     *
+     * @return Producto
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+
+        return $this;
+    }
+
+    /**
+     * Get ean
+     *
+     * @return integer
+     */
+    public function getEan()
+    {
+        return $this->ean;
+    }
+
+    /**
+     * Set mpn
+     *
+     * @param string $mpn
+     *
+     * @return Producto
+     */
+    public function setMpn($mpn)
+    {
+        $this->mpn = $mpn;
+
+        return $this;
+    }
+
+    /**
+     * Get mpn
+     *
+     * @return string
+     */
+    public function getMpn()
+    {
+        return $this->mpn;
+    }
+
+    /**
+     * Set upc
+     *
+     * @param integer $upc
+     *
+     * @return Producto
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+
+        return $this;
+    }
+
+    /**
+     * Get upc
+     *
+     * @return integer
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
 }

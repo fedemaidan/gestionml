@@ -15,16 +15,16 @@ class ProductoRepository extends \Doctrine\ORM\EntityRepository
 		$query  = $this->createQueryBuilder('p');
      
 		if ($brand && $model) {
-			$query->orWhere('(brand = $brand and model = $model)')
+			$query->orWhere("(p.marca = '$brand' and p.modelo = '$model')");
 		}
 		if ($upc) {
-			$query->orWhere('upc = $upc')
+			$query->orWhere("p.upc = $upc");
 		}
 		if ($mpn) {
-			$query->orWhere('mpn = $mpn')
+			$query->orWhere("p.mpn = $mpn");
 		}
 		if ($ean) {
-			$query->orWhere('ean = $ean')
+			$query->orWhere("p.ean = $ean");
 		}
 
 		return $query->getQuery()->getResult();
