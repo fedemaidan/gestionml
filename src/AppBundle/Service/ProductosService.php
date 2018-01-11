@@ -39,7 +39,7 @@ class ProductosService
         //$publicacionesML = $this->em->getRepository(PublicacionML::class)->damePublicacionesProducto(null);
         $publicacionesML = $this->em->getRepository(PublicacionML::class)->damePublicacionesProducto(null);
         $count = 0;
-
+        var_dump(count($publicacionesML));die;
         foreach ($publicacionesML as $key => $publiML) {
             $producto = $this->dameProducto($publiML);
             $publiML->setProducto($producto);
