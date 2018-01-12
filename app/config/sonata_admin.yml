@@ -1,0 +1,53 @@
+sonata_admin:
+    title:      Gestión
+    title_logo: favicon.ico
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            LIST: LIST
+            SHOW: SHOW
+            EDIT: EDIT
+            CREATE: CREATE
+            DELETE: DELETE
+            OPERATOR: OPERATOR
+            EXPORT: EXPORT
+            MASTER: MASTER
+#        short_object_description: AppBundle:Admin:short-object-description.html.twig
+    options:
+        html5_validate:       true
+        confirm_exit:         false
+    dashboard:
+        groups:
+            Gestión:
+                items:
+                    - app.admin.reserva
+                    - app.admin.producto
+                    - app.admin.seleccion_de_compra
+                    - app.admin.orden_de_compra
+                    - app.admin.carga_importacion
+            Analisis:
+                items:
+                    - route: csvProductosPorMinimoYVendidos
+                      label: 'csvProductosPorMinimoYVendidos'
+            users_administration:
+                label: Usuarios
+                label_catalogue: messages
+                icon: '<fa class="fa fa-users"></fa>'
+                items:
+                    - sonata.user.admin.user
+                    - sonata.user.admin.group
+            MercadoLibre:
+                items:
+                    - app.admin.publicacion_ml
+            Ebay:
+                items: 
+                    - app.admin.busqueda_ebay
+                    - app.admin.categoria_ebay
+                    - app.admin.publicacion_ebay
+            Datos Estructurales:
+                items:
+                    - app.admin.cuenta
+                    - app.admin.estado
+                    - app.admin.tipo_de_entrega
+                    - app.admin.tipo_de_pago
+                    - app.admin.tipo_de_venta
