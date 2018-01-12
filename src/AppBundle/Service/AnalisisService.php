@@ -38,7 +38,7 @@ class AnalisisService
         $resultado = "IDENTIFICADOR_PRODUCTO , MARCA, MODELO";
 
         foreach ($productos as $key => $prod) {
-            $resultado .= $prod["id"].",".$prod["marca"].",".$prod["modelo"];
+            $resultado .= $prod["id"].",".$prod["marca"].",".$prod["modelo"]."\n";
         }
 
         return $resultado;
