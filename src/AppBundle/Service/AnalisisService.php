@@ -35,7 +35,7 @@ class AnalisisService
         $stmp = $this->em->getConnection()->prepare($sql);
         $stmp->execute();
         $productos = $stmp->fetchAll();
-        $resultado = "IDENTIFICADOR_PRODUCTO , MARCA, MODELO";
+        $resultado = "IDENTIFICADOR_PRODUCTO , MARCA, MODELO\n";
 
         foreach ($productos as $key => $prod) {
             $resultado .= $prod["id"].",".$prod["marca"].",".$prod["modelo"]."\n";
