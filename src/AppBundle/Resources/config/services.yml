@@ -16,6 +16,11 @@ services:
         class:     AppBundle\Service\EbayService
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
+    analisis_service:
+        class:     AppBundle\Service\AnalisisService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
     
     meli_service:
         class:     AppBundle\Service\MeliService

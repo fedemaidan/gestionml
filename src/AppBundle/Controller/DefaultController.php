@@ -120,9 +120,26 @@ class DefaultController extends Controller
     public function testApiCategoriasAction() {
         $response = new Response();
         $contenido = $this->container->get('meli_service')->buscarPublicacionesPorCategoria();
+        return $response;
+    }
+
+    /**
+     * @Route("/testReporte", name="testReporte")
+     */
+    public function reporteAction() {
+        $response = new Response();
         
+        $contenido = $this->container->get('analisis_service')->productosPorMinimoYVendidos(15000, 100);
+        $response->setContent($contenido);
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="productos_analisis.csv"');
 
         return $response;
 
     }
+
+
+
+
 }
