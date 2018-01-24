@@ -22,6 +22,7 @@ class PublicacionMLAdmin extends AbstractAdmin
             ->add('precioCompra')
             ->add('link')
             ->add('vendedor')
+            ->add('producto')
             ->add('cantidadVendidos')
             ->add('categoriaML')
             ->add('brand')
