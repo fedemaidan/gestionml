@@ -53,6 +53,8 @@ class ProductosService
             if (count($publicacionesML) == 0) {
                 $publicacionesML = false;
             }
+
+            $this->imprimo("Se actualizaron ".count($publicacionesML)." publicaciones");
         }
 
     }
@@ -76,6 +78,7 @@ class ProductosService
 
         /* Comparo productos */
         if (count($productos) == 0) {
+            $this->imprimo("Producto nuevo: ".$brand."_".$model);
             $producto = new Producto();
             $producto->setNombre($brand."_".$model);
             $producto->setCodigo($brand."_".$model);
@@ -114,5 +117,9 @@ class ProductosService
         $text = str_replace('_', '', $text);
         $text = str_replace('\'', '', $text);
         return $text;
+    }
+
+    private function imprimo($texto) {
+        echo "\n".date("Y-m-d H:i:s"). " ****** ".$texto;
     }
 }
