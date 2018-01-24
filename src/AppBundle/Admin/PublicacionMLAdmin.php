@@ -24,6 +24,7 @@ class PublicacionMLAdmin extends AbstractAdmin
             ->add('vendedor')
             ->add('producto.marca')
             ->add('producto.modelo')
+            ->add('producto','doctrine_orm_model_autocomplete',[], null, ['property'=>'nombre', 'multiple' => true])
             ->add('cantidadVendidos')
             ->add('categoriaML')
             ->add('brand')
