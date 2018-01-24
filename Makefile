@@ -25,10 +25,19 @@ importar-productos:
 
 update-ml-netbooks:
 	php app/console ml:actualizar:publicaciones --categoria_ml='MLA1652'
+	php app/console productos:update
 
 update-ml-tablets:
 	php app/console ml:actualizar:publicaciones --categoria_ml='MLA82085'
-
-update-all: update-ml-netbooks update-ml-tablets
 	php app/console productos:update
+
+update-ml-musica:
+	php app/console ml:actualizar:publicaciones --categoria_ml='MLA2987'
+	php app/console ml:actualizar:publicaciones --categoria_ml='MLA409810'
+	php app/console ml:actualizar:publicaciones --categoria_ml='MLA3012'
+	php app/console productos:update
+
+update-all: update-ml-netbooks update-ml-tablets update-ml-musica
+	php app/console productos:update
+
 #limpiar set foreign_key_checks=0; truncate table reserva; truncate table producto; truncate table reserva_audit; truncate table producto_audit; set foreign_key_checks=1;

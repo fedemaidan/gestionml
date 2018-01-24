@@ -60,7 +60,7 @@ class PublicacionML
     /**
      * @var string
      *
-     * @ORM\Column(name="imagenes", type="string", length=1500, nullable=true)
+     * @ORM\Column(name="imagenes", type="string", length=2500, nullable=true)
      */
     private $imagenes;
 
