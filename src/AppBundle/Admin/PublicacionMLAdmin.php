@@ -22,7 +22,7 @@ class PublicacionMLAdmin extends AbstractAdmin
             ->add('precioCompra')
             ->add('link')
             ->add('vendedor')
-            ->add('producto')
+            ->add('producto','doctrine_orm_model_autocomplete',[], null, ['property'=>'value', 'multiple' => true])
             ->add('cantidadVendidos')
             ->add('categoriaML')
             ->add('brand')
