@@ -51,7 +51,7 @@ class ProductosService
             }
 
             if (count($publicacionesML) == 0) {
-                $publicacionesML = false;
+                $quedanPublisSinProducto = false;
             }
 
             $this->imprimo("Se actualizaron ".count($publicacionesML)." publicaciones");
