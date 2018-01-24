@@ -23,7 +23,7 @@ class PublicacionMLRepository extends \Doctrine\ORM\EntityRepository
 			$query->andWhere($query->expr()->isNotNull("p.model"));
 		}
 
-		$query->limit(2000);
+		$query->setMaxResults(2000);
 
 		return $query->getQuery()->getResult();
 	}
