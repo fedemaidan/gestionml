@@ -37,16 +37,24 @@ class ProductosService
     public function cargaProductosDesdeML() {
 
         //$publicacionesML = $this->em->getRepository(PublicacionML::class)->damePublicacionesProducto(null);
-        $publicacionesML = $this->em->getRepository(PublicacionML::class)->damePublicacionesProducto(null);
-        $count = 0;
+        $quedanPublisSinProducto = true;
+        while ($quedanPublisSinProducto) {
+            $publicacionesML = $this->em->getRepository(PublicacionML::class)->damePublicacionesProducto(null);
+            $count = 0;
 
-        foreach ($publicacionesML as $key => $publiML) {
-            $producto = $this->dameProducto($publiML);
-            $publiML->setProducto($producto);
-            
-                $this->em->flush(); 
-            
+            foreach ($publicacionesML as $key => $publiML) {
+                $producto = $this->dameProducto($publiML);
+                $publiML->setProducto($producto);
+                
+                    $this->em->flush(); 
+                
+            }
+
+            if (count($publicacionesML) == 0) {
+                $publicacionesML = false;
+            }
         }
+
     }
 
     public function relacionProductoPublicacionEbay() {

@@ -19,7 +19,11 @@ class PublicacionMLRepository extends \Doctrine\ORM\EntityRepository
 		}
 		else {
 			$query->where($query->expr()->isNull("p.producto"));
+			$query->andWhere($query->expr()->isNotNull("p.brand"));
+			$query->andWhere($query->expr()->isNotNull("p.model"));
 		}
+
+		$query->limit(2000);
 
 		return $query->getQuery()->getResult();
 	}
