@@ -101,6 +101,9 @@ class TipoDePago
     }
 
     public function __toString() {
-        return $this->getNombre();
+        if (!is_string($this->getNombre()))
+            return "" ;
+        else
+            return $this->getNombre();
     }
 }
