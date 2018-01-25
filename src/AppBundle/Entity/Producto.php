@@ -308,6 +308,7 @@ class Producto
 
     public function __toString() {
         $aux = "";
+        
         if ($this->getMarca() != null) {
             $aux .= $this->getMarca();
         }
@@ -315,11 +316,6 @@ class Producto
 
         if ($this->getModelo() != null) {
             $aux .= $this->getModelo();
-        }
-
-        
-        if ($aux == "_") {
-            return $this->getNombre();
         } 
 
         return $aux;
