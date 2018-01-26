@@ -129,7 +129,6 @@ class ReservaAdmin extends AbstractAdmin
             ->end()
             ->with('Cliente')
             ->add('nombreCliente')
-            ->add('apellidoCliente')
             ->add('mailCliente')
             ->add('facebookCliente')
             ->add('telefonoCliente')
