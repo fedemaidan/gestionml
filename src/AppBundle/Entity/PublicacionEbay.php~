@@ -575,4 +575,28 @@ class PublicacionEbay
     {
         return $this->upc;
     }
+
+    /**
+     * Set ean
+     *
+     * @param integer $ean
+     *
+     * @return PublicacionEbay
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+
+        return $this;
+    }
+
+    /**
+     * Get ean
+     *
+     * @return integer
+     */
+    public function getEan()
+    {
+        return $this->ean;
+    }
 }

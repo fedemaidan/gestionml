@@ -123,6 +123,12 @@ class Reserva
      */
     private $contactosConCliente;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nick_cliente", type="string", length=1000, nullable=true)
+     */
+    private $nickCliente;
 
     /**
      * @var string
@@ -275,9 +281,16 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="factura", type="string", length=255, nullable=true)
+     * @ORM\Column(name="datos_factura", type="string", length=255, nullable=true)
      */
-    private $factura;    
+    private $datosFactura;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_factura", type="string", length=255, nullable=true)
+     */
+    private $numeroFactura;    
 
     /**
      * @var string
@@ -1795,5 +1808,86 @@ class Reserva
     public function getCostoCompraProductoDeclarado()
     {
         return $this->costoCompraProductoDeclarado;
+    }
+
+    public function getClienteStr() {
+        $aux = "";
+        if (is_string($this->getNombreCliente()))
+            $aux .= $this->getNombreCliente();
+        if (is_string($this->getMailCliente()))
+            $aux .= " ".$this->getMailCliente();
+        return $aux;
+    }
+
+    /**
+     * Set nickCliente
+     *
+     * @param string $nickCliente
+     *
+     * @return Reserva
+     */
+    public function setNickCliente($nickCliente)
+    {
+        $this->nickCliente = $nickCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get nickCliente
+     *
+     * @return string
+     */
+    public function getNickCliente()
+    {
+        return $this->nickCliente;
+    }
+
+    /**
+     * Set datosFactura
+     *
+     * @param string $datosFactura
+     *
+     * @return Reserva
+     */
+    public function setDatosFactura($datosFactura)
+    {
+        $this->datosFactura = $datosFactura;
+
+        return $this;
+    }
+
+    /**
+     * Get datosFactura
+     *
+     * @return string
+     */
+    public function getDatosFactura()
+    {
+        return $this->datosFactura;
+    }
+
+    /**
+     * Set numeroFactura
+     *
+     * @param string $numeroFactura
+     *
+     * @return Reserva
+     */
+    public function setNumeroFactura($numeroFactura)
+    {
+        $this->numeroFactura = $numeroFactura;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroFactura
+     *
+     * @return string
+     */
+    public function getNumeroFactura()
+    {
+        return $this->numeroFactura;
     }
 }

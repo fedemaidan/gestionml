@@ -60,7 +60,7 @@ class PublicacionML
     /**
      * @var string
      *
-     * @ORM\Column(name="imagenes", type="string", length=1500, nullable=true)
+     * @ORM\Column(name="imagenes", type="string", length=2500, nullable=true)
      */
     private $imagenes;
 
@@ -477,4 +477,54 @@ public function getImagenPrincipal() {
         return "<img src='".$this->getImagenUrlByIndex(0)."'></img>";
     }
 
+
+    /**
+     * Set ean
+     *
+     * @param integer $ean
+     *
+     * @return PublicacionML
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+
+        return $this;
+    }
+
+    /**
+     * Get ean
+     *
+     * @return integer
+     */
+    public function getEan()
+    {
+        return $this->ean;
+    }
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     *
+     * @return PublicacionML
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto
+     */
+    public function getProducto()
+    {
+        return $this->producto;
+    }
+
+    
 }

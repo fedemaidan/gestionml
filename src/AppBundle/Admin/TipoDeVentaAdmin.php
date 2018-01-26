@@ -47,7 +47,6 @@ class TipoDeVentaAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
             ->add('nombre')
             ->add('codigo')
         ;
