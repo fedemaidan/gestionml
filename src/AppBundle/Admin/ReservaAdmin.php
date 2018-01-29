@@ -105,7 +105,7 @@ class ReservaAdmin extends AbstractAdmin
                 'property' => 'nombre',
                 'minimum_input_length' => 1
             ))
-            ->add('productoNoCargado')
+            ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
             ->add('cuentaPrincipal')
             ->add('fechaEstimada','sonata_type_datetime_picker',array(
                     'dp_side_by_side'       => true,
