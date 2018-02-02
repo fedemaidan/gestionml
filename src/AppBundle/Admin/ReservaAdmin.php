@@ -67,7 +67,7 @@ class ReservaAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, ['label' => "N° Res"])
             ->add('clienteStr',null, ['label' => "Cliente"])
-            ->add('producto')
+            ->add('producto','doctrine_orm_model_autocomplete',[], null, ['property'=>'nombre', 'multiple' => true])
             ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
             ->add('precioVenta')
             ->add('estado')
@@ -160,8 +160,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('tipoDeEntrega')
             ->add('costoClienteEntrega')
             ->add('costoNosotrosEntrega')
-            //->add('calleEntrega','textarea',["required" => false, "label" => "Dirección de la entrega"])
-            ->add('calleEntrega','address_map_type',["required" => false, "label" => "Dirección de la entrega"])
+            ->add('calleEntrega','textarea',["required" => false, "label" => "Dirección de la entrega"])
             ->add('nombreRecibeEntrega')
             ->add('celularRecibeEntrega')
             ->add('observacionesEntrega','textarea',["required" => false])
