@@ -68,7 +68,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('link')
             ->add('precioVenta')
             ->add('estado')
-            ->add('fechaAlta')
+            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
             ->add('_action', null, array(
                 'label'   => "Acciones",
                 'actions' => array(
