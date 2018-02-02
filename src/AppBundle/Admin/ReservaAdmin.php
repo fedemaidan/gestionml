@@ -18,7 +18,7 @@ class ReservaAdmin extends AbstractAdmin
         '_sort_order' => 'DESC',
 
         // name of the ordered field (default = the model's id field, if any)
-        '_sort_by' => 'fechaModificacion',
+        '_sort_by' => 'fechaAlta',
     ];
 
     /**
@@ -34,7 +34,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('precioVenta')
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
-            ->add('linkUsados')
+            ->add('link')
             ->add('mailCliente')
             ->add('facebookCliente')
             ->add('telefonoCliente')
@@ -65,6 +65,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('clienteStr',null, ['label' => "Cliente"])
             ->add('producto')
             ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
+            ->add('link')
             ->add('precioVenta')
             ->add('estado')
             ->add('fechaAlta')
@@ -135,7 +136,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('contactosConCliente','textarea',["required" => false, 'label' => 'Contactos con cliente'])
             ->end()
             ->with('Pago')
-            ->add('linkUsados')
+            ->add('link')
             ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
             ->add('precioVenta',  'number', array( 'precision' => 3))
             ->add('sena', null, array( 'label' => 'Seña'))
@@ -195,7 +196,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('contactosConCliente')
             ->end()
             ->with('Pago')
-            ->add('linkUsados')
+            ->add('link')
             ->add('cuentaPrincipal')
             ->add('moneda')
             ->add('precioVenta')
