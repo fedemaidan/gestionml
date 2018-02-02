@@ -123,6 +123,7 @@ class ReservaAdmin extends AbstractAdmin
                     'dp_view_mode'          => 'days',
                     'format'                => 'yyyy-MM-dd H:m'
             ))
+            ->add('link')
             ->end()
             ->with('Cliente')
             ->add('nombreCliente')
@@ -136,7 +137,6 @@ class ReservaAdmin extends AbstractAdmin
             ->add('contactosConCliente','textarea',["required" => false, 'label' => 'Contactos con cliente'])
             ->end()
             ->with('Pago')
-            ->add('link')
             ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
             ->add('precioVenta',  'number', array( 'precision' => 3))
             ->add('sena', null, array( 'label' => 'Seña'))
