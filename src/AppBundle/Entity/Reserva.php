@@ -112,9 +112,9 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="linkUsados", type="string", length=1000, nullable=true)
+     * @ORM\Column(name="link", type="string", length=1000, nullable=true)
      */
-    private $linkUsados;
+    private $link;
 
     /**
      * @var string
@@ -533,27 +533,27 @@ class Reserva
     }
 
     /**
-     * Set linkUsados
+     * Set link
      *
-     * @param string $linkUsados
+     * @param string $link
      *
      * @return Reserva
      */
-    public function setLinkUsados($linkUsados)
+    public function setLink($link)
     {
-        $this->linkUsados = $linkUsados;
+        $this->link = $link;
 
         return $this;
     }
 
     /**
-     * Get linkUsados
+     * Get link
      *
      * @return string
      */
-    public function getLinkUsados()
+    public function getLink()
     {
-        return $this->linkUsados;
+        return $this->link;
     }
 
 
