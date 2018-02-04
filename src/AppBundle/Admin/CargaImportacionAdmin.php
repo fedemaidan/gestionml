@@ -133,9 +133,22 @@ class CargaImportacionAdmin extends AbstractAdmin
     protected function manageFileUpload($entity)
     {
         $em =  $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
+        $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::IMPORTANDO);
+        $estado_comprado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::COMPRADO);
 
         if (null === $entity->getFile()) {
-            return;
+            $reservas = $em->getRepository(Reserva::class)->findBySeleccionDeCompra($entity);
+
+            foreach ($reservas as $key => $reserva) {
+                $reserva->setCargaImportacion(null);
+                $reserva->setEstado($estado_comprado);
+            }
+
+            foreach ($entity->getReservas() as $key => $reserva) {
+                $reserva->setCargaImportacion($entity);
+                $reserva->setEstado($estado);
+                $em->persist($reserva);
+            }
         }
 
         $row = 0;
@@ -147,9 +160,8 @@ class CargaImportacionAdmin extends AbstractAdmin
                 $reserva = $em->getRepository(Reserva::class)->findOneById($data[6]);
                 /* TIRAR EXCEPTION SI NO ESTA LA RESERVA O SU ESTADO NO ES VALIDO */
 
-                $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::IMPORTANDO);
                 $reserva->setCargaImportacion($entity);
-                $reserva->setCostoCompraProductoDeclarado($data[2]);
+                $reserva->setCostoCompraProductoDeclarado($data[3]);
                 $reserva->setEstado($estado);
                 $em->persist($reserva);
 

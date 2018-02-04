@@ -62,5 +62,5 @@ class AnalisisController extends Controller
         ]);
     }
 
-
+    
 }

@@ -133,7 +133,7 @@ class ImportacionExcelSalidasCommand extends ContainerAwareCommand
     	$reserva->setDatosCliente($datosCliente);
     	$reserva->setCuentaPrincipal($cuenta);
         $reserva->setCuentaPago($cuentaPago);
-    	$reserva->setLinkUsados($linkUsados);
+    	$reserva->setLink($linkUsados);
         $reserva->setId($codigoReserva);
     	$reserva->setCodigoReserva($codigoReserva);
         $reserva->setEstado($estado);

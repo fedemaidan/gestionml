@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class ReservaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function reservasPorTipo($tipo_id, $desde, $hasta) {
+
+		$query  = $this->createQueryBuilder('r');
+     
+     	$query->select('count(r.id)');
+
+		$query->where("r.fechaAlta > $desde");
+		$query->andWhere("r.tipoDePago_1 = '$tipo_id'");
+
+		if ($hasta ) {
+			$query->andWhere("r.fechaAlta < $hasta");
+		}
+
+		return $query->getQuery()->getResult();
+	}
 }

@@ -37,6 +37,13 @@ class TipoDePago
     /**
      * @var string
      *
+     * @ORM\Column(name="comision", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $comision;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="codigo", type="string", length=255, unique=true)
      */
     private $codigo;
@@ -105,5 +112,29 @@ class TipoDePago
             return "" ;
         else
             return $this->getNombre();
+    }
+
+    /**
+     * Set comision
+     *
+     * @param string $comision
+     *
+     * @return TipoDePago
+     */
+    public function setComision($comision)
+    {
+        $this->comision = $comision;
+
+        return $this;
+    }
+
+    /**
+     * Get comision
+     *
+     * @return string
+     */
+    public function getComision()
+    {
+        return $this->comision;
     }
 }

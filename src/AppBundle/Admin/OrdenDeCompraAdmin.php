@@ -10,7 +10,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
-
+use AppBundle\Entity\Estado;
+use AppBundle\Entity\Reserva;
 
 class OrdenDeCompraAdmin extends AbstractAdmin
 {
@@ -23,6 +24,7 @@ class OrdenDeCompraAdmin extends AbstractAdmin
             ->add('id')
             ->add('informacion')
             ->add('fechaAlta')
+            ->add('reservas','doctrine_orm_model_autocomplete',[], null, ['property'=>'id', 'multiple' => true, 'minimum_input_length' => 1])
         ;
     }
 
@@ -33,7 +35,7 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('informacion')
+            ->add('proveedor')
             ->add('reservas')
             ->add('pagosValidos','boolean')
             ->add('fechaAlta')
@@ -53,6 +55,16 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('fechaPrimerPago','sonata_type_datetime_picker',array(
+                    'dp_side_by_side'       => true,
+                    'dp_use_current'        => true,
+                    'dp_use_seconds'        => false,
+                    'dp_collapse'           => true,
+                    'dp_calendar_weeks'     => false,
+                    'dp_view_mode'          => 'days',
+                    'format'                => 'yyyy-MM-dd H:m'
+            ))
+            ->add('cuentaPaypal')
             ->add('proveedor')
             ->add('informacion')
             ->add('reservas')
@@ -79,9 +91,11 @@ class OrdenDeCompraAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
+            ->add('fechaPrimerPago', 'datetime', array( 'label' => 'Fecha 1° pago', 'format' => 'Y-m-d'))
+            ->add('cuentaPaypal')
             ->add('pagosValidosTexto', null, array( 'label' => 'Pagos validos'))
             ->add('informacion')
-            ->add('fechaAlta')
+            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
             ->add('costoTotal')
             ->add('pagosTotal')
             ->add('reservas')
@@ -112,4 +126,40 @@ class OrdenDeCompraAdmin extends AbstractAdmin
 
         $menu->addChild('Carga masiva', array('uri' => $url));
     }
+
+    // Called on submit create form.
+    public function prePersist($entity)
+    {
+        $this->manageFileUpload($entity);
+        return $entity;
+    }
+
+    // Called on submit edit form.
+    public function preUpdate($entity)
+    {
+        $this->manageFileUpload($entity);
+
+        return $entity;
+    }
+
+    protected function manageFileUpload($entity)
+    {
+        $em =  $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
+        $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::COMPRADO);
+        $estado_reservado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
+        $reservas = $em->getRepository(Reserva::class)->findByOrdenDeCompra($entity);
+
+        foreach ($reservas as $key => $reserva) {
+            $reserva->setOrdenDeCompra(null);
+            $reserva->setEstado($estado_reservado);
+        }
+
+        foreach ($entity->getReservas() as $key => $reserva) {
+            $reserva->setOrdenDeCompra($entity);
+            $reserva->setEstado($estado);
+            $em->persist($reserva);
+        }
+     
+    }
 }
+?>

@@ -63,12 +63,24 @@ class Reserva
 
 
     /**
+     * @var TipoDePago
+     * @ORM\ManyToOne(targetEntity="TipoDePago")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tipoDePago_1;
+    /**
      * @var string
      *
      * @ORM\Column(name="valor_pago_1", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $valorPago1;
 
+    /**
+     * @var TipoDePago
+     * @ORM\ManyToOne(targetEntity="TipoDePago")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tipoDePago_2;
 
     /**
      * @var string
@@ -77,21 +89,6 @@ class Reserva
      */
     private $valorPago2;
 
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="valor_pago_3", type="decimal",  precision=7, scale=2, nullable=true)
-     */
-    private $valorPago3;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="valor_pago_4", type="decimal",  precision=7, scale=2, nullable=true)
-     */
-    private $valorPago4;
 
 
     /**
@@ -119,23 +116,9 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="contactos_con_cliente", type="string", length=2000, nullable=true)
-     */
-    private $contactosConCliente;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="nick_cliente", type="string", length=1000, nullable=true)
      */
     private $nickCliente;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="datos_cliente", type="string", length=1000, nullable=true)
-     */
-    private $datosCliente;
 
     /**
      * @var string
@@ -341,20 +324,6 @@ class Reserva
      * @ORM\ManyToOne(targetEntity="TipoDePago")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $tipoDePago_1;
-
-    /**
-     * @var TipoDePago
-     * @ORM\ManyToOne(targetEntity="TipoDePago")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $tipoDePago_2;
-
-    /**
-     * @var TipoDePago
-     * @ORM\ManyToOne(targetEntity="TipoDePago")
-     * @ORM\JoinColumn(nullable=true)
-     */
     private $tipoDePago_3;
 
     /**
@@ -420,6 +389,36 @@ class Reserva
      * @ORM\JoinColumn(nullable=true)
      */
     private $cargaImportacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contactos_con_cliente", type="string", length=2000, nullable=true)
+     */
+    private $contactosConCliente;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="datos_cliente", type="string", length=1000, nullable=true)
+     */
+    private $datosCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_3", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago3;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor_pago_4", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $valorPago4;
 
 
     /**
@@ -1710,8 +1709,10 @@ class Reserva
     }
 
     public function __toString() {
-        $nombreProducto = $this->producto ? $this->producto->getNombre() : $this->productoNoCargado;
-        return $this->id." - ".$nombreProducto;        
+        $nombreProducto = "";
+        if ($this->producto)
+            $nombreProducto = $this->producto->getNombre() ." - ". $this->productoNoCargado;
+        return $this->id." - ".$nombreProducto;
     }
 
     /**
@@ -1890,4 +1891,6 @@ class Reserva
     {
         return $this->numeroFactura;
     }
+
+
 }

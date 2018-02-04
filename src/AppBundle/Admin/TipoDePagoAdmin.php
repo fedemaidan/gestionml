@@ -19,6 +19,7 @@ class TipoDePagoAdmin extends AbstractAdmin
             ->add('id')
             ->add('nombre')
             ->add('codigo')
+            ->add('comision')
         ;
     }
 
@@ -30,6 +31,7 @@ class TipoDePagoAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('nombre')
+            ->add('comision')
             ->add('codigo')
             ->add('_action', null, array(
                 'actions' => array(
@@ -49,6 +51,7 @@ class TipoDePagoAdmin extends AbstractAdmin
         $formMapper
             ->add('nombre')
             ->add('codigo')
+            ->add('comision')
         ;
     }
 
@@ -61,6 +64,7 @@ class TipoDePagoAdmin extends AbstractAdmin
             ->add('id')
             ->add('nombre')
             ->add('codigo')
+            ->add('comision')
         ;
     }
 }

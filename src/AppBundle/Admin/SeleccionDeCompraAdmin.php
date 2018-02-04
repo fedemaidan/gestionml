@@ -90,7 +90,6 @@ class SeleccionDeCompraAdmin extends AbstractAdmin
     public function prePersist($entity)
     {
         $this->manageFileUpload($entity);
-
         return $entity;
     }
 
@@ -105,29 +104,45 @@ class SeleccionDeCompraAdmin extends AbstractAdmin
     protected function manageFileUpload($entity)
     {
         $em =  $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
+        $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
+        $estado_reservado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::RESERVADO);
 
         if (null === $entity->getFile()) {
-            return;
-        }
 
-        $row = 0;
-        if (($handle = fopen($entity->getFile(), "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                $row++;
-                if ($row == 1) continue;
+            $reservas = $em->getRepository(Reserva::class)->findBySeleccionDeCompra($entity);
 
-                /* Buscar reserva y cargarle la selección de compra */
-                $reserva = $em->getRepository(Reserva::class)->findOneById($data[0]);
-                /* TIRAR EXCEPTION SI NO ESTA LA RESERVA O SU ESTADO NO ES VALIDO */
-                $estado = $em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
+            foreach ($reservas as $key => $reserva) {
+                $reserva->setSeleccionDeCompra(null);
+                $reserva->setEstado($estado_reservado);
+            }
+
+            foreach ($entity->getReservas() as $key => $reserva) {
                 $reserva->setSeleccionDeCompra($entity);
                 $reserva->setEstado($estado);
                 $em->persist($reserva);
+            }
+        }
+        else {
+            $row = 0;
+            if (($handle = fopen($entity->getFile(), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                    $row++;
+                    if ($row == 1) continue;
 
-          }
+                    /* Buscar reserva y cargarle la selección de compra */
+                    $reserva = $em->getRepository(Reserva::class)->findOneById($data[0]);
+                    /* TIRAR EXCEPTION SI NO ESTA LA RESERVA O SU ESTADO NO ES VALIDO */
+                    
+                    $reserva->setSeleccionDeCompra($entity);
+                    $reserva->setEstado($estado);
+                    $em->persist($reserva);
+
+              }
+            }
+
+            // Empty the 
+            $entity->setFile(null);
         }
 
-        // Empty the 
-        $entity->setFile(null);
     }
 }

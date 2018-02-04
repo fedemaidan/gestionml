@@ -7,6 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class ReservaAdmin extends AbstractAdmin
 {
@@ -29,8 +32,7 @@ class ReservaAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, ['label' => "N° de reserva"])
             ->add('estado')
-            ->add('fechaAlta','doctrine_orm_date', array('input_type' => 'timestamp'))
-            ->add('fechaModificacion')
+            ->add('fechaAlta','doctrine_orm_date')
             ->add('precioVenta')
             ->add('informacion', null, array( 'label' => 'Información'))
             ->add('sena', null, array( 'label' => 'Seña'))
@@ -120,6 +122,7 @@ class ReservaAdmin extends AbstractAdmin
                     'dp_use_seconds'        => false,
                     'dp_collapse'           => true,
                     'dp_calendar_weeks'     => false,
+                    'required'              => false,
                     'dp_view_mode'          => 'days',
                     'format'                => 'yyyy-MM-dd H:m'
             ))
@@ -163,6 +166,8 @@ class ReservaAdmin extends AbstractAdmin
             ->add('observacionesEntrega','textarea',["required" => false])
             ->end()
             ->with('Otros')
+            ->add('costoCompraProducto')
+            ->add('costoCompraProductoDeclarado')
             ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
             ->end()
             ->with('------')
@@ -237,5 +242,50 @@ class ReservaAdmin extends AbstractAdmin
             ->with('------')
             ->end()
         ;
+    }
+
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin && !in_array($action, array('edit', 'show', 'list'))) {
+            return;
+        }
+
+        $comisiones = $this->getConfigurationPool()->getContainer()->get('analisis_service')->comisiones();
+
+        $menu->addChild($comisiones);
+    }
+
+     public function getExportFields()
+    {
+        $results = $this->getModelManager()->getExportFields($this->getClass()); 
+        //id - fecha alta - "producto - producto no cargado" - precio - tipo de venta - seña - tipo de pago 1 - valor pago 1 - tipo de apgo 2 - valor pago 2  - link - nombre cliente - email - documento cliente - telefono - nick mercado libre
+
+        $results = array();
+        $results[] = "id";
+        $results[] = "fechaAlta";
+        $results[] = "producto.nombre";
+        $results[] = "productoNoCargado";
+        $results[] = "precioVenta";
+        $results[] = "tipoDeVenta.nombre";
+        $results[] = "sena";
+        $results[] = "tipoDePago_1.nombre";
+        $results[] = "valorPago1";
+        $results[] = "tipoDePago_2.nombre";
+        $results[] = "valorPago2";
+        $results[] = "link";
+        $results[] = "nombreCliente";
+        $results[] = "mailCliente";
+        $results[] = "numeroDocumento";
+        $results[] = "telefonoCliente";
+        $results[] = "nickCliente";
+
+        return $results;
+    }
+
+    public function getDataSourceIterator()
+    {
+        $iterator = parent::getDataSourceIterator();
+        $iterator->setDateTimeFormat('Y-m-d'); //change this to suit your needs
+        return $iterator;
     }
 }

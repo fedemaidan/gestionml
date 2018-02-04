@@ -14,31 +14,37 @@ use Symfony\Component\DependencyInjection\Container;
 
 class ComprasService
 {
-    const NUMERO_TEMPORAL_ORDEN     = 0;
-    const PROVEEDOR_KEY             = 1;
-    const CUENTA_EBAY_COMPRA_KEY    = 2;
-    const RESERVA_KEY               = 3;
-    const COSTO_PRODUCTO_KEY            = 4;
-    const SHIPPING_KEY              = 5;
-    const TRACKING_KEY              = 6;
-    const WAREHOUSE_KEY             = 7;
-    const TARJETA1_KEY              = 8;
-    const PAGO1_KEY                 = 9;
-    const TARJETA2_KEY              = 10;
-    const PAGO2_KEY                 = 11;
-    const TARJETA3_KEY              = 12;
-    const PAGO3_KEY                 = 13;
-    const TARJETA4_KEY              = 14;
-    const PAGO4_KEY                 = 15;
-    const TARJETA5_KEY              = 16;
-    const PAGO5_KEY                 = 17;
+    const FECHA_PAGO_1_KEY          = 0;
+    const CUENTA_PAYPAL_KEY         = 1;
+    const NOMBRE_PRODUCTO_PUBLI_KEY = 2;
+    const NUMERO_TEMPORAL_ORDEN     = 3;
+    const PROVEEDOR_KEY             = 4;
+    const CUENTA_EBAY_COMPRA_KEY    = 5;
+    const RESERVA_KEY               = 6;
+    const COSTO_PRODUCTO_KEY        = 7;
+    const SHIPPING_KEY              = 8;
+    const TRACKING_KEY              = 9;
+    const WAREHOUSE_KEY             = 10;
+    const TARJETA1_KEY              = 11;
+    const PAGO1_KEY                 = 12;
+    const TARJETA2_KEY              = 13;
+    const PAGO2_KEY                 = 14;
+    const TARJETA3_KEY              = 15;
+    const PAGO3_KEY                 = 16;
+    const TARJETA4_KEY              = 17;
+    const PAGO4_KEY                 = 18;
+    const TARJETA5_KEY              = 19;
+    const PAGO5_KEY                 = 20;
 
     const ARRAY_COLUMNAS = [
+                                self::FECHA_PAGO_1_KEY        => "Fecha pago 1" ,
+                                self::CUENTA_PAYPAL_KEY       => "Cuenta Paypal",
+                                self::NOMBRE_PRODUCTO_PUBLI_KEY => "Producto",
                                 self::NUMERO_TEMPORAL_ORDEN   => "Número temporal de orden",
                                 self::PROVEEDOR_KEY           => "Proveedor",
                                 self::CUENTA_EBAY_COMPRA_KEY  => "Cuenta de Ebay usada",
                                 self::RESERVA_KEY             => "Número de reserva",
-                                self::COSTO_PRODUCTO_KEY      => "Número de reserva",
+                                self::COSTO_PRODUCTO_KEY      => "Costo de producto",
                                 self::SHIPPING_KEY            => "Shipping",
                                 self::TRACKING_KEY            => "Tracking",
                                 self::WAREHOUSE_KEY           => "Warehouse",
@@ -99,6 +105,8 @@ class ComprasService
         }
 
         $ordenDeCompra = new OrdenDeCompra();
+        $ordenDeCompra->setFechaPrimerPago($data[self::FECHA_PAGO_1_KEY]);
+        $ordenDeCompra->setCuentaPaypal($data[self::CUENTA_PAYPAL_KEY]);
         $ordenDeCompra->setProveedor($data[self::PROVEEDOR_KEY]);
         $ordenDeCompra->setCuentaEbayCompra($data[self::CUENTA_EBAY_COMPRA_KEY]);
         $ordenDeCompra->setShipping($data[self::SHIPPING_KEY]);
@@ -159,6 +167,8 @@ class ComprasService
             foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
                 if ($key == self::RESERVA_KEY)
                     $csv .= $reserva->getId();
+                else if ($key == self::NOMBRE_PRODUCTO_PUBLI_KEY) 
+                    $csv .= $reserva->getProducto()->getNombre()." - ".$reserva->getProductoNoCargado();
                 else
                     $csv .= ",";
             }
@@ -168,3 +178,4 @@ class ComprasService
         return $csv;
     }    
 }
+?>

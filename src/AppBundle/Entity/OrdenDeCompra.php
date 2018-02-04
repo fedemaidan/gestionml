@@ -39,6 +39,20 @@ class OrdenDeCompra
     private $fechaAlta;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_primer_pago", type="datetime", nullable=true)
+     */
+    private $fechaPrimerPago;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cuenta_paypal", type="string", length=255, nullable=true)
+     */
+    private $cuentaPaypal;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="proveedor", type="string", length=255, nullable=true)
@@ -219,6 +233,7 @@ class OrdenDeCompra
      */
     public function addReserva(\AppBundle\Entity\Reserva $reserva)
     {
+        $reserva->setOrdenDeCompra($this);
         $this->reservas[] = $reserva;
 
         return $this;
@@ -616,4 +631,52 @@ class OrdenDeCompra
         return 0;            
     }
 
+
+    /**
+     * Set fechaPrimerPago
+     *
+     * @param \DateTime $fechaPrimerPago
+     *
+     * @return OrdenDeCompra
+     */
+    public function setFechaPrimerPago($fechaPrimerPago)
+    {
+        $this->fechaPrimerPago = $fechaPrimerPago;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPrimerPago
+     *
+     * @return \DateTime
+     */
+    public function getFechaPrimerPago()
+    {
+        return $this->fechaPrimerPago;
+    }
+
+    /**
+     * Set cuentaPaypal
+     *
+     * @param string $cuentaPaypal
+     *
+     * @return OrdenDeCompra
+     */
+    public function setCuentaPaypal($cuentaPaypal)
+    {
+        $this->cuentaPaypal = $cuentaPaypal;
+
+        return $this;
+    }
+
+    /**
+     * Get cuentaPaypal
+     *
+     * @return string
+     */
+    public function getCuentaPaypal()
+    {
+        return $this->cuentaPaypal;
+    }
 }
