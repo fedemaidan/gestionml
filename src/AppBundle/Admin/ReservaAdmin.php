@@ -54,6 +54,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('tipoDeVenta')
             ->add('cuentaPago')
             ->add('cuentaPrincipal')
+            ->add('tracking')
         ;
     }
 
@@ -168,6 +169,7 @@ class ReservaAdmin extends AbstractAdmin
             ->with('Otros')
             ->add('costoCompraProducto')
             ->add('costoCompraProductoDeclarado')
+            ->add('tracking')
             ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
             ->end()
             ->with('------')
@@ -236,6 +238,10 @@ class ReservaAdmin extends AbstractAdmin
             ->add('observacionesEntrega')
             ->end()
             ->with('Otros')
+            ->add('costoCompraProducto')
+            ->add('costoCompraProductoDeclarado')
+            ->add('tracking')
+            ->add('ordenDeCompra.warehouse')
             ->add('informacion')
             ->add('codigoReserva')
             ->end()

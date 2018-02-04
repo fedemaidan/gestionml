@@ -48,6 +48,8 @@ class AnalisisService
             $comisionActual += $ventasMesActual * $tipo->getComision();
         }
         
+        $comisionActual += $this->comisionesExtra($comisionActual);
+        $comisionPasada += $this->comisionesExtra($comisionPasada);
 
         return "Mes pasado: $".$comisionPasada."------- Actual: $".$comisionActual;
     }
@@ -81,5 +83,10 @@ class AnalisisService
         $res = $stmp->fetchAll();
         return  $res[0]["cantidad"];
 
+    }
+
+    private function comisionesExtra($comision) {
+        $extra =  intdiv($comision, 5000);
+        return $extra * 1000;
     }
 }
