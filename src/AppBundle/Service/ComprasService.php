@@ -155,7 +155,7 @@ class ComprasService
 
     public function csvContent_seleccion_compra() {
         $estado = $this->em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
-        $reservasSeleccionadas = $this->em->getRepository(Reserva::class)->findByEstado($estado);;
+        $reservasSeleccionadas = $this->em->getRepository(Reserva::class)->findByEstado($estado);
 
         $csv = "";
         foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
@@ -166,9 +166,9 @@ class ComprasService
         foreach ($reservasSeleccionadas as $key => $reserva) {
             foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
                 if ($key == self::RESERVA_KEY)
-                    $csv .= $reserva->getId();
+                    $csv .= $reserva->getId().",";
                 else if ($key == self::NOMBRE_PRODUCTO_PUBLI_KEY) 
-                    $csv .= $reserva->getProducto()->getNombre()." - ".$reserva->getProductoNoCargado();
+                    $csv .= $reserva->getProducto()->getNombre()." - ".$reserva->getProductoNoCargado().",";
                 else
                     $csv .= ",";
             }
