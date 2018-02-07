@@ -105,7 +105,7 @@ class ComprasService
         }
 
         $ordenDeCompra = new OrdenDeCompra();
-        $ordenDeCompra->setFechaPrimerPago($data[self::FECHA_PAGO_1_KEY]);
+        $ordenDeCompra->setFechaPrimerPago(\DateTime::createFromFormat('Y-m-d', $data[self::FECHA_PAGO_1_KEY]););
         $ordenDeCompra->setCuentaPaypal($data[self::CUENTA_PAYPAL_KEY]);
         $ordenDeCompra->setProveedor($data[self::PROVEEDOR_KEY]);
         $ordenDeCompra->setCuentaEbayCompra($data[self::CUENTA_EBAY_COMPRA_KEY]);
