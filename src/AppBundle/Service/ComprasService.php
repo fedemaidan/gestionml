@@ -135,7 +135,7 @@ class ComprasService
         }
 
         $ordenDeCompra = $masivaOC[$data[0]];
-        $reserva = $this->em->getRepository(Reserva::class)->findOneById($data[3]);
+        $reserva = $this->em->getRepository(Reserva::class)->findOneById($data[self::RESERVA_KEY]);
         if ($reserva == null) 
             throw new \Exception("Reserva no encontrada ".$data[self::RESERVA_KEY], 1);
         if ($reserva->getEstado() != Estado::PROCESO_DE_COMPRA) 
