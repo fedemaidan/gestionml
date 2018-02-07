@@ -161,7 +161,8 @@ class ComprasService
         foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
             $csv .= $columnaNombre.",";
         }
-        $csv .= substr($csv, 0, -1)."\n";
+
+        $csv = substr($csv, 0, -1)."\n";
 
         foreach ($reservasSeleccionadas as $key => $reserva) {
             foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
