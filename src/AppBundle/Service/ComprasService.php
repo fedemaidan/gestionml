@@ -105,7 +105,7 @@ class ComprasService
         }
 
         $ordenDeCompra = new OrdenDeCompra();
-        $ordenDeCompra->setFechaPrimerPago($data[self::FECHA_PAGO_1_KEY]);
+        $ordenDeCompra->setFechaPrimerPago(\DateTime::createFromFormat('Y-m-d', $data[self::FECHA_PAGO_1_KEY]));
         $ordenDeCompra->setCuentaPaypal($data[self::CUENTA_PAYPAL_KEY]);
         $ordenDeCompra->setProveedor($data[self::PROVEEDOR_KEY]);
         $ordenDeCompra->setCuentaEbayCompra($data[self::CUENTA_EBAY_COMPRA_KEY]);
@@ -122,20 +122,20 @@ class ComprasService
         $ordenDeCompra->setTarjeta5($data[self::TARJETA5_KEY]);
         $ordenDeCompra->setPago5($data[self::PAGO5_KEY]);
 
-        if (!array_key_exists($data[0], $masivaOC)) {
-            $masivaOC[$data[0]] = $ordenDeCompra;
+        if (!array_key_exists($data[self::NUMERO_TEMPORAL_ORDEN], $masivaOC)) {
+            $masivaOC[$data[self::NUMERO_TEMPORAL_ORDEN]] = $ordenDeCompra;
 
         } else {
             /* Validar que los datos sean iguales a los de la OC */
-            $oc = $masivaOC[$data[0]];
+            $oc = $masivaOC[$data[self::NUMERO_TEMPORAL_ORDEN]];
             $mensaje = $oc->tieneDatosDistintosA($ordenDeCompra);
             if ( $mensaje != false) {
                 throw new \Exception("La columna ".$mensaje." de una misma OC debe ser igual en todas las filas", 1);
             }
         }
 
-        $ordenDeCompra = $masivaOC[$data[0]];
-        $reserva = $this->em->getRepository(Reserva::class)->findOneById($data[3]);
+        $ordenDeCompra = $masivaOC[$data[self::NUMERO_TEMPORAL_ORDEN]];
+        $reserva = $this->em->getRepository(Reserva::class)->findOneById($data[self::RESERVA_KEY]);
         if ($reserva == null) 
             throw new \Exception("Reserva no encontrada ".$data[self::RESERVA_KEY], 1);
         if ($reserva->getEstado() != Estado::PROCESO_DE_COMPRA) 
@@ -155,20 +155,21 @@ class ComprasService
 
     public function csvContent_seleccion_compra() {
         $estado = $this->em->getRepository(Estado::class)->findOneByCodigo(Estado::PROCESO_DE_COMPRA);
-        $reservasSeleccionadas = $this->em->getRepository(Reserva::class)->findByEstado($estado);;
+        $reservasSeleccionadas = $this->em->getRepository(Reserva::class)->findByEstado($estado);
 
         $csv = "";
         foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
             $csv .= $columnaNombre.",";
         }
-        $csv .= substr($csv, 0, -1)."\n";
+
+        $csv = substr($csv, 0, -1)."\n";
 
         foreach ($reservasSeleccionadas as $key => $reserva) {
             foreach (self::ARRAY_COLUMNAS as $key => $columnaNombre) {
                 if ($key == self::RESERVA_KEY)
-                    $csv .= $reserva->getId();
+                    $csv .= $reserva->getId().",";
                 else if ($key == self::NOMBRE_PRODUCTO_PUBLI_KEY) 
-                    $csv .= $reserva->getProducto()->getNombre()." - ".$reserva->getProductoNoCargado();
+                    $csv .= $reserva->getProducto()->getNombre()." - ".$reserva->getProductoNoCargado().",";
                 else
                     $csv .= ",";
             }
