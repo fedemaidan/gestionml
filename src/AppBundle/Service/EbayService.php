@@ -180,7 +180,8 @@ class EbayService
                         $publicacion = new PublicacionEbay();
                         $publicacion->setIdEbay($item->itemId);
                         $publicacion->setTitulo($this->stringLimpia($item->title));
-                        $publicacion->setPrecioCompra($item->sellingStatus->currentPrice->value);
+                        if ($item->sellingStatus->currentPrice->value < 9999999)
+                            $publicacion->setPrecioCompra($item->sellingStatus->currentPrice->value);
                         $publicacion->setLinkPublicacion($this->stringLimpia($item->viewItemURL));
                         $publicacion->setImagenes($this->stringLimpia($imagenes,1500));
                         $publicacion->setCantidadVendidosEbay($datosItem->Item->QuantitySold);
