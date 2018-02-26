@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Producto
 {
     const ORM_ENTITY = "AppBundle:Producto";
+    const NO_ESTA_CODIGO = "NO_ESTA";
     /**
      * @var int
      *

@@ -25,6 +25,13 @@ class Reserva
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="id_ml", type="string", length=255, nullable=true)
+     */
+    private $idMl;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaAlta", type="datetime")
@@ -1893,4 +1900,28 @@ class Reserva
     }
 
 
+
+    /**
+     * Set idMl
+     *
+     * @param string $idMl
+     *
+     * @return Reserva
+     */
+    public function setIdMl($idMl)
+    {
+        $this->idMl = $idMl;
+
+        return $this;
+    }
+
+    /**
+     * Get idMl
+     *
+     * @return string
+     */
+    public function getIdMl()
+    {
+        return $this->idMl;
+    }
 }

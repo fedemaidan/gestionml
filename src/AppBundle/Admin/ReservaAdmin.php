@@ -89,90 +89,100 @@ class ReservaAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Principal')
-            //->add('id')
-            ->add('estado',null, ["required" => true])
-            ->add('fechaAlta','sonata_type_datetime_picker',array(
-                    'dp_side_by_side'       => true,
-                    'dp_use_current'        => true,
-                    'dp_use_seconds'        => false,
-                    'dp_collapse'           => true,
-                    'dp_calendar_weeks'     => false,
-                    'dp_view_mode'          => 'days',
-                    'format'                => 'yyyy-MM-dd H:m'
-            ))
-            ->add('producto', 'sonata_type_model_autocomplete', array(
-                'property' => 'nombre',
-                'minimum_input_length' => 1
-            ))
-            ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
-            ->add('cuentaPrincipal')
-            ->add('fechaEstimada','sonata_type_datetime_picker',array(
-                    'dp_side_by_side'       => true,
-                    'dp_use_current'        => true,
-                    'dp_use_seconds'        => false,
-                    'dp_collapse'           => true,
-                    'dp_calendar_weeks'     => false,
-                    'dp_view_mode'          => 'days',
-                    'format'                => 'yyyy-MM-dd H:m',
-                    'label'                 => 'Fecha estimada de entrega'
-            ))
-            ->add('fechaEntrega','sonata_type_datetime_picker',array(
-                    'dp_side_by_side'       => true,
-                    'dp_use_current'        => true,
-                    'dp_use_seconds'        => false,
-                    'dp_collapse'           => true,
-                    'dp_calendar_weeks'     => false,
-                    'required'              => false,
-                    'dp_view_mode'          => 'days',
-                    'format'                => 'yyyy-MM-dd H:m'
-            ))
-            ->add('link')
+            ->tab("Principal")
+                ->with('Principal')
+                //->add('id')
+                ->add('estado',null, ["required" => true])
+                ->add('fechaAlta','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m'
+                ))
+                ->add('producto', 'sonata_type_model_autocomplete', array(
+                    'property' => 'nombre',
+                    'minimum_input_length' => 1
+                ))
+                ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
+                ->add('cuentaPrincipal')
+                ->add('fechaEstimada','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m',
+                        'label'                 => 'Fecha estimada de entrega'
+                ))
+                ->add('fechaEntrega','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'required'              => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m'
+                ))
+                ->add('link')
+                ->end()
             ->end()
-            ->with('Cliente')
-            ->add('nombreCliente')
-            ->add('mailCliente')
-            ->add('facebookCliente')
-            ->add('telefonoCliente')
-            ->add('tipoDocumento', 'choice', ['choices' => [ "DNI" => "DNI", "CUIT" => "CUIT"]])
-            ->add('numeroDocumento')
-            ->add('nickCliente')
-            ->add('datosCliente','textarea',["required" => false])
-            ->add('contactosConCliente','textarea',["required" => false, 'label' => 'Contactos con cliente'])
+            ->tab("Cliente")
+                ->with('Cliente')
+                ->add('nombreCliente')
+                ->add('mailCliente')
+                ->add('facebookCliente')
+                ->add('telefonoCliente')
+                ->add('tipoDocumento', 'choice', ['choices' => [ "DNI" => "DNI", "CUIT" => "CUIT"]])
+                ->add('numeroDocumento')
+                ->add('nickCliente')
+                ->add('datosCliente','textarea',["required" => false])
+                ->add('contactosConCliente','textarea',["required" => false, 'label' => 'Contactos con cliente'])
+                ->end()
             ->end()
-            ->with('Pago')
-            ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
-            ->add('precioVenta',  'number', array( 'precision' => 3))
-            ->add('sena', null, array( 'label' => 'Seña'))
-            ->add('tipoDeVenta')
-            ->add('tipoDePago_1')
-            ->add('valorPago1')
-            ->add('tipoDePago_2')
-            ->add('valorPago2')
-            ->add('tipoDePago_3')
-            ->add('valorPago3')
-            ->add('tipoDePago_4')
-            ->add('valorPago4')
-            ->add('cuentaPago')
-            ->add('datosFactura')
-            ->add('numeroFactura')
+            ->tab('Pago')
+                ->with('Pago')
+                ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
+                ->add('precioVenta',  'number', array( 'precision' => 3))
+                ->add('sena', null, array( 'label' => 'Seña'))
+                ->add('tipoDeVenta')
+                ->add('tipoDePago_1')
+                ->add('valorPago1')
+                ->add('tipoDePago_2')
+                ->add('valorPago2')
+                ->add('tipoDePago_3')
+                ->add('valorPago3')
+                ->add('tipoDePago_4')
+                ->add('valorPago4')
+                ->add('cuentaPago')
+                ->add('datosFactura')
+                ->add('numeroFactura')
+                ->end()
             ->end()
-            ->with('Entrega')
-            ->add('tipoDeEntrega')
-            ->add('costoClienteEntrega')
-            ->add('costoNosotrosEntrega')
-            ->add('calleEntrega','textarea',["required" => false, "label" => "Dirección de la entrega"])
-            ->add('nombreRecibeEntrega')
-            ->add('celularRecibeEntrega')
-            ->add('observacionesEntrega','textarea',["required" => false])
+            ->tab('Entrega')
+                ->with('Entrega')
+                ->add('tipoDeEntrega')
+                ->add('costoClienteEntrega')
+                ->add('costoNosotrosEntrega')
+                ->add('provinciaEntrega')
+                ->add('localidadEntrega')
+                ->add('calleEntrega','textarea',["required" => false, "label" => "Dirección de la entrega"])
+                ->add('nombreRecibeEntrega')
+                ->add('celularRecibeEntrega')
+                ->add('observacionesEntrega','textarea',["required" => false])
+                ->end()
             ->end()
-            ->with('Otros')
-            ->add('costoCompraProducto')
-            ->add('costoCompraProductoDeclarado')
-            ->add('tracking')
-            ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
-            ->end()
-            ->with('------')
+            ->tab('Otros')
+                ->with('Otros')
+                ->add('costoCompraProducto')
+                ->add('costoCompraProductoDeclarado')
+                ->add('tracking')
+                ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
+                ->end()
             ->end()
         ;
     }
@@ -228,9 +238,6 @@ class ReservaAdmin extends AbstractAdmin
             ->add('provinciaEntrega')
             ->add('localidadEntrega')
             ->add('calleEntrega')
-            ->add('alturaEntrega')
-            ->add('pisoEntrega')
-            ->add('departamentoEntrega')
             ->add('codigoPostalEntrega')
             ->add('nombreRecibeEntrega')
             ->add('celularRecibeEntrega')
