@@ -507,6 +507,7 @@ class EbayService
                 $publicacion->addEspeficicaciones($espObj);
                 $this->em->persist($espObj);
                 $this->em->persist($publicacion);
+                $this->em->flush();
                 /*$sql .= "insert into publicaciones_espeficaciciones_ebay (publicacion_ebay_id,
                               especificaciones_producto_ebay_id) values (".$idPublicacion.",".$espObj->getId().");";
                               */
