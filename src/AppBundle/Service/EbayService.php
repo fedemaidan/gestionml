@@ -176,7 +176,7 @@ class EbayService
                         $maxId++;
                         
 
-		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand, model, mpn, upc) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."','".$this->stringLimpia($model)."','".$this->stringLimpia($mpn)."','".$this->stringLimpia($upc)."');";
+		                $sql = "insert into publicacion_ebay (id, id_ebay, titulo, precio_compra, link_publicacion, imagenes, cantidad_vendidos_ebay, categoria_ebay_id, vendedor, estado_ebay, brand, model, mpn, upc) values (".$maxId.", '" . $item->itemId . "', '" . $this->stringLimpia($item->title) . "', '" . $item->sellingStatus->currentPrice->value . "', '" . $this->stringLimpia($item->viewItemURL) . "', '" . $this->stringLimpia($imagenes,1500) . "', '".$datosItem->Item->QuantitySold."', '" . $categoria->getId() . "', '" . $busqueda->getVendedorEbayId() . "', '".$item->sellingStatus->sellingState."','".$this->stringLimpia($brand)."','".$this->stringLimpia($model)."','".$this->stringLimpia($mpn)."',".$this->stringLimpia($upc).");";
                         
                         $publicacion = new PublicacionEbay();
                         $publicacion->setIdEbay($item->itemId);
