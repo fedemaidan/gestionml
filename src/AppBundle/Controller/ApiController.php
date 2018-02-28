@@ -38,6 +38,7 @@ class ApiController extends Controller
         $reserva->setIdMl($request->get('orden_ml_id'));
         
         $fecha_alta = \DateTime::createFromFormat('Y-m-d H:i:s', $request->get('fecha_alta'));
+
     	$reserva->setFechaAlta($fecha_alta); 
     	$producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByCodigo(Producto::NO_ESTA_CODIGO);
     	$reserva->setProducto($producto);
@@ -59,18 +60,17 @@ class ApiController extends Controller
         $reserva->setCodigoPostalEntrega($request->get('codigo_postal_entrega'));
         //$reserva->setCostoClienteEntrega($request->get('costo_cliente_entrega'));
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($reserva);
-        $em->flush();
-        
 
+        if ($fecha_alta > new DateTime('2018-02-27 20:52:10')) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reserva);
+            $em->flush();    
+            return new Response($reserva->getId());
+        }
         
-
     	//link
-
-    	//DATOS ENVIO
-
-        return new Response($reserva->getId());
+        return new Response("reserva antigua");
+        
     }
 
 }
