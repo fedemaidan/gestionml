@@ -155,6 +155,7 @@ class EbayService
                     $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
                     $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
                     $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
+                    $upc = is_numeric($upc) ? $upc : null;
                     $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
 
                     

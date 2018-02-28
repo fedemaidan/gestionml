@@ -19,7 +19,7 @@ class ActualizarPublicacionEbayPorBusquedaCommand extends ContainerAwareCommand
     ;
 }
 	/*
-		php app/console ebay:actualizar:publicaciones --busqueda_id=1
+		php app/console ebay:actualizar:publicacion --busqueda_id=1
 	*/
 
     protected function execute(InputInterface $input, OutputInterface $output)
