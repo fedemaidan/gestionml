@@ -59,6 +59,7 @@ class ApiController extends Controller
         $reserva->setLocalidadEntrega($request->get('localidad_entrega'));
         $reserva->setCalleEntrega($request->get('calle_entrega'));
         $reserva->setCodigoPostalEntrega($request->get('codigo_postal_entrega'));
+        $reserva->setLink($request->get('link'));
         //$reserva->setCostoClienteEntrega($request->get('costo_cliente_entrega'));
         
         if ($fecha_alta > new \DateTime('2018-02-27 20:52:10')) {
