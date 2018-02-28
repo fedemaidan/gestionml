@@ -24,15 +24,19 @@ class ApiController extends Controller
      */
 
     public function  reservaNewAction(Request $request) {
-
+        
     	//busco reserva si no existe la creo
         $estado = $this->getDoctrine()->getRepository(Estado::class)->findOneByCodigo(Estado::RESERVADO);
         $reserva = $this->getDoctrine()->getRepository(Reserva::class)->findOneByIdMl($request->get('orden_ml_id'));
 
-        if (!$reserva) $reserva = new Reserva();
+        if (!$reserva){
+          $reserva = new Reserva();  
+          $reserva->setEstado($estado); 
+          $reserva->setMailCliente($request->get('mail_cliente'));
+        } 
 
         $reserva->setIdMl($request->get('orden_ml_id'));
-        $reserva->setEstado($estado); 
+        
         $fecha_alta = \DateTime::createFromFormat('Y-m-d H:i:s', $request->get('fecha_alta'));
     	$reserva->setFechaAlta($fecha_alta); 
     	$producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByCodigo(Producto::NO_ESTA_CODIGO);
@@ -45,7 +49,7 @@ class ApiController extends Controller
     	$cuenta = $this->getDoctrine()->getRepository(Cuenta::class)->findOneById($request->get('cuenta_id'));
     	$reserva->setCuentaPrincipal($cuenta);
         $reserva->setNickCliente($request->get('nick_cliente'));
-        $reserva->setMailCliente($request->get('mail_cliente'));
+        
         $reserva->setNombreCliente($request->get('nombre_cliente'));
         $reserva->setTelefonoCliente($request->get('telefono_cliente'));
         $reserva->setNumeroDocumento($request->get('numero_documento_cliente'));
