@@ -25,6 +25,7 @@ class ApiController extends Controller
 
     public function  reservaNewAction(Request $request) {
         
+
     	//busco reserva si no existe la creo
         $estado = $this->getDoctrine()->getRepository(Estado::class)->findOneByCodigo(Estado::RESERVADO);
         $reserva = $this->getDoctrine()->getRepository(Reserva::class)->findOneByIdMl($request->get('orden_ml_id'));
@@ -60,8 +61,7 @@ class ApiController extends Controller
         $reserva->setCodigoPostalEntrega($request->get('codigo_postal_entrega'));
         //$reserva->setCostoClienteEntrega($request->get('costo_cliente_entrega'));
         
-
-        if ($fecha_alta > new DateTime('2018-02-27 20:52:10')) {
+        if ($fecha_alta > new \DateTime('2018-02-27 20:52:10')) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($reserva);
             $em->flush();    
