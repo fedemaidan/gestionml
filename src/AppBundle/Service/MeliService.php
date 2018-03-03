@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\PublicacionML;
+use AppBundle\Entity\PublicacionPropia;
 use AppBundle\Entity\AtributoML;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
@@ -135,6 +136,97 @@ class MeliService
 
     		$this->imprimo("Publicaciones cargadas -> ".$publicacionesNuevas);
     	}
+
+    }
+
+    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4) {
+        $publicacion = $this->ebayToMlObj($ebay, $rentabilidad);
+        $this->publicar($publicacion, $token);
+        $this->em->persist($publicacion);
+        $this->em->flush();
+    }
+
+    public function publicar($publicacion, $token) {
+        $arrayimagenes = explode(',', $publicacion->getImagenes());
+        $imagenes = [];
+        foreach ($arrayimagenes as $key => $img) {
+            $imagenes[] = ["source" => $img];
+        }
+
+        $body = [
+                "title" =>$publicacion->getTitulo(),
+                "category_id"=>$publicacion->getCategoria(),
+                "price"=>$publicacion->getPrecioCompra(),
+                "currency_id"=>"ARS",
+                "available_quantity"=>99,
+                "buying_mode"=>"buy_it_now",
+                "listing_type_id"=>"gold_special",
+                "description"=> $publicacion->getDescripcion(),
+                "sale_terms"=>[
+                        ["id"=> "WARRANTY_TIME", "value_name"=> "180 dias"]
+                ],
+                "pictures"=> $imagenes
+            ];
+
+        $datos = $meli->post("items", $body, [ "access_token" => $token ]);
+    }
+
+    public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3) {
+        $publicacion = new PublicacionPropia();
+        $precio = $this->calcularPrecio($ebay->getCategoria(), $ebay->getPrecioCompra(), $rentabilidad);
+        $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
+        $publicacion->setPrecioCompra($precio);
+        $publicacion->setCuenta($cuentaML);
+        $publicacion->setImagenes($ebay->getImagenes());
+        $publicacion->setCategoria($this->predecirCategoria($publicacion));
+        return $publicacion;
+    }
+
+    private function armarTitulo($texto) {
+        $sufijo = "*a Pedido 30dias!";
+        $texto = substr($texto, 0, 60 - strlen($sufijo));
+        return $texto." ".$sufijo;
+    }
+
+    private function predecirCategoria($publicacion) {
+        $datos = $meli->get("sites/MLA/category_predictor/predict?title=".$publicacion->getTitulo()."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());
+
+        return $datos["body"]->id;
+    }
+
+    private function generarDescripcion($titulo) {
+        return "----- PRODUCTO TRAIDO BAJO PEDIDO en 20-35 días ------
+Una vez ofertado el producto, procesamos tu pedido, y en un tiempo promedio de 30 días te estaremos notificando para coordinar la entrega o envío del mismo. Te esperamos en INOVAMUSICNET !!!
+
+Producto: ".$titulo."
+
+Una manera FÁCIL y DIFERENTE de comprar. Al mejor precio, GARANTIZADO!
+
++ Producto Nuevo de fábrica en Caja Original
++ GARANTIA escrita de 6 meses y cobertura en todo el país.
+
+* Hacemos Envíos a todo el país!
+* Podés retirarlo en Caballito a metros del Subte \"A\", sobre Av. Rivadavia.
+* Hacemos Factura A o B.
+* Podés abonar tu compra en efectivo, tarjeta de crédito y todos los medios de pago que ofrece Mercadolibre.
+* Si el item publicado viene de fábrica con fuente de alimentación, la misma será extraida de la caja previo al ingreso al país por normativas de seguridad eléctrica.
+* Producto ORIGINAL / Último modelo de la serie.
+
+Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
+    }
+
+    private function calcularPrecio($categoria, $precioCompra, $rentabilidad) {
+        $precioCompra = $precioCompra * 21;
+        return $precioCompra * $rentabilidad;
+        /*
+        $porcentajeImpuestoPorCategoria = 20;
+        $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
+        $costoEnvio = 100;
+        $comisionML = $precioCompra * 0.12;
+
+        return ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
+        */
 
     }
 

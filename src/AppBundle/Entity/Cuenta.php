@@ -35,7 +35,6 @@ class Cuenta
      */
     private $tipo;
 
-
     public function __toString() {
         if ($this->getNombre() != null) {
             return $this->getNombre();

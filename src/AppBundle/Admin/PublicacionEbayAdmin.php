@@ -129,6 +129,7 @@ class PublicacionEbayAdmin extends AbstractAdmin
         */
         
         $results = array();
+        $results[] = 'id';
         $results[] = 'titulo';
         $results[] = 'categoriaEbay';
         $results[] = 'descripcion';
