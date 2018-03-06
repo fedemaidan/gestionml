@@ -190,6 +190,7 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $imagenes = $publicacion->getImagenes();
         $imagnesArray = explode(",", $imagenes);
+        var_dump($imagnesArray);die;
         var_dump(count($imagnesArray));die;
         
         if (count($imagnesArray) > 12) {
