@@ -196,7 +196,7 @@ class MeliService
     private function predecirCategoria($publicacion) {
         $meli = new Meli("","");
         $datos = $meli->get("sites/MLA/category_predictor/predict?title='".$publicacion->getTitulo()."'&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());
-        var_dump("sites/MLA/category_predictor/predict?title='".$publicacion->getTitulo()."'&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());die;
+        //var_dump("sites/MLA/category_predictor/predict?title='".$publicacion->getTitulo()."'&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());die;
         var_dump($datos);die; 
         return $datos["body"]->id;
     }
