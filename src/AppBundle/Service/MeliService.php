@@ -188,7 +188,7 @@ class MeliService
         $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
-        $imagenes = $publicacion->getImagenes();
+        $imagenes = $ebay->getImagenes();
         $imagnesArray = explode(",", $imagenes);
         var_dump($imagnesArray);die;
         var_dump(count($imagnesArray));die;
