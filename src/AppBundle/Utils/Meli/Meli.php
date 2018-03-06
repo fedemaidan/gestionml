@@ -260,7 +260,7 @@ class Meli {
      */
     public function execute($path, $opts = array(), $params = array(), $assoc = false) {
         $uri = $this->make_path($path, $params);
-        var_dump($uri);die;
+        
         $ch = curl_init($uri);
         curl_setopt_array($ch, self::$CURL_OPTS);
 
