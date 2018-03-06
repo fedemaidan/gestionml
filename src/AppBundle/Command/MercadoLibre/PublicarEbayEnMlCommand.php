@@ -30,7 +30,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
     	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($input->getOption('id_ebay'));
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($input->getOption('id_cuenta'));
 
-		$token = "";
+		$token = "APP_USR-3659532861516182-030605-ba83eef67e7539b017338ac213aeb16f__N_A__-73818038";
     	$rentabilidad = 2;
     	$shipping = 10;
 
