@@ -49,7 +49,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
       fclose($handle);
     }
 
-    protected function cargarProducto($data) {
+    protected function cargarPublicacion($data) {
     	var_dump($data);die;
     	$token = "APP_USR-3659532861516182-030605-ba83eef67e7539b017338ac213aeb16f__N_A__-73818038";
     	$id_cuenta = "";
