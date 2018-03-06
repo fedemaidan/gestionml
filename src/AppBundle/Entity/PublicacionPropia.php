@@ -33,6 +33,14 @@ class PublicacionPropia extends PublicacionML
      */
     private $producto;  
 
+
+    /**
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="PublicacionEbay")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $publicacion_ebay;
+
     /**
      * Set descripcion
      *
@@ -79,5 +87,29 @@ class PublicacionPropia extends PublicacionML
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+
+    /**
+     * Set publicacionEbay
+     *
+     * @param \AppBundle\Entity\PublicacionEbay $publicacionEbay
+     *
+     * @return PublicacionPropia
+     */
+    public function setPublicacionEbay(\AppBundle\Entity\PublicacionEbay $publicacionEbay = null)
+    {
+        $this->publicacion_ebay = $publicacionEbay;
+
+        return $this;
+    }
+
+    /**
+     * Get publicacionEbay
+     *
+     * @return \AppBundle\Entity\PublicacionEbay
+     */
+    public function getPublicacionEbay()
+    {
+        return $this->publicacion_ebay;
     }
 }
