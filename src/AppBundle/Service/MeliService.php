@@ -140,7 +140,7 @@ class MeliService
     }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
-        $publicacion = $this->ebayToMlObj($ebay, $rentabilidad, $shipping);
+        $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $this->publicar($publicacion, $token);
         $this->em->persist($publicacion);
         $this->em->flush();
@@ -172,7 +172,7 @@ class MeliService
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        
+
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
