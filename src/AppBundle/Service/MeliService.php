@@ -144,7 +144,8 @@ class MeliService
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $datos = $this->publicar($publicacion, $token);
         $publicacion->setIdMl($datos["body"]->id);
-        $publicacion->setLink($datos["body"]->permalink);
+        $publicacion->setLink($datos["body"]->seller_id);
+        $publicacion->setVendedor($datos["body"]->permalink);
         $this->em->persist($publicacion);
         $this->em->flush();
     }
