@@ -244,7 +244,7 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
 
         $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
         */
-
+        var_dump($rentabilidad);die;
         $precio = (($precioCompra * $rentabilidad) + $shipping) * 21;
         
         return intdiv($precio, 100) * 100 - 1;
