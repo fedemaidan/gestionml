@@ -142,9 +142,7 @@ class MeliService
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
-        var_dump(count(explode(",", $publicacion->getImagenes())  ));die;
         $datos = $this->publicar($publicacion, $token);
-        var_dump($datos);die;
         $publicacion->setIdMl($datos["body"]->id);
         $publicacion->setLink($datos["body"]->permalink);
         $publicacion->setVendedor($datos["body"]->seller_id);
@@ -190,7 +188,18 @@ class MeliService
         $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
-        $publicacion->setImagenes($ebay->getImagenes());
+        $imagenes = $publicacion->getImagenes();
+        $imagnesArray = explode(",", $imagenes);
+        if (count($imagnesArray) > 12) {
+            $imagnesArray2 = [];
+            foreach ($imagnesArray as $key => $value) {
+                if ($key == 12) continue;
+                $imagnesArray2[] = $value;
+            }
+
+            $imagenes = implode(',', $imagnesArray2);
+        }
+        $publicacion->setImagenes($imagenes);
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
         return $publicacion;
     }
