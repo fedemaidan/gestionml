@@ -31,6 +31,13 @@ class Cuenta
     /**
      * @var string
      *
+     * @ORM\Column(name="id_ml", type="string", length=255)
+     */
+    private $id_ml;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="tipo", type="string", length=255)
      */
     private $tipo;
@@ -102,5 +109,29 @@ class Cuenta
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set idMl
+     *
+     * @param string $idMl
+     *
+     * @return Cuenta
+     */
+    public function setIdMl($idMl)
+    {
+        $this->id_ml = $idMl;
+
+        return $this;
+    }
+
+    /**
+     * Get idMl
+     *
+     * @return string
+     */
+    public function getIdMl()
+    {
+        return $this->id_ml;
     }
 }

@@ -22,14 +22,14 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
 	}
 
 	/*
-		php app/console ml:publicar:ebay --id_ebay=10455 --id_cuenta=2
+		php app/console ml:publicar:ebay --id_ebay=10455 --id_cuenta=1
 	*/
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
     	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($input->getOption('id_ebay'));
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($input->getOption('id_cuenta'));
-	
+
 		$token = "";
     	$rentabilidad = 2;
     	$shipping = 10;
