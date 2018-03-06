@@ -155,7 +155,7 @@ class MeliService
 
         $body = [
                 "title" =>$publicacion->getTitulo(),
-                "category_id"=>$publicacion->getCategoriaEbay(),
+                "category_id"=>$publicacion->getCategoria(),
                 "price"=>$publicacion->getPrecioCompra(),
                 "currency_id"=>"ARS",
                 "available_quantity"=>99,
