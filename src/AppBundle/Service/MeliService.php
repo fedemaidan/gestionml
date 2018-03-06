@@ -209,7 +209,14 @@ class MeliService
         $url = str_replace(" ", "%", $url);
 
         $datos = $meli->get($url);
-        var_dump($datos);die;
+        if ( property_exists($datos["body"], "id") ) {
+            echo "existe";
+
+        }
+        else {
+            var_dump($datos);
+        }
+        die;
         return $datos["body"]->id;
     }
 
