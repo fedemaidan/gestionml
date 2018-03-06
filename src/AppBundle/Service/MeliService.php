@@ -190,8 +190,6 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $imagenes = $ebay->getImagenes();
         $imagnesArray = explode(",", $imagenes);
-        var_dump($imagnesArray);die;
-        var_dump(count($imagnesArray));die;
         
         if (count($imagnesArray) > 12) {
             $imagnesArray2 = [];
@@ -201,7 +199,6 @@ class MeliService
             }
 
             $imagenes = implode(',', $imagnesArray2);
-            var_dump(count($imagnesArray2));die;
         }
 
         $publicacion->setImagenes($imagenes);
