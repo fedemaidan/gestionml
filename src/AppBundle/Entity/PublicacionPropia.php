@@ -25,4 +25,52 @@ class PublicacionPropia extends PublicacionML
      * @ORM\JoinColumn(nullable=true)
      */
     private $cuenta;	    
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return PublicacionPropia
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param \AppBundle\Entity\Cuenta $cuenta
+     *
+     * @return PublicacionPropia
+     */
+    public function setCuenta(\AppBundle\Entity\Cuenta $cuenta = null)
+    {
+        $this->cuenta = $cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return \AppBundle\Entity\Cuenta
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
+    }
 }
