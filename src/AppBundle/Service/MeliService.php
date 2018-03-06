@@ -172,7 +172,7 @@ class MeliService
                 ],
                 "pictures"=> $imagenes
             ];
-            var_dump($body);die;
+            
         $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
         var_dump($datos);
