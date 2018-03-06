@@ -161,6 +161,7 @@ class MeliService
                 "currency_id"=>"ARS",
                 "available_quantity"=>99,
                 "buying_mode"=>"buy_it_now",
+                "condition" => "new",
                 "listing_type_id"=>"gold_special",
                 "description"=> $publicacion->getDescripcion(),
                 "sale_terms"=>[
