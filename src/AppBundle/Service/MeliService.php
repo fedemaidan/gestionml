@@ -179,9 +179,9 @@ class MeliService
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
         $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
         $publicacion->setPrecioCompra($precio);
-        var_dump("expression");die;
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
+        var_dump("expression");die;
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
         var_dump($publicacion);die;
         return $publicacion;
