@@ -206,7 +206,7 @@ class MeliService
         $url = "sites/MLA/category_predictor/predict?title=".$titulo."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra();
         $url = str_replace(" ", "%", $url);
         $datos = $meli->get($url);
-        
+        var_dump($datos);die;
         return $datos["body"]->id;
     }
 
