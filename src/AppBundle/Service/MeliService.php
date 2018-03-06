@@ -210,6 +210,7 @@ class MeliService
 
         $datos = $meli->get($url);
         if ( property_exists($datos["body"], "id") ) {
+            var_dump($datos);
             return $datos["body"]->id;
         }
         else {
