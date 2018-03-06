@@ -201,8 +201,8 @@ class MeliService
     }
 
     private function generarDescripcion($titulo) {
-        var_dump($titulo);die;
-        return "----- PRODUCTO TRAIDO BAJO PEDIDO en 20-35 días ------
+
+        $algo =  "----- PRODUCTO TRAIDO BAJO PEDIDO en 20-35 días ------
 Una vez ofertado el producto, procesamos tu pedido, y en un tiempo promedio de 30 días te estaremos notificando para coordinar la entrega o envío del mismo. Te esperamos en INOVAMUSICNET !!!
 
 Producto: ".$titulo."
@@ -220,7 +220,7 @@ Una manera FÁCIL y DIFERENTE de comprar. Al mejor precio, GARANTIZADO!
 * Producto ORIGINAL / Último modelo de la serie.
 
 Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
-
+    var_dump($algo);die;
     }
 
     private function calcularPrecio($categoria, $precioCompra, $rentabilidad, $shipping) {
