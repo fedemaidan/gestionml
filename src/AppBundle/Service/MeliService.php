@@ -220,10 +220,10 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     }
 
     private function calcularPrecio($categoria, $precioCompra, $rentabilidad) {
-        var_dump("expression");die;
+        /*
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
-        
+        */
         $porcentajeImpuestoPorCategoria = 20;
         $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
         $costoEnvio = 100;
