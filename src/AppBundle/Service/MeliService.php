@@ -174,7 +174,6 @@ class MeliService
             ];
             
         $meli = new Meli("","");
-        var_dump($body);die;
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
         
         return $datos;
