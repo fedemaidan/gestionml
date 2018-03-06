@@ -173,7 +173,7 @@ class MeliService
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        var_dump("expression");die;
+
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
@@ -220,6 +220,7 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     }
 
     private function calcularPrecio($categoria, $precioCompra, $rentabilidad) {
+        var_dump("expression");die;
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
         
