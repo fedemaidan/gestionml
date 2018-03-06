@@ -35,7 +35,7 @@ class PublicacionPropia extends PublicacionML
 
 
     /**
-     * @var Producto
+     * @var PublicacionEbay
      * @ORM\ManyToOne(targetEntity="PublicacionEbay")
      * @ORM\JoinColumn(nullable=true)
      */
