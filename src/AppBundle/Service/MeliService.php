@@ -155,7 +155,7 @@ class MeliService
 
         $body = [
                 "title" =>$publicacion->getTitulo(),
-                "category_id"=>$publicacion->getCategoria(),
+                "category_id"=>$publicacion->getCategoriaEbay(),
                 "price"=>$publicacion->getPrecioCompra(),
                 "currency_id"=>"ARS",
                 "available_quantity"=>99,
@@ -173,7 +173,7 @@ class MeliService
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
         $publicacion = new PublicacionPropia();
-        $precio = $this->calcularPrecio($ebay->getCategoria(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
+        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
         $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
         $publicacion->setPrecioCompra($precio);
