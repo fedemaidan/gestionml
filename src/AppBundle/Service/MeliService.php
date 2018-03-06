@@ -172,7 +172,7 @@ class MeliService
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        var_dump($cuentaML);die;
+        
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
