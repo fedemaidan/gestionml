@@ -209,7 +209,7 @@ class MeliService
         $url = str_replace(" ", "%", $url);
 
         $datos = $meli->get($url);
-        
+        var_dump($datos);die;
         return $datos["body"]->id;
     }
 
