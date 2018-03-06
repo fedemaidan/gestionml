@@ -144,8 +144,8 @@ class MeliService
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $datos = $this->publicar($publicacion, $token);
         $publicacion->setIdMl($datos["body"]->id);
-        $publicacion->setLink($datos["body"]->seller_id);
-        $publicacion->setVendedor($datos["body"]->permalink);
+        $publicacion->setLink($datos["body"]->permalink);
+        $publicacion->setVendedor($datos["body"]->seller_id);
         $this->em->persist($publicacion);
         $this->em->flush();
     }
@@ -172,7 +172,7 @@ class MeliService
                 ],
                 "pictures"=> $imagenes
             ];
-            
+            var_dump($body);die;
         $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
         var_dump($datos);
