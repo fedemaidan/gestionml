@@ -181,7 +181,6 @@ class MeliService
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
-        var_dump("expression");die;
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
         var_dump($publicacion);die;
         return $publicacion;
@@ -197,7 +196,7 @@ class MeliService
     private function predecirCategoria($publicacion) {
         $meli = new Meli("","");
         $datos = $meli->get("sites/MLA/category_predictor/predict?title=".$publicacion->getTitulo()."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());
-
+        var_dump($datos);die;
         return $datos["body"]->id;
     }
 
