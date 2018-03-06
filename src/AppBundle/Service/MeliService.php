@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\PublicacionML;
 use AppBundle\Entity\PublicacionPropia;
 use AppBundle\Entity\AtributoML;
+use AppBundle\Entity\Producto;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
