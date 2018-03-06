@@ -175,12 +175,12 @@ class MeliService
             
         $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
-        var_dump($datos);
+        
         return $datos;
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        $producto = $this->em->getRepository(Producto::class)->findOneByCodigo(Producto::NO_ESTA_CODIGO);
+        
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
@@ -190,7 +190,6 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
-        //$publicacion->setProducto($producto);
         return $publicacion;
     }
 
