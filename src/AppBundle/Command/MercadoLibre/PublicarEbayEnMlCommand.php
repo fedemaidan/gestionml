@@ -28,7 +28,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
     	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($input->getOption('id_ebay'));
-    	$cuenta = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($input->getOption('id_cuenta'));
+    	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($input->getOption('id_cuenta'));
     	
 		$token = "";
     	$rentabilidad = 2;
