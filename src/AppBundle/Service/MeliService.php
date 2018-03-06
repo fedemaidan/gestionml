@@ -219,17 +219,20 @@ Una manera FÁCIL y DIFERENTE de comprar. Al mejor precio, GARANTIZADO!
 Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     }
 
-    private function calcularPrecio($categoria, $precioCompra, $rentabilidad) {
+    private function calcularPrecio($categoria, $precioCompra, $rentabilidad, $shipping) {
         /*
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
-        */
+        
         $porcentajeImpuestoPorCategoria = 20;
         $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
         $costoEnvio = 100;
         $comisionML = $precioCompra * 0.12;
 
         $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
+        */
+
+        $precio = (($precioCompra * $rentabilidad) + $shipping) * 21;
         var_dump(intdiv($precio, 100) - 1);die;
         return intdiv($precio, 100) - 1;
     }
