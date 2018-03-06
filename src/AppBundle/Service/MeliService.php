@@ -164,7 +164,7 @@ class MeliService
                 "buying_mode"=>"buy_it_now",
                 "condition" => "new",
                 "listing_type_id"=>"gold_special",
-                "plain_text"=> $publicacion->getDescripcion(),
+                "description"=> [ "plain_text" => $publicacion->getDescripcion()],
                 "sale_terms"=>[
                         ["id"=> "WARRANTY_TIME", "value_name"=> "180 dias"]
                 ],
