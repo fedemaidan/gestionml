@@ -177,6 +177,7 @@ class MeliService
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        var_dump($publicacion->getTitulo());die;
         $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
@@ -219,7 +220,7 @@ Una manera FÁCIL y DIFERENTE de comprar. Al mejor precio, GARANTIZADO!
 * Producto ORIGINAL / Último modelo de la serie.
 
 Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
-var_dump($titulo);die;
+
     }
 
     private function calcularPrecio($categoria, $precioCompra, $rentabilidad, $shipping) {
