@@ -24,7 +24,14 @@ class PublicacionPropia extends PublicacionML
      * @ORM\ManyToOne(targetEntity="Cuenta")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $cuenta;	    
+    private $cuenta;	  
+
+    /**
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $producto;  
 
     /**
      * Set descripcion
