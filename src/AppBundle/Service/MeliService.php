@@ -187,7 +187,7 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
-        $publicacion->setProducto($producto);
+        //$publicacion->setProducto($producto);
         return $publicacion;
     }
 
