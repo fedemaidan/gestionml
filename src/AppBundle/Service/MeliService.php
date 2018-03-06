@@ -167,7 +167,7 @@ class MeliService
                 ],
                 "pictures"=> $imagenes
             ];
-
+            var_dump($body);die;
         $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
     }
@@ -182,7 +182,7 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
-        var_dump($publicacion);die;
+        
         return $publicacion;
     }
 
