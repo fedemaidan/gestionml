@@ -139,8 +139,8 @@ class MeliService
 
     }
 
-    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4) {
-        $publicacion = $this->ebayToMlObj($ebay, $rentabilidad);
+    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
+        $publicacion = $this->ebayToMlObj($ebay, $rentabilidad, $shipping);
         $this->publicar($publicacion, $token);
         $this->em->persist($publicacion);
         $this->em->flush();
@@ -171,9 +171,9 @@ class MeliService
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
     }
 
-    public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3) {
+    public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
         $publicacion = new PublicacionPropia();
-        $precio = $this->calcularPrecio($ebay->getCategoria(), $ebay->getPrecioCompra(), $rentabilidad);
+        $precio = $this->calcularPrecio($ebay->getCategoria(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
         $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
         $publicacion->setPrecioCompra($precio);
@@ -219,15 +219,15 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     private function calcularPrecio($categoria, $precioCompra, $rentabilidad) {
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
-        /*
+        
         $porcentajeImpuestoPorCategoria = 20;
         $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
         $costoEnvio = 100;
         $comisionML = $precioCompra * 0.12;
 
-        return ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
-        */
-
+        $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
+        var_dump(intdiv($precio, 100) - 1);die;
+        return intdiv($precio, 100) - 1;
     }
 
     private function imprimo($texto) {
