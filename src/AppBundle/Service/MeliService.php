@@ -182,6 +182,7 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
+        var_dump($publicacion);die;
         return $publicacion;
     }
 
@@ -233,8 +234,8 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
         */
 
         $precio = (($precioCompra * $rentabilidad) + $shipping) * 21;
-        var_dump(intdiv($precio, 100) * 100 - 1);die;
-        return intdiv($precio, 100) - 1;
+        
+        return $precio;
     }
 
     private function imprimo($texto) {
