@@ -11,6 +11,8 @@ use AppBundle\Entity\TipoDeVenta;
 use AppBundle\Entity\TipoDeEntrega;
 use AppBundle\Entity\TipoDePago;
 use AppBundle\Entity\Estado;
+use AppBundle\Entity\PublicacionEbay;
+use AppBundle\Entity\Cuenta;
 
 
 class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
