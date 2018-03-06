@@ -16,6 +16,9 @@ shell-db:
 dump-db:
 	docker exec -it gestionml_db_1 mysqldump -usymfony-admin-starter-kit -psymfony-admin-starter-kit --quick --lock-tables=false symfony-admin-starter-kit > dump.sql
 
+publicacion-masiva:
+	php app/console ml:publicar:masiva:ebay --archivo=/server/src/AppBundle/Resources/public/publicaciones.csv
+	
 importar-reservas:
 	php app/console app:importacion:reservas --archivo=/server/src/AppBundle/Resources/public/reservas.csv
 
