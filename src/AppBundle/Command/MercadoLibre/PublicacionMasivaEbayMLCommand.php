@@ -50,19 +50,18 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     }
 
     protected function cargarPublicacion($data) {
-    	var_dump($data);die;
+
     	$token = "APP_USR-3659532861516182-030605-ba83eef67e7539b017338ac213aeb16f__N_A__-73818038";
-    	$id_cuenta = "";
-    	$id_ebay  = "";
-
-
-         $publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($input->getOption('id_ebay'));
-    	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($input->getOption('id_cuenta'));
+    	$id_cuenta = 1;
+    	
+    	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($id_cuenta);
 
 		$token = "APP_USR-3659532861516182-030605-ba83eef67e7539b017338ac213aeb16f__N_A__-73818038";
-    	$rentabilidad = 2;
-    	$shipping = 10;
+		$id_ebay  = $data[0];
+    	$rentabilidad = $data[1];
+    	$shipping = $data[2];
 
+    	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($input->getOption('id_ebay'));
     	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta, $token, $rentabilidad, $shipping);
     	
     }
