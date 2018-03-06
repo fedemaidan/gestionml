@@ -177,7 +177,7 @@ class MeliService
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        $producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByCodigo(Producto::NO_ESTA_CODIGO);
+        $producto = $this->em->getRepository(Producto::class)->findOneByCodigo(Producto::NO_ESTA_CODIGO);
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
