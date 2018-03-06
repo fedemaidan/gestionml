@@ -198,7 +198,9 @@ class MeliService
             }
 
             $imagenes = implode(',', $imagnesArray2);
+            var_dump(count($imagnesArray2));die;
         }
+
         $publicacion->setImagenes($imagenes);
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
         return $publicacion;
