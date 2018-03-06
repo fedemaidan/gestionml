@@ -168,6 +168,7 @@ class MeliService
                 "pictures"=> $imagenes
             ];
 
+        $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
     }
 
@@ -191,6 +192,7 @@ class MeliService
     }
 
     private function predecirCategoria($publicacion) {
+        $meli = new Meli("","");
         $datos = $meli->get("sites/MLA/category_predictor/predict?title=".$publicacion->getTitulo()."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra());
 
         return $datos["body"]->id;
