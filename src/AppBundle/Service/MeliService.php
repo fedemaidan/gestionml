@@ -189,6 +189,7 @@ class MeliService
     private function armarTitulo($texto) {
         $sufijo = "*a Pedido 30dias!";
         $texto = substr($texto, 0, 60 - strlen($sufijo));
+        var_dump($texto." ".$sufijo);die;
         return $texto." ".$sufijo;
     }
 
