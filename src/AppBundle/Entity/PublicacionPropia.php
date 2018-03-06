@@ -5,13 +5,16 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PublicacionML
+ * PublicacionrPropia
  *
  * @ORM\Table(name="publicacion_propia")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PublicacionPropiaRepository")
  */
-class PublicacionPropia extends PublicacionML
+class PublicacionPropia 
 {
+
+    use Traits\PublicacionMLTrait;
+
 	/**
      * @var string
      *
@@ -25,14 +28,6 @@ class PublicacionPropia extends PublicacionML
      * @ORM\JoinColumn(nullable=true)
      */
     private $cuenta;	  
-
-    /**
-     * @var Producto
-     * @ORM\ManyToOne(targetEntity="Producto")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $producto;  
-
 
     /**
      * @var PublicacionEbay
