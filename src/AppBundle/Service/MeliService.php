@@ -141,8 +141,8 @@ class MeliService
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
-        $this->publicar($publicacion, $token);
-        
+        $datos = $this->publicar($publicacion, $token);
+        $publicacion->setIdMl($datos["body"]->id);
         $this->em->persist($publicacion);
         $this->em->flush();
     }
@@ -163,7 +163,7 @@ class MeliService
                 "buying_mode"=>"buy_it_now",
                 "condition" => "new",
                 "listing_type_id"=>"gold_special",
-                "description"=> $publicacion->getDescripcion(),
+                "plain_text"=> $publicacion->getDescripcion(),
                 "sale_terms"=>[
                         ["id"=> "WARRANTY_TIME", "value_name"=> "180 dias"]
                 ],

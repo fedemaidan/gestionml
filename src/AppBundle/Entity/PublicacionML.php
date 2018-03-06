@@ -32,6 +32,13 @@ class PublicacionML
     /**
      * @var string
      *
+     * @ORM\Column(name="url", type="string", length=255)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="titulo", type="string", length=255)
      */
     private $titulo;
@@ -527,4 +534,28 @@ public function getImagenPrincipal() {
     }
 
     
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return PublicacionML
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 }
