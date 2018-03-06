@@ -7,6 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use AppBundle\Utils\Meli\Meli;
 use AppBundle\Entity\PublicacionEbay;
+use AppBundle\Entity\Cuenta;
 
 class PublicarEbayEnMlCommand extends ContainerAwareCommand
 {
@@ -21,7 +22,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
 	}
 
 	/*
-		php app/console ml:publicar:ebay --id_ebay=1 --id_cuenta=1
+		php app/console ml:publicar:ebay --id_ebay=10455 --id_cuenta=2
 	*/
 
     protected function execute(InputInterface $input, OutputInterface $output)
