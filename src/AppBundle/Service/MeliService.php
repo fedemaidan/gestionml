@@ -177,7 +177,7 @@ class MeliService
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
+        $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
