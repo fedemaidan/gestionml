@@ -177,7 +177,6 @@ class MeliService
         $publicacion = new PublicacionPropia();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        var_dump($publicacion->getTitulo());die;
         $publicacion->setDescripcion($this->generarDescripcion($publicacion->getTitulo()));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
@@ -202,6 +201,7 @@ class MeliService
     }
 
     private function generarDescripcion($titulo) {
+        var_dump($titulo);die;
         return "----- PRODUCTO TRAIDO BAJO PEDIDO en 20-35 días ------
 Una vez ofertado el producto, procesamos tu pedido, y en un tiempo promedio de 30 días te estaremos notificando para coordinar la entrega o envío del mismo. Te esperamos en INOVAMUSICNET !!!
 
