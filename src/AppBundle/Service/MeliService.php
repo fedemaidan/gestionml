@@ -190,6 +190,7 @@ class MeliService
         $publicacion->setCuenta($cuentaML);
         $publicacion->setImagenes($ebay->getImagenes());
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
+        var_dump("expression");die;
         return $publicacion;
     }
 
@@ -210,14 +211,12 @@ class MeliService
 
         $datos = $meli->get($url);
         if ( property_exists($datos["body"], "id") ) {
-            var_dump($datos["body"]->id);
             return $datos["body"]->id;
         }
         else {
             var_dump($datos);
             die;
         }
-        var_dump("expression");die;
         
     }
 
