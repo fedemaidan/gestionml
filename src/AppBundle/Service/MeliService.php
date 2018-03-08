@@ -148,7 +148,7 @@ class MeliService
             var_dump("Ya esta cargada ".$ebay->getId());
             return;
         }
-        var_dump("expression");die;
+        var_dump("expression ".$ebay->getId());die;
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $datos = $this->publicar($publicacion, $token);
         if (isset($datos["body"]->id)) {
