@@ -144,8 +144,7 @@ class MeliService
 
         $publicacionExiste = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
 
-        if (!$publicacionExiste) {
-            var_dump($publicacionExiste);
+        if ($publicacionExiste == null) {
             var_dump("Ya esta cargada ".$ebay->getId());
             return;
         }
