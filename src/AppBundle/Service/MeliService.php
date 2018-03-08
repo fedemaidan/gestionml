@@ -142,13 +142,14 @@ class MeliService
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
 
-        $publicacionExiste = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
+        $publicacionExistente = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
 
-        if ($publicacionExiste != null) {
-            var_dump("Ya esta cargada ".$ebay->getId());
+
+        if ($publicacionExistente != null) {
+            //var_dump("Ya esta cargada ".$ebay->getId());
             return;
         }
-        
+
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $datos = $this->publicar($publicacion, $token);
         if (isset($datos["body"]->id)) {
@@ -159,8 +160,8 @@ class MeliService
             $this->em->flush();
         }
         else {
-            var_dump("Error cargando publicacion ".$ebay->getId());
-            var_dump($datos);
+            var_dump($ebay->getId().",");
+            //var_dump($datos);
         }
     }
 
