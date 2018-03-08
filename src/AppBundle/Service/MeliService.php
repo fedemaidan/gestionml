@@ -160,7 +160,7 @@ class MeliService
             $this->em->flush();
         }
         else {
-            var_dump($ebay->getId().",");
+            echo $ebay->getId().",\n";
             //var_dump($datos);
         }
     }
