@@ -158,7 +158,7 @@ class MeliService
             $this->em->flush();
         }
         else {
-            var_dump("Error cargando publicacion");
+            var_dump("Error cargando publicacion ".$ebay->getId());
             var_dump($datos);
         }
     }
