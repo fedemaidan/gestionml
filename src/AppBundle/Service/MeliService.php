@@ -141,13 +141,21 @@ class MeliService
     }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
+        $publicacionExiste = $this->em->getRepository(PublicacionPropia::class)->findOneByPublicacionEbay($ebay);
+        if ($publicacionExiste) {
+            var_dump("Ya esta cargada ".$ebay->getId());
+            return;
+        }
+        die;
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
         $datos = $this->publicar($publicacion, $token);
-        $publicacion->setIdMl($datos["body"]->id);
-        $publicacion->setLink($datos["body"]->permalink);
-        $publicacion->setVendedor($datos["body"]->seller_id);
-        $this->em->persist($publicacion);
-        $this->em->flush();
+        if (isset($datos["body"]->id)) {
+            $publicacion->setIdMl($datos["body"]->id);
+            $publicacion->setLink($datos["body"]->permalink);
+            $publicacion->setVendedor($datos["body"]->seller_id);
+            $this->em->persist($publicacion);
+            $this->em->flush();
+        }
     }
 
     public function publicar($publicacion, $token) {
@@ -175,7 +183,7 @@ class MeliService
             
         $meli = new Meli("","");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
-        var_dump($datos);
+        
         return $datos;
     }
 

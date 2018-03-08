@@ -58,7 +58,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     	
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($id_cuenta);
 
-		$token = "APP_USR-3659532861516182-030611-de00299c1779ebce56c8d4b22a6aedcd__A_L__-73818038";
+		$token = "APP_USR-3659532861516182-030809-752ba060bd120fcc2c4c1bf35687444c__B_J__-73818038";
 		$id_ebay  = $data[0];
     	$rentabilidad = $data[1];
     	$shipping = $data[2];
