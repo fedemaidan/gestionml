@@ -63,7 +63,15 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     	$rentabilidad = $data[1];
     	$shipping = $data[2];
 
+        
+
     	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($id_ebay);
+
+        if ($publi_ebay == null) {
+            var_dump("no tengo id ebay ".$id_ebay);
+            return;
+        }
+
     	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta, $token, $rentabilidad, $shipping);
     	
     }

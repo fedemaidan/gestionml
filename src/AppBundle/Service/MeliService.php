@@ -141,10 +141,7 @@ class MeliService
     }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
-        if ($ebay == null) {
-            var_dump("ebay nulo");
-            die ;
-        }
+        
         $publicacionExiste = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
 
         if (!$publicacionExiste) {
