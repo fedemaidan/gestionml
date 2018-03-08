@@ -157,6 +157,10 @@ class MeliService
             $this->em->persist($publicacion);
             $this->em->flush();
         }
+        else {
+            var_dump("Error cargando publicacion");
+            var_dump($datos);
+        }
     }
 
     public function publicar($publicacion, $token) {
@@ -189,7 +193,7 @@ class MeliService
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
-        var_dump($ebay->getId());
+        
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
@@ -233,10 +237,8 @@ class MeliService
         $datos = $meli->get($url);
         if ( property_exists($datos["body"], "id") ) {
             return $datos["body"]->id;
-        }
-        else {
-            var_dump($datos);
-            die;
+        } else {
+            return null;
         }
         
     }
