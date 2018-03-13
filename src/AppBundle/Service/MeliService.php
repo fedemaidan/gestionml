@@ -9,14 +9,24 @@ use AppBundle\Entity\Producto;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
-
+use GuzzleHttp\Client;
 
 /**
  * Include the SDK by using the autoloader from Composer.
  */
 
+
+
 class MeliService
 {
+
+    const MATCH_ARRAY = [
+                            "titulo"        =>"title",
+                            "categoriaML"   =>"category_id",
+                            "precioCompra"  => "price",
+                            "estado"        => "status",
+                            "descripcion"   => "description"
+                        ];
 
 	private $container;
     
@@ -146,7 +156,7 @@ class MeliService
 
 
         if ($publicacionExistente != null) {
-            //var_dump("Ya esta cargada ".$ebay->getId());
+            var_dump("Ya esta cargada ".$ebay->getId());
             return;
         }
 
@@ -160,8 +170,8 @@ class MeliService
             $this->em->flush();
         }
         else {
-            echo $ebay->getId().",\n";
-            //var_dump($datos);
+            var_dump("Error cargando publicacion ".$ebay->getId());
+            var_dump($datos);
         }
     }
 
@@ -192,6 +202,26 @@ class MeliService
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
         
         return $datos;
+    }
+
+
+    public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
+
+        $token = $this->dameToken($publicacionPropia->getCuenta());
+        $body = [ ];
+        foreach ($campos as $key => $campo) {
+            $body[self::MATCH_ARRAY[$key]] = $campo[0];
+        }
+
+        if (array_key_exists(self::MATCH_ARRAY["descripcion"], $body)) {
+            $body[self::MATCH_ARRAY["descripcion"]] = [ "plain_text" => $body[self::MATCH_ARRAY["descripcion"]] ];
+        }
+
+        $meli = new Meli("","");
+        $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
+        
+        return $datos;
+
     }
 
     public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
@@ -288,5 +318,17 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
 
     private function imprimo($texto) {
 		echo "\n".date("Y-m-d H:i:s"). " ****** ".$texto;
+    }
+
+    public function dameToken($cuenta) {
+        $client = new Client();
+        
+        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$cuenta->getId())
+        ;
+
+        $dato = json_decode($res->getBody()->getContents());
+        
+        return $dato->token;
+        
     }
 }

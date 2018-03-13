@@ -20,7 +20,7 @@ trait PublicacionMLTrait
      *
      * @ORM\Column(name="id_ml", type="string", length=255, unique=true)
      */
-    private $idMl;
+    private $idMl = 1;
 
     /**
      * @var string
@@ -48,7 +48,7 @@ trait PublicacionMLTrait
      *
      * @ORM\Column(name="vendedor", type="string", length=255)
      */
-    private $vendedor;
+    private $vendedor = 1;
 
     /**
      * @var string

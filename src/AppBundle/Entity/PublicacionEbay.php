@@ -599,4 +599,9 @@ class PublicacionEbay
     {
         return $this->ean;
     }
+
+
+    public function __toString() {
+        return $this->id." - ".$this->titulo;
+    }
 }

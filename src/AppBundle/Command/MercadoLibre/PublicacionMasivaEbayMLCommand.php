@@ -68,7 +68,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     	$publi_ebay = $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(PublicacionEbay::class)->findOneById($id_ebay);
 
         if ($publi_ebay == null) {
-            //var_dump("no tengo id ebay ".$id_ebay);
+            var_dump("no tengo id ebay ".$id_ebay);
             return;
         }
 

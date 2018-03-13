@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\LifecycleEventArgs\PreUpdateEventArgs;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PublicacionrPropia
@@ -35,6 +37,16 @@ class PublicacionPropia
      * @ORM\JoinColumn(nullable=true)
      */
     private $publicacion_ebay;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", length=255, nullable=true)
+     * @Assert\Choice({"closed", "paused", "active"})
+     */
+    private $estado;
+
+    public $notificar_ml = true;
 
     /**
      * Set descripcion
@@ -106,5 +118,29 @@ class PublicacionPropia
     public function getPublicacionEbay()
     {
         return $this->publicacion_ebay;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return PublicacionPropia
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }
