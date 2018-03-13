@@ -66,7 +66,10 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('cuenta')
-            ->add('publicacion_ebay')
+            ->add('publicacion_ebay', 'sonata_type_model_autocomplete', array(
+                    'property' => 'id',
+                    'minimum_input_length' => 1
+                ))
             ->add('titulo')
             ->add('estado', 'choice', ['choices' => [ "active"=> "Activo", "closed" => "Cerrada", "paused" => "Pausada" ]])
             ->add('precioCompra','number', array( 'precision' => 2))
