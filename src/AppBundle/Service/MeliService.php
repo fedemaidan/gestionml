@@ -211,19 +211,17 @@ class MeliService
 
         $body = [ ];
         
+
         foreach ($campos as $key => $campo) {
-            $body[self::MATCH_ARRAY[$key]] = $campo[0];
+            if ($key != "descripcion")
+                $body[self::MATCH_ARRAY[$key]] = $campo[0];
         }
 
-        if (array_key_exists(self::MATCH_ARRAY["descripcion"], $body)) {
-            $body[self::MATCH_ARRAY["descripcion"]] = [ "plain_text" => $body[self::MATCH_ARRAY["descripcion"]] ];
-        }
 
         $meli = new Meli("","");
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
         if ($datos["httpCode"] != 200 ) {
-            var_dump($datos);die;
             throw new \Exception("message", 1);
         }
 
