@@ -206,9 +206,11 @@ class MeliService
 
 
     public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
-
+        
         $token = $this->dameToken($publicacionPropia->getCuenta());
+
         $body = [ ];
+        
         foreach ($campos as $key => $campo) {
             $body[self::MATCH_ARRAY[$key]] = $campo[0];
         }
@@ -219,7 +221,8 @@ class MeliService
 
         $meli = new Meli("","");
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
-        
+        var_dump($datos);die;
+
         return $datos;
 
     }

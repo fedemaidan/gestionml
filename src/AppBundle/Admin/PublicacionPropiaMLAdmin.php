@@ -7,16 +7,11 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 
 
 class PublicacionPropiaMLAdmin extends AbstractAdmin
 {
 
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->remove('create');
-    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -53,7 +48,8 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
-                    'edit' => array()
+                    'edit' => array(),
+                    'delete' => array(),
                 ),
             ))
         ;
