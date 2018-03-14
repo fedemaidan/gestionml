@@ -221,7 +221,7 @@ class MeliService
 
         $meli = new Meli("","");
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
-        var_dump($datos);die;
+        var_dump($datos["httpCode"]);die;
 
         return $datos;
 
