@@ -31,7 +31,7 @@ class Cuenta
     /**
      * @var string
      *
-     * @ORM\Column(name="id_ml", type="string", length=255)
+     * @ORM\Column(name="id_ml", type="string", length=255, nullable=true)
      */
     private $id_ml;
 
