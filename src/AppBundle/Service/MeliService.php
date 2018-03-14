@@ -223,7 +223,7 @@ class MeliService
         
         if ($datos["httpCode"] != 200 ) {
             var_dump($datos["body"]);
-            var_dump($datos["body"]["message"]);die;
+            var_dump($datos["body"]->message);die;
             throw new \Exception($datos["message"], 1);
         }
 
