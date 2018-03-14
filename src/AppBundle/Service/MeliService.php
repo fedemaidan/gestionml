@@ -213,7 +213,7 @@ class MeliService
         
 
         foreach ($campos as $key => $campo) {
-//            if ($key != "descripcion")
+            if ($key != "descripcion")
                 $body[self::MATCH_ARRAY[$key]] = $campo[0];
         }
 
