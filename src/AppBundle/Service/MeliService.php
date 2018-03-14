@@ -222,7 +222,8 @@ class MeliService
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
         if ($datos["httpCode"] != 200 ) {
-            var_dump($datos);die;
+            var_dump($datos["body"]);
+            var_dump($datos["body"]["message"]);die;
             throw new \Exception($datos["message"], 1);
         }
 
