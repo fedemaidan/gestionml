@@ -19,7 +19,7 @@ use GuzzleHttp\Client;
 
 class MeliService
 {
-
+    const DOLAR = 21;
     const MATCH_ARRAY = [
                             "titulo"        =>"title",
                             "categoriaML"   =>"category_id",
@@ -320,7 +320,7 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
 
         $ratio = $categoria->getRatio();
         $shipping = $categoria->getShipping();
-        $precio = (($precioCompra * $ratio) + $shipping) * 21;
+        $precio = (($precioCompra * $ratio) + $shipping) * self::DOLAR;
         
         return intdiv($precio, 100) * 100 - 1;
     }
