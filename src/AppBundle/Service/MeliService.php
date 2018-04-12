@@ -90,8 +90,6 @@ class MeliService
 	                        if (!$atributo) {
 	                        	$atributo = new AtributoML();
 	                        	$atributo->setIdMl($attr->id);
-                                var_dump($attr->id);
-                                var_dump($attr->name);
 	                        	$atributo->setName($attr->name);
 	                        	$atributo->setValueId($attr->value_id);
 	                        	$atributo->setValueName($attr->value_name);
@@ -320,8 +318,8 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
         $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
         */
 
-        $ratio = $categoria()->getRatio();
-        $shipping = $categoria()->getShipping();
+        $ratio = $categoria->getRatio();
+        $shipping = $categoria->getShipping();
         $precio = (($precioCompra * $ratio) + $shipping) * 21;
         
         return intdiv($precio, 100) * 100 - 1;
