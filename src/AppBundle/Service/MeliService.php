@@ -90,8 +90,9 @@ class MeliService
 	                        if (!$atributo) {
 	                        	$atributo = new AtributoML();
 	                        	$atributo->setIdMl($attr->id);
-	                        	$atributo->setName($attr->name);
+                                var_dump($attr->id);
                                 var_dump($attr->name);
+	                        	$atributo->setName($attr->name);
 	                        	$atributo->setValueId($attr->value_id);
 	                        	$atributo->setValueName($attr->value_name);
 	                        	$atributo->setAttributeGroupId($attr->attribute_group_id);
