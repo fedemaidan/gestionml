@@ -318,8 +318,8 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
         $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
         */
 
-        $ratio = $ebay->getCategoriaEbay()->getRatio();
-        $shipping = $ebay->getCategoriaEbay()->getShipping();
+        $ratio = $categoria()->getRatio();
+        $shipping = $categoria()->getShipping();
         $precio = (($precioCompra * $ratio) + $shipping) * 21;
         
         return intdiv($precio, 100) * 100 - 1;
