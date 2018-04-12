@@ -29,6 +29,8 @@ class CategoriaEbayAdmin extends AbstractAdmin
         $listMapper
             ->add('idEbay')
             ->add('name')
+            ->add('ratio')
+            ->add('shipping')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),

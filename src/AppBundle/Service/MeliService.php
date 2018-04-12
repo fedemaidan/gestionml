@@ -150,7 +150,8 @@ class MeliService
 
     }
 
-    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $token, $rentabilidad = 4, $shipping = 10) {
+    public function replicarPublicacionEbayEnMl($ebay, $cuentaML) {
+        
 
         $publicacionExistente = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
 
@@ -160,8 +161,8 @@ class MeliService
             return;
         }
 
-        $publicacion = $this->ebayToMlObj($ebay, $cuentaML,$rentabilidad, $shipping);
-        $datos = $this->publicar($publicacion, $token);
+        $publicacion = $this->ebayToMlObj($ebay, $cuentaML);
+        $datos = $this->publicar($publicacion);
         if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
             $publicacion->setLink($datos["body"]->permalink);
@@ -175,7 +176,8 @@ class MeliService
         }
     }
 
-    public function publicar($publicacion, $token) {
+    public function publicar($publicacion) {
+        $token = $this->dameToken($publicacion->getCuenta());
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
@@ -229,11 +231,11 @@ class MeliService
 
     }
 
-    public function ebayToMlObj($ebay, $cuentaML, $rentabilidad = 3, $shipping = 10) {
+    public function ebayToMlObj($ebay, $cuentaML) {
         
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
-        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra(), $rentabilidad, $shipping);
+        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
         $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
         $publicacion->setPrecioCompra($precio);
@@ -303,7 +305,7 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     
     }
 
-    private function calcularPrecio($categoria, $precioCompra, $rentabilidad, $shipping) {
+    private function calcularPrecio($categoria, $precioCompra) {
         /*
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
@@ -315,8 +317,10 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
 
         $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
         */
-        $rentabilidad = str_replace(",", ".", $rentabilidad);
-        $precio = (($precioCompra * $rentabilidad) + $shipping) * 21;
+
+        $ratio = $ebay->getCategoriaEbay()->getRatio();
+        $shipping = $ebay->getCategoriaEbay()->getShipping();
+        $precio = (($precioCompra * $ratio) + $shipping) * 21;
         
         return intdiv($precio, 100) * 100 - 1;
     }

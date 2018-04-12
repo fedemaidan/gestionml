@@ -72,7 +72,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
             return;
         }
 
-    	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta, $token, $rentabilidad, $shipping);
+    	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta);
     	
     }
 

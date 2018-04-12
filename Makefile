@@ -16,6 +16,9 @@ shell-db:
 dump-db:
 	docker exec -it gestionml_db_1 mysqldump -usymfony-admin-starter-kit -psymfony-admin-starter-kit --quick --lock-tables=false symfony-admin-starter-kit > dump.sql
 
+restore-db:
+	docker exec -it gestionml_db_1 mysql -usymfony-admin-starter-kit -psymfony-admin-starter-kit symfony-admin-starter-kit < dump.sql
+
 publicacion-masiva:
 	php app/console ml:publicar:masiva:ebay --archivo=/server/src/AppBundle/Resources/public/publicaciones.csv
 	
@@ -25,6 +28,9 @@ importar-reservas:
 importar-productos:
 	php app/console app:importacion:productos --archivo=/server/src/AppBundle/Resources/public/productos.csv
 	php app/console app:importacion:productos:extras --archivo=/server/src/AppBundle/Resources/public/productos_extras.csv
+
+update-ratio-shipping:
+	php app/console ebay:actualizar:categorias --archivo=/server/src/AppBundle/Resources/public/categorias.csv
 
 update-ml-netbooks:
 	php app/console ml:actualizar:publicaciones --categoria_ml='MLA1652'

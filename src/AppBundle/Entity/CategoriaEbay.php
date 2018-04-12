@@ -40,6 +40,19 @@ class CategoriaEbay
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ratio", type="decimal", precision=10, scale=2)
+     */
+    private $ratio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="shipping", type="decimal", precision=10, scale=2)
+     */
+    private $shipping;
 
     /**
      * Get id
@@ -102,5 +115,53 @@ class CategoriaEbay
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Set ratio
+     *
+     * @param string $ratio
+     *
+     * @return CategoriaEbay
+     */
+    public function setRatio($ratio)
+    {
+        $this->ratio = $ratio;
+
+        return $this;
+    }
+
+    /**
+     * Get ratio
+     *
+     * @return string
+     */
+    public function getRatio()
+    {
+        return $this->ratio;
+    }
+
+    /**
+     * Set shipping
+     *
+     * @param string $shipping
+     *
+     * @return CategoriaEbay
+     */
+    public function setShipping($shipping)
+    {
+        $this->shipping = $shipping;
+
+        return $this;
+    }
+
+    /**
+     * Get shipping
+     *
+     * @return string
+     */
+    public function getShipping()
+    {
+        return $this->shipping;
     }
 }
