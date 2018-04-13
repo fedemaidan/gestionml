@@ -41,7 +41,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
         if (($handle = fopen($archivo, "r")) !== FALSE) {
 	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
                 
-				if ($this->row > 0 && ($data[17] == "z" ||  $data[17] == "j" || $data[17] == "jj" || $data[17] == "x"|| $data[17] == "jjj")) {
+				if ($this->row > 0 && ($data[17] == "z" ||  $data[17] == "j" || $data[17] == "jj" || $data[17] == "jjj")) {
 	           	    $this->cargarPublicacion($data);
                 }
 	           	$this->row++;

@@ -20,7 +20,7 @@ restore-db:
 	docker exec -it gestionml_db_1 mysql -usymfony-admin-starter-kit -psymfony-admin-starter-kit symfony-admin-starter-kit < dump.sql
 
 publicacion-masiva:
-	php app/console ml:publicar:masiva:ebay --archivo=/server/src/AppBundle/Resources/public/publicaciones.csv
+	php app/console ml:publicar:masiva:ebay --archivo=/server/src/AppBundle/Resources/public/publicaciones_1.csv
 	
 importar-reservas:
 	php app/console app:importacion:reservas --archivo=/server/src/AppBundle/Resources/public/reservas.csv
