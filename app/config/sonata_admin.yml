@@ -1,6 +1,6 @@
 sonata_admin:
-    title:      Gestión
-    title_logo: favicon.ico
+    title:      Gestión YouTec-Inova
+    title_logo: youtec.jpg
     security:
         handler: sonata.admin.security.handler.role
         information:
