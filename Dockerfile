@@ -1,4 +1,4 @@
-FROM php:7.0.8-fpm
+FROM php:7.1.3-fpm
 
 ENV COMPOSER_VERSION=1.1.3
 ENV PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/sbin:/usr/sbin

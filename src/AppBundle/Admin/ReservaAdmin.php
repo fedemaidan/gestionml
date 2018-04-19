@@ -54,7 +54,10 @@ class ReservaAdmin extends AbstractAdmin
             ->add('tipoDeVenta')
             ->add('cuentaPago')
             ->add('cuentaPrincipal')
+            ->add('costoCompraProducto')
+            ->add('costoCompraProductoDeclarado')
             ->add('tracking')
+            ->add('ordenDeCompra.warehouse')
         ;
     }
 
@@ -275,23 +278,30 @@ class ReservaAdmin extends AbstractAdmin
 
         $results = array();
         $results[] = "id";
+        $results[] = "estado";
         $results[] = "fechaAlta";
+        $results[] = "fechaEstimada";
         $results[] = "producto.nombre";
         $results[] = "productoNoCargado";
         $results[] = "precioVenta";
-        $results[] = "tipoDeVenta.nombre";
+        $results[] = "tipoDeVenta.codigo";
         $results[] = "sena";
-        $results[] = "tipoDePago_1.nombre";
+        $results[] = "tipoDePago_1.codigo";
         $results[] = "valorPago1";
-        $results[] = "tipoDePago_2.nombre";
+        $results[] = "tipoDePago_2.codigo";
         $results[] = "valorPago2";
+        $results[] = "tipoDePago_3.codigo";
+        $results[] = "valorPago3";
         $results[] = "link";
         $results[] = "nombreCliente";
         $results[] = "mailCliente";
         $results[] = "numeroDocumento";
         $results[] = "telefonoCliente";
         $results[] = "nickCliente";
-
+        $results[] = "costoCompraProducto";
+        $results[] = "costoCompraProductoDeclarado";
+        $results[] = "tracking";
+         
         return $results;
     }
 

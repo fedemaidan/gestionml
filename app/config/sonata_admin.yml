@@ -25,10 +25,15 @@ sonata_admin:
                     - app.admin.seleccion_de_compra
                     - app.admin.orden_de_compra
                     - app.admin.carga_importacion
+            Actualización masiva:
+                items:
+                    - route: actualizarReservas
+                      label: Reservas
+                    
             Analisis:
                 items:
                     - route: csvProductosPorMinimoYVendidos
-                      label: 'csvProductosPorMinimoYVendidos'
+                      label: 'Productos por mínimo y vendidos'
             users_administration:
                 label: Usuarios
                 label_catalogue: messages

@@ -37,3 +37,13 @@ sonata_user_change_password:
 sonata_user_admin_security:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /admin
+
+
+#NelmioApiDocBundle:
+#    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+#    prefix:   /api/doc
+
+#sonata_api_user:
+#    type:         rest
+#    prefix:       /api/user
+#    resource:     "@SonataUserBundle/Resources/config/routing/api.xml"

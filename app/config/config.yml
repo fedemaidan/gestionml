@@ -38,6 +38,7 @@ twig:
     form_themes:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
 
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -135,3 +136,22 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+#fos_rest:
+#    param_fetcher_listener: true
+#    body_listener:          true
+#    format_listener:        true
+#    view:
+#        view_response_listener: force
+#    body_converter:
+#        enabled: true
+#        validate: true
+
+#sensio_framework_extra:
+#    view:    { annotations: false }
+#    router:  { annotations: true }
+#    request: { converters: true }
+
+#twig:
+#    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'

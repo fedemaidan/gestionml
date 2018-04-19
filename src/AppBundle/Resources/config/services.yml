@@ -22,6 +22,11 @@ services:
         class:     AppBundle\Service\AnalisisService
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
+    reservas_service:
+        class:     AppBundle\Service\ReservasService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
     
     meli_service:
         class:     AppBundle\Service\MeliService
@@ -65,7 +70,8 @@ services:
         arguments: [~, AppBundle\Entity\Reserva, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestión, label: Reserva }
-        public: true
+        calls:
+            - [ setTemplate, [list, AppBundle:Reserva:list.html.twig]]
 
     app.admin.cuenta:
         class: AppBundle\Admin\CuentaAdmin
