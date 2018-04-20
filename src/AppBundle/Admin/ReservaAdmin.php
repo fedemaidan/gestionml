@@ -69,12 +69,19 @@ class ReservaAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id', null, ['label' => "N° Res"])
-            ->add('clienteStr',null, ['label' => "Cliente"])
+            ->add('empresa', 'choice', [
+                'choices' => [
+                    'INOVA' => 'INOVA',
+                    'YOUTEC' => 'YOUTEC'
+                ] ,
+                'editable'=>true
+                ])
+            ->add('clienteStr',null, ['label' => "Cliente", 'editable'=>true])
             ->add('producto')
-            ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
-            ->add('link')
+            ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto", 'editable'=>true])
+            ->add('link','url')
             ->add('precioVenta')
-            ->add('estado')
+            ->add('estado', null, ['editable'=>true])
             ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
             ->add('_action', null, array(
                 'label'   => "Acciones",
