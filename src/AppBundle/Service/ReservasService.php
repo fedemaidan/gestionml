@@ -62,6 +62,8 @@ class ReservasService
         foreach ($data as $key => $value) {
             $attr = $titulos[$key];
             
+            if (empty($value)) continue;
+
             if ($key == 0) {
                 $reserva = $this->em->getRepository(Reserva::class)->findOneById($value);
                 continue;
@@ -94,9 +96,11 @@ class ReservasService
                 continue;
             }
             
-            $attr = ucfirst($attr);
-            $func = 'set'.$attr;
-            $reserva->$func($value);
+            if ($reserva) {
+                $attr = ucfirst($attr);
+                $func = 'set'.$attr;
+                $reserva->$func($value);
+            }
         }
         
         $reserva = 1;

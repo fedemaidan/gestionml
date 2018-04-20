@@ -32,6 +32,14 @@ class Reserva
     private $idMl;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="empresa", type="string", length=255, nullable=true)
+     * @Assert\Choice({"INOVA", "YOUTEC"})
+     */
+    private $empresa;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaAlta", type="datetime")
@@ -1923,5 +1931,29 @@ class Reserva
     public function getIdMl()
     {
         return $this->idMl;
+    }
+
+    /**
+     * Set empresa
+     *
+     * @param string $empresa
+     *
+     * @return Reserva
+     */
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+
+        return $this;
+    }
+
+    /**
+     * Get empresa
+     *
+     * @return string
+     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
     }
 }

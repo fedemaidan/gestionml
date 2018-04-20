@@ -32,6 +32,7 @@ class ReservaAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, ['label' => "N° de reserva"])
             ->add('estado')
+            ->add('empresa', null, [],  'choice', ['choices' => [ "INOVA" => "INOVA", "YOUTEC" => "YOUTEC"]])
             ->add('fechaAlta','doctrine_orm_date')
             ->add('precioVenta')
             ->add('informacion', null, array( 'label' => 'Información'))
@@ -94,7 +95,7 @@ class ReservaAdmin extends AbstractAdmin
         $formMapper
             ->tab("Principal")
                 ->with('Principal')
-                //->add('id')
+                ->add('empresa', 'choice', ['choices' => [ "INOVA" => "INOVA", "YOUTEC" => "YOUTEC"]])
                 ->add('estado',null, ["required" => true])
                 ->add('fechaAlta','sonata_type_datetime_picker',array(
                         'dp_side_by_side'       => true,
@@ -198,8 +199,10 @@ class ReservaAdmin extends AbstractAdmin
         $showMapper
         ->with('Principal')
             ->add('id', null, ['label' => "N° de reserva"])
+            ->add('empresa')
             ->add('estado',null, ["required" => true])
             ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
+            ->add('fechaEstimada', 'datetime', array( 'label' => 'Fecha de estimada', 'format' => 'Y-m-d H:i'))
             ->add('fechaModificacion', 'datetime', array( 'label' => 'Última modificación', 'format' => 'Y-m-d H:i'))
             ->add('producto')
             ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
@@ -278,6 +281,7 @@ class ReservaAdmin extends AbstractAdmin
 
         $results = array();
         $results[] = "id";
+        $results[] = "empresa";
         $results[] = "estado";
         $results[] = "fechaAlta";
         $results[] = "fechaEstimada";
