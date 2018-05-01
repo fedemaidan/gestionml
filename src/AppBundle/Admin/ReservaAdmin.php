@@ -281,12 +281,16 @@ class ReservaAdmin extends AbstractAdmin
             ->add('sena')
             ->add('tipoDeVenta')
             ->add('tipoDePago_1')
+            ->add('fechaPago1', 'datetime', array( 'format' => 'Y-m-d'))
             ->add('valorPago1')
             ->add('tipoDePago_2')
+            ->add('fechaPago2', 'datetime', array( 'format' => 'Y-m-d'))
             ->add('valorPago2')
             ->add('tipoDePago_3')
+            ->add('fechaPago3', 'datetime', array( 'format' => 'Y-m-d'))
             ->add('valorPago3')
             ->add('tipoDePago_4')
+            ->add('fechaPago4', 'datetime', array( 'format' => 'Y-m-d'))
             ->add('valorPago4')
             ->add('cuentaPago')
             ->add('datosFactura')
@@ -346,10 +350,13 @@ class ReservaAdmin extends AbstractAdmin
         $results[] = "tipoDeVenta.codigo";
         $results[] = "sena";
         $results[] = "tipoDePago_1.codigo";
+        $results[] = "fechapago1";
         $results[] = "valorPago1";
         $results[] = "tipoDePago_2.codigo";
+        $results[] = "fechapago2";
         $results[] = "valorPago2";
         $results[] = "tipoDePago_3.codigo";
+        $results[] = "fechapago3";
         $results[] = "valorPago3";
         $results[] = "link";
         $results[] = "nombreCliente";
