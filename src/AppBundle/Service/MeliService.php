@@ -231,6 +231,11 @@ class MeliService
 
     }
 
+    public function sincronizarPublicacionesPropiasConMercadoLibre($cuenta) {
+        //consulta que publicaciones de mercado libre hay , las agrega o actualiza en nuestra DB
+        
+    }
+
     public function ebayToMlObj($ebay, $cuentaML) {
         
         $publicacion = new PublicacionPropia();

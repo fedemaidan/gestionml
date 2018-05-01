@@ -68,6 +68,14 @@ class ReservaAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('_action', null, array(
+                'label'   => "Acciones",
+                'actions' => array(
+                    'show' => array("template" => "AppBundle:Default:action_show_icon.html.twig"),
+                    'edit' => array("template" => "AppBundle:Default:action_edit_icon.html.twig"),
+                    'delete' => array("template" => "AppBundle:Default:action_delete_icon.html.twig"),
+                ),
+            ))
             ->add('id', null, ['label' => "N° Res"])
             ->add('empresa', 'choice', [
                 'choices' => [
@@ -83,14 +91,6 @@ class ReservaAdmin extends AbstractAdmin
             ->add('precioVenta')
             ->add('estado', null, ['editable'=>true])
             ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
-            ->add('_action', null, array(
-                'label'   => "Acciones",
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                ),
-            ))
         ;
     }
 
@@ -155,30 +155,67 @@ class ReservaAdmin extends AbstractAdmin
                 ->add('contactosConCliente','textarea',["required" => false, 'label' => 'Contactos con cliente'])
                 ->end()
             ->end()
-            ->tab('Pago')
+            ->tab('Pagos recibidos')
                 ->with('Pago')
                 ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
                 ->add('precioVenta',  'number', array( 'precision' => 3))
                 ->add('sena', null, array( 'label' => 'Seña'))
                 ->add('tipoDeVenta')
                 ->add('tipoDePago_1')
+                ->add('fechaPago1','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m',
+                        "required" => false
+                ))
                 ->add('valorPago1')
                 ->add('tipoDePago_2')
+                ->add('fechaPago2','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m',
+                        "required" => false
+                ))
                 ->add('valorPago2')
                 ->add('tipoDePago_3')
+                ->add('fechaPago3','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m',
+                        "required" => false
+                ))
                 ->add('valorPago3')
                 ->add('tipoDePago_4')
+                ->add('fechaPago4','sonata_type_datetime_picker',array(
+                        'dp_side_by_side'       => true,
+                        'dp_use_current'        => true,
+                        'dp_use_seconds'        => false,
+                        'dp_collapse'           => true,
+                        'dp_calendar_weeks'     => false,
+                        'dp_view_mode'          => 'days',
+                        'format'                => 'yyyy-MM-dd H:m',
+                        "required" => false
+                ))
                 ->add('valorPago4')
                 ->add('cuentaPago')
-                ->add('datosFactura')
-                ->add('numeroFactura')
                 ->end()
             ->end()
             ->tab('Entrega')
                 ->with('Entrega')
                 ->add('tipoDeEntrega')
                 ->add('costoClienteEntrega')
-                ->add('costoNosotrosEntrega')
                 ->add('provinciaEntrega')
                 ->add('localidadEntrega')
                 ->add('calleEntrega','textarea',["required" => false, "label" => "Dirección de la entrega"])
@@ -187,10 +224,21 @@ class ReservaAdmin extends AbstractAdmin
                 ->add('observacionesEntrega','textarea',["required" => false])
                 ->end()
             ->end()
-            ->tab('Otros')
-                ->with('Otros')
+            ->tab('Facturación')
+                ->with('Facturación')
+                ->add('datosFactura')
+                ->add('numeroFactura')
+                ->end()
+            ->end()
+            ->tab('Costos')
+                ->with('Costos')
+                ->add('costoNosotrosEntrega')
                 ->add('costoCompraProducto')
                 ->add('costoCompraProductoDeclarado')
+                ->end()
+            ->end()
+            ->tab('Otros')
+                ->with('Otros')
                 ->add('tracking')
                 ->add('informacion','textarea',["required" => false, 'label' => 'Información'])
                 ->end()

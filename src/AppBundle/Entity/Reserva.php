@@ -72,6 +72,20 @@ class Reserva
     /**
      * @var string
      *
+     * @ORM\Column(name="costo_mercado_libre", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $costoMercadoLibre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="costo_mercado_libre", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $costoImpuesto;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="precioVenta", type="decimal",  precision=7, scale=2)
      */
     private $precioVenta;
@@ -434,6 +448,37 @@ class Reserva
      * @ORM\Column(name="valor_pago_4", type="decimal",  precision=7, scale=2, nullable=true)
      */
     private $valorPago4;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_pago_1", type="datetime", nullable=true)
+     */
+    private $fechaPago1;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_pago_2", type="datetime", nullable=true)
+     */
+    private $fechaPago2;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_pago_3", type="datetime", nullable=true)
+     */
+    private $fechaPago3;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_pago_4", type="datetime", nullable=true)
+     */
+    private $fechaPago4;
+
+    
+
 
 
     /**
@@ -1955,5 +2000,101 @@ class Reserva
     public function getEmpresa()
     {
         return $this->empresa;
+    }
+
+    /**
+     * Set fechaPago1
+     *
+     * @param \DateTime $fechaPago1
+     *
+     * @return Reserva
+     */
+    public function setFechaPago1($fechaPago1)
+    {
+        $this->fechaPago1 = $fechaPago1;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPago1
+     *
+     * @return \DateTime
+     */
+    public function getFechaPago1()
+    {
+        return $this->fechaPago1;
+    }
+
+    /**
+     * Set fechaPago2
+     *
+     * @param \DateTime $fechaPago2
+     *
+     * @return Reserva
+     */
+    public function setFechaPago2($fechaPago2)
+    {
+        $this->fechaPago2 = $fechaPago2;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPago2
+     *
+     * @return \DateTime
+     */
+    public function getFechaPago2()
+    {
+        return $this->fechaPago2;
+    }
+
+    /**
+     * Set fechaPago3
+     *
+     * @param \DateTime $fechaPago3
+     *
+     * @return Reserva
+     */
+    public function setFechaPago3($fechaPago3)
+    {
+        $this->fechaPago3 = $fechaPago3;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPago3
+     *
+     * @return \DateTime
+     */
+    public function getFechaPago3()
+    {
+        return $this->fechaPago3;
+    }
+
+    /**
+     * Set fechaPago4
+     *
+     * @param \DateTime $fechaPago4
+     *
+     * @return Reserva
+     */
+    public function setFechaPago4($fechaPago4)
+    {
+        $this->fechaPago4 = $fechaPago4;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaPago4
+     *
+     * @return \DateTime
+     */
+    public function getFechaPago4()
+    {
+        return $this->fechaPago4;
     }
 }

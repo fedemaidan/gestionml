@@ -24,6 +24,16 @@ class Estado
     const PROCESO_DE_COMPRA = "PROCESO_DE_COMPRA";
     const RESERVADO = "RESERVADO";
 
+    const DEVUELTO_GARANTIA_CAMPOS = "";
+    const CANCELADO_INNOVA_CAMPOS = "";
+    const ENTREGADO_CAMPOS = "ENTREGADO";
+    const CANCELADO_CLIENTE_CAMPOS = "CANCELADO_CLIENTE";
+    const DEPOSITO_INNOVA_CAMPOS = "DEPOSITO_INOVA";
+    const IMPORTANDO_CAMPOS = "IMPORTANDO";
+    const COMPRADO_CAMPOS = "COMPRADO";
+    const PROCESO_DE_COMPRA_CAMPOS = "PROCESO_DE_COMPRA";
+    const RESERVADO_CAMPOS = "empresa,fechaAlta,precioVenta,link,";
+
     /**
      * @var int
      *
