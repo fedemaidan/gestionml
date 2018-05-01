@@ -157,6 +157,7 @@ class ReservaAdmin extends AbstractAdmin
             ->end()
             ->tab('Pagos recibidos')
                 ->with('Pago')
+                ->add('cuentaPago')
                 ->add('moneda', 'choice', ['choices' => [ "PESOS" => "PESOS", "DOLARES" => "DOLARES"]])
                 ->add('precioVenta',  'number', array( 'precision' => 3))
                 ->add('sena', null, array( 'label' => 'Seña'))
@@ -209,7 +210,6 @@ class ReservaAdmin extends AbstractAdmin
                         "required" => false
                 ))
                 ->add('valorPago4')
-                ->add('cuentaPago')
                 ->end()
             ->end()
             ->tab('Entrega')
