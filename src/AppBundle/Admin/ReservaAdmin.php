@@ -90,7 +90,7 @@ class ReservaAdmin extends AbstractAdmin
             ->add('link','url')
             ->add('precioVenta')
             ->add('estado', null, ['editable'=>true])
-            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
+            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d'))
         ;
     }
 
@@ -111,7 +111,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m'
+                        'format'                => 'yyyy-MM-dd'
                 ))
                 ->add('producto', 'sonata_type_model_autocomplete', array(
                     'property' => 'nombre',
@@ -126,7 +126,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m',
+                        'format'                => 'yyyy-MM-dd',
                         'label'                 => 'Fecha estimada de entrega'
                 ))
                 ->add('fechaEntrega','sonata_type_datetime_picker',array(
@@ -137,7 +137,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_calendar_weeks'     => false,
                         'required'              => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m'
+                        'format'                => 'yyyy-MM-dd'
                 ))
                 ->add('link')
                 ->end()
@@ -170,7 +170,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m',
+                        'format'                => 'yyyy-MM-dd',
                         "required" => false
                 ))
                 ->add('valorPago1')
@@ -182,7 +182,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m',
+                        'format'                => 'yyyy-MM-dd',
                         "required" => false
                 ))
                 ->add('valorPago2')
@@ -194,7 +194,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m',
+                        'format'                => 'yyyy-MM-dd',
                         "required" => false
                 ))
                 ->add('valorPago3')
@@ -206,7 +206,7 @@ class ReservaAdmin extends AbstractAdmin
                         'dp_collapse'           => true,
                         'dp_calendar_weeks'     => false,
                         'dp_view_mode'          => 'days',
-                        'format'                => 'yyyy-MM-dd H:m',
+                        'format'                => 'yyyy-MM-dd',
                         "required" => false
                 ))
                 ->add('valorPago4')
@@ -256,8 +256,8 @@ class ReservaAdmin extends AbstractAdmin
             ->add('id', null, ['label' => "N° de reserva"])
             ->add('empresa')
             ->add('estado',null, ["required" => true])
-            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d H:i'))
-            ->add('fechaEstimada', 'datetime', array( 'label' => 'Fecha de estimada', 'format' => 'Y-m-d H:i'))
+            ->add('fechaAlta', 'datetime', array( 'label' => 'Fecha de alta', 'format' => 'Y-m-d'))
+            ->add('fechaEstimada', 'datetime', array( 'label' => 'Fecha de estimada', 'format' => 'Y-m-d'))
             ->add('fechaModificacion', 'datetime', array( 'label' => 'Última modificación', 'format' => 'Y-m-d H:i'))
             ->add('producto')
             ->add('productoNoCargado', null, ['label' => "Datos adicionales del producto"])
