@@ -79,13 +79,6 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="costo_mercado_libre", type="decimal",  precision=7, scale=2, nullable=true)
-     */
-    private $costoImpuesto;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="precioVenta", type="decimal",  precision=7, scale=2)
      */
     private $precioVenta;
