@@ -79,7 +79,7 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="precioVenta", type="decimal",  precision=7, scale=2)
+     * @ORM\Column(name="precioVenta", type="decimal",  precision=9, scale=2)
      */
     private $precioVenta;
 
