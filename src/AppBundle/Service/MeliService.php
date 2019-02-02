@@ -6,6 +6,7 @@ use AppBundle\Entity\PublicacionML;
 use AppBundle\Entity\PublicacionPropia;
 use AppBundle\Entity\AtributoML;
 use AppBundle\Entity\Producto;
+use AppBundle\Entity\CategoriaML;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
@@ -19,7 +20,7 @@ use GuzzleHttp\Client;
 
 class MeliService
 {
-    const DOLAR = 21;
+    const DOLAR = 40;
     const MATCH_ARRAY = [
                             "titulo"        =>"title",
                             "categoriaML"   =>"category_id",
@@ -43,7 +44,59 @@ class MeliService
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
     }
 
-    public function buscarPublicacionesPorCategoria($categoria = "MLA82085", $mayorA = 4000) {
+    public function buscarCategoriasHijas($categoriaML) {
+        $meli = new Meli("","");
+
+        $this->imprimo("Comienza categrias hijo de .. ".$categoriaML->getNombre());
+        
+        $datos = $meli->get("categories/".$categoriaML->getIdMl());
+        
+        $results = $datos["body"]->children_categories;
+        
+        foreach ($results as $key => $categoriaDatos) {
+            
+            $categoria = $this->addCategoria($categoriaDatos);
+            $categoria->setCategoriaPadre($categoriaML);
+            $this->em->persist($categoria);
+            $this->buscarCategoriasHijas($categoria);
+        }
+
+        $this->em->flush();
+    }
+
+    public function cargoCategoriasPadres() {
+        $meli = new Meli("","");
+
+        $this->imprimo("Comienza .. ");
+        
+        $datos = $meli->get("sites/MLA/categories");
+        
+        $results = $datos["body"];
+        
+        foreach ($results as $key => $categoriaDatos) {
+            $categoria = $this->addCategoria($categoriaDatos);
+            $this->em->persist($categoria);
+            $this->buscarCategoriasHijas($categoria);
+        }
+
+        $this->em->flush();
+        
+    }
+
+    public function addCategoria($categoriaDatos) {
+        $categoria = $this->em->getRepository(CategoriaML::class)->findOneByIdMl($categoriaDatos->id);
+
+        if (!$categoria) {
+            $categoria = new CategoriaML();
+            $categoria->setIdMl($categoriaDatos->id);
+        }
+        
+        $categoria->setNombre($categoriaDatos->name);
+        
+        return $categoria;
+    }
+
+    public function buscarPublicacionesPorCategoria($categoria, $mayorA, $menorA) {
     	
 
     	$meli = new Meli("","");

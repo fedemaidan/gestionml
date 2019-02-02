@@ -155,3 +155,17 @@ services:
         arguments: [ @service_container]
         tags:
             - { name: doctrine.event_subscriber, , event: preUpdate , lazy: true }
+
+    app.admin.busqueda_ml:
+        class: AppBundle\Admin\BusquedaMLAdmin
+        arguments: [~, AppBundle\Entity\BusquedaML, AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: BusquedaML }
+        public: true
+
+    app.admin.categoria_ml:
+        class: AppBundle\Admin\CategoriaMLAdmin
+        arguments: [~, AppBundle\Entity\CategoriaML, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CategoriaML }
+        public: true

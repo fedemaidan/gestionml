@@ -45,6 +45,7 @@ sonata_admin:
                 items:
                     - app.admin.publicacion_ml
                     - app.admin.publicacion_propia_ml
+                    - app.admin.busqueda_ml
             Ebay:
                 items: 
                     - app.admin.busqueda_ebay

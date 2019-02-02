@@ -2090,4 +2090,28 @@ class Reserva
     {
         return $this->fechaPago4;
     }
+
+    /**
+     * Set costoMercadoLibre
+     *
+     * @param string $costoMercadoLibre
+     *
+     * @return Reserva
+     */
+    public function setCostoMercadoLibre($costoMercadoLibre)
+    {
+        $this->costoMercadoLibre = $costoMercadoLibre;
+
+        return $this;
+    }
+
+    /**
+     * Get costoMercadoLibre
+     *
+     * @return string
+     */
+    public function getCostoMercadoLibre()
+    {
+        return $this->costoMercadoLibre;
+    }
 }
