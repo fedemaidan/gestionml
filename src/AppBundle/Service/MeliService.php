@@ -47,7 +47,7 @@ class MeliService
     	
 
     	$meli = new Meli("","");
-    	$limit = 200;
+    	$limit = 50;
     	$offset = 0;
     	$total = 2;
     	$publicacionesNuevas = 0;
