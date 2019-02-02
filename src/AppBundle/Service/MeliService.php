@@ -64,7 +64,7 @@ class MeliService
         $this->em->flush();
     }
 
-    public function cargoCategoriasPadres() {
+    public function cargoCategoriasPadres($recursividad = true) {
         $meli = new Meli("","");
 
         $this->imprimo("Comienza .. ");
@@ -76,7 +76,7 @@ class MeliService
         foreach ($results as $key => $categoriaDatos) {
             $categoria = $this->addCategoria($categoriaDatos);
             $this->em->persist($categoria);
-            $this->buscarCategoriasHijas($categoria);
+            if ($recursividad) $this->buscarCategoriasHijas($categoria);
         }
 
         $this->em->flush();

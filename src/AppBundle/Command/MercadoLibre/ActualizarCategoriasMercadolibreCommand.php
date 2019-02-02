@@ -15,7 +15,7 @@ class ActualizarCategoriasMercadolibreCommand extends ContainerAwareCommand
 	    $this
 	        ->setName('ml:actualizar:categorias')
 	        ->setDescription('Actualizar categorias ml.')
-	        ->addOption('categoria_ml', null,         InputOption::VALUE_REQUIRED,    'Id de la categoria de MercadoLibre');
+	        ->addOption('categoria_ml', null,         InputOption::VALUE_OPTIONAL,    'Id de la categoria de MercadoLibre');
 	    ;
 	}
 	/*
