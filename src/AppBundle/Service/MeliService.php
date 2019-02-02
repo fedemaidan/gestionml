@@ -96,7 +96,7 @@ class MeliService
         return $categoria;
     }
 
-    public function buscarPublicacionesPorCategoria($categoria, $mayorA, $menorA) {
+    public function buscarPublicacionesPorCategoria($categoria, $mayorA='*', $menorA='*') {
     	
 
     	$meli = new Meli("","");
@@ -106,7 +106,7 @@ class MeliService
     	$publicacionesNuevas = 0;
     	$this->imprimo("Comienza .. ");
     	while ($total > $offset) {
-    		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-*&limit=".$limit."&offset=".$offset);
+    		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset);
 
     		$paging = $datos["body"]->paging;
     		$results = $datos["body"]->results;
