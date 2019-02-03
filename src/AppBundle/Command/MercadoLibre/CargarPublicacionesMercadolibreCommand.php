@@ -15,9 +15,7 @@ class CargarPublicacionesMercadolibreCommand extends ContainerAwareCommand
 	    $this
 	        ->setName('ml:actualizar:publicaciones')
 	        ->setDescription('Actualizar publicacion ml.')
-	        ->addOption('categoria_ml', null,         InputOption::VALUE_REQUIRED,    'Id de la categoria de MercadoLibre')
-	        ->addOption('minimo', null,         InputOption::VALUE_OPTIONAL,    'Precio minimo de la busqueda')
-	        ->addOption('maximo', null,         InputOption::VALUE_OPTIONAL,    'Precio maximo de la busqueda');
+	        ->addOption('busqueda_id', null,         InputOption::VALUE_REQUIRED,    'Id de la busqueda de MercadoLibre')
 	    ;
 	}
 	/*
@@ -26,10 +24,8 @@ class CargarPublicacionesMercadolibreCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	$categoria = $input->getOption('categoria_ml');
-    	$minimo = $input->getOption('minimo');
-    	$maximo = $input->getOption('maximo');
-    	$this->getContainer()->get('meli_service')->buscarPublicacionesPorCategoria($categoria,$minimo,$maximo);
+    	$busquedaId = $input->getOption('busqueda_id');
+    	$this->getContainer()->get('meli_service')->buscarPublicacionesPorCategoria($busquedaId);
     }
 }
 ?>

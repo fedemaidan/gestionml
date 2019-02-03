@@ -36,9 +36,10 @@ class BusquedaMLAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('precioMaximo')
             ->add('precioMinimo')
+            ->add('precioMaximo')
             ->add('categoriaML')
+            ->add('estadoActual')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),

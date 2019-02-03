@@ -43,6 +43,13 @@ class BusquedaML
     private $categoriaML;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255, nullable=true)
+     */
+    private $estado_actual;   
+
+    /**
      * Get id
      *
      * @return int
@@ -122,5 +129,29 @@ class BusquedaML
     public function getCategoriaML()
     {
         return $this->categoriaML;
+    }
+
+    /**
+     * Set estadoActual
+     *
+     * @param string $estadoActual
+     *
+     * @return BusquedaML
+     */
+    public function setEstadoActual($estadoActual)
+    {
+        $this->estado_actual = $estadoActual;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoActual
+     *
+     * @return string
+     */
+    public function getEstadoActual()
+    {
+        return $this->estado_actual;
     }
 }

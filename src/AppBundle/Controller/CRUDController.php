@@ -21,13 +21,8 @@ class CRUDController extends Controller
     public function buscarEnMLAction()
     {
         $object = $this->admin->getSubject();
-        $params = " --categoria_ml=".$object->getCategoriaML()->getIdMl();
-        if ($object->getPrecioMaximo())
-        	$params .= " --maximo=".$object->getPrecioMaximo();
-        if ($object->getPrecioMinimo())
-        	$params .= " --minimo=".$object->getPrecioMinimo();
         
-        exec("php /server/app/console ml:actualizar:publicaciones ".$params." >> /server/logs/logs_publicaciones_ML_".$object->getId().".log &");
+        exec("php /server/app/console ml:actualizar:publicaciones --busqueda_id=".$object->getId()." >> /server/logs/logs_publicaciones_ML_".$object->getId().".log &");
 
         $this->addFlash('sonata_flash_success', 'La carga de datos se esta realizando, pronto estaran cargados los resultados');
 

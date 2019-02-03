@@ -7,6 +7,7 @@ use AppBundle\Entity\PublicacionPropia;
 use AppBundle\Entity\AtributoML;
 use AppBundle\Entity\Producto;
 use AppBundle\Entity\CategoriaML;
+use AppBundle\Entity\BusquedaML;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
@@ -96,8 +97,19 @@ class MeliService
         return $categoria;
     }
 
-    public function buscarPublicacionesPorCategoria($categoria, $mayorA='*', $menorA='*') {
+    public function buscarPublicacionesPorCategoria($busquedaId) {
+        $busqueda = $this->em->getRepository(BusquedaML::class)->findOneById($busquedaId);;
+
+        $mayorA = '*';
+        $menorA = '*';
+        $categoria = $busqueda->getCategoriaML()->getIdMl();
     	
+
+        if ($busqueda->getPrecioMaximo())
+            $menorA = $busqueda->getPrecioMaximo();
+        if ($busqueda->getPrecioMinimo())
+            $mayorA = $busqueda->getPrecioMinimo();
+        
 
     	$meli = new Meli("","");
     	$limit = 50;
@@ -105,6 +117,8 @@ class MeliService
     	$total = 2;
     	$publicacionesNuevas = 0;
     	$this->imprimo("Comienza .. ");
+        $this->cambiarEstadoBusqueda($busqueda, "Comenzando .. ");
+
     	while ($total > $offset) {
     		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset);
 
@@ -190,17 +204,20 @@ class MeliService
     			/* Cargar datos */
     			$this->em->persist($publicacion);	
     			
-    			
     		}
 
     		$this->em->flush();
 
     		$total = $paging->total;
     		$offset = $paging->offset + $limit;
+            $porcentajeProcesado = round(($offset / $total) * 100) ;
 
-    		$this->imprimo("Publicaciones cargadas -> ".$publicacionesNuevas);
+            $this->imprimo("Publicaciones cargadas -> ".$publicacionesNuevas);
+            $this->cambiarEstadoBusqueda($busqueda, $porcentajeProcesado."% procesado. Publicaciones cargadas: ".$publicacionesNuevas);
     	}
 
+        $this->imprimo("Proceso terminado ");
+        $this->cambiarEstadoBusqueda($busqueda, "Finalizado");
     }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML) {
@@ -397,5 +414,11 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
         
         return $dato->token;
         
+    }
+
+    private function cambiarEstadoBusqueda($busqueda, $texto) {
+        $busqueda->setEstadoActual(date('Y-m-d H:i:s')." - ".$texto);
+        $this->em->persist($busqueda);
+        $this->em->flush();
     }
 }
