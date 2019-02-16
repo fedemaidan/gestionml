@@ -128,6 +128,7 @@ class MeliService
             if ($paging->total >  1000)
             {
                 $this->cambiarEstadoBusqueda($busqueda, "La búsqueda es demasiado grande. El máximo de publicaciones es 1000 y la búsqueda tiene ".$paging->total);
+                return;
             }
                 
     		$this->imprimo("Offset: ".$offset);
