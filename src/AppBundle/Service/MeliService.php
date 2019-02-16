@@ -118,13 +118,18 @@ class MeliService
     	$publicacionesNuevas = 0;
     	$this->imprimo("Comienza .. ");
         $this->cambiarEstadoBusqueda($busqueda, "Comenzando .. ");
-
+        
     	while ($total > $offset) {
     		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset);
 
     		$paging = $datos["body"]->paging;
     		$results = $datos["body"]->results;
-    		
+            
+            if ($paging->total >  1000)
+            {
+                $this->cambiarEstadoBusqueda($busqueda, "La búsqueda es demasiado grande. El máximo de publicaciones es 1000 y la búsqueda tiene ".$paging->total);
+            }
+                
     		$this->imprimo("Offset: ".$offset);
 
     		foreach ($results as $key => $publicacionDatos) {
